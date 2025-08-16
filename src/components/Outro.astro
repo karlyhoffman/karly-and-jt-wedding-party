@@ -1,0 +1,17 @@
+---
+import { Image } from 'astro:assets';
+import barbAndStar from '../assets/barb-and-star.jpg';
+import '../styles/components/outro.scss';
+---
+
+<section class="outro">
+  <h2 class="script">Hope you can make it!</h2>
+  <figure>
+    <Image
+      src={barbAndStar}
+      alt="The poster of the movie Barb and Star with JT and Karly's faces photoshopped onto the characters."
+    />
+    <figcaption>Credit: <a href="https://www.instagram.com/lauralainhowell/" target="_blank">@lauralainhowell</a></figcaption>
+  </figure>
+
+</section>
