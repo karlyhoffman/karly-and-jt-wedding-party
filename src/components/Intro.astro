@@ -1,20 +1,46 @@
 ---
+import { Image } from 'astro:assets';
+import hotelSlo from '../assets//hotel-slo.avif';
+import mondayClub from '../assets//monday-club.avif';
+
 import '../styles/components/intro.scss';
 ---
 
-<section class="intro">
+<section class="intro intro--wedding">
   <p>
-    Thursday, <span class="script">December 4th, 2025,</span>
-    <br/>on their 10-year anniversary
-    <br/><span class="script">JT</span> and <span class="script">Karly</span>
-    <br />will tie the knot in an intimate ceremony
-    <br/>surrounded by their immediate family
-    <br/>at <span class="script">Hotel SLO</span>
+    <span>Thursday, <span class="script">December 4th, 2025,</span></span>
+    <span>on their 10-year anniversary</span>
+    <span><span class="script">JT</span> and <span class="script">Karly</span></span>
+    <span>will tie the knot in an intimate ceremony</span>
+    <span>surrounded by their immediate family</span>
+    <span>at <a href="https://hotel-slo.com/dining/high-bar/" target="_blank" class="script">Hotel SLO</a></span>
   </p>
+  <a
+    class="img-wrapper img-wrapper--hotel-slo"
+    href="https://hotel-slo.com/dining/high-bar/"
+    target="_blank"
+  >
+    <Image
+      src={hotelSlo}
+      alt="Drone view of Hotel SLO's rooftop with Bishop's Peak and Madonna Mountain in the background."
+    />
+  </a>
+</section>
 
+<section class="intro intro--reception">
   <p>
-    On Saturday, <span class="script">December 6th, 2025,</span>
-    <br />a celebration will be held at <span class="script">3:30pm</span>
-    <br />at <span class="script">The Monday Club</span>
+    <span>On Saturday, <span class="script">December 6th, 2025,</span></span>
+    <span>celebrate with us</span>
+    <span>at <a class="script" href="https://themondayclubslo.org/OUR-HISTORY" target="_blank">The Monday Club!</a></span>
   </p>
+  <a
+    class="img-wrapper img-wrapper--monday-club"
+    href="https://themondayclubslo.org/OUR-HISTORY"
+    target="_blank"
+  >
+    <Image
+      src={mondayClub}
+      alt="View of The Monday Club with San Luis Obispo mountain in the background."
+    />
+  </a>
 </section>
