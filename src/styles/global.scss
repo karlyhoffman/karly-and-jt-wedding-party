@@ -1,0 +1,7 @@
+@use "./base/html";
+@use "./base/layout";
+
+:root {
+  --container-width: 1200px;
+  --gutter: 20px;
+}
