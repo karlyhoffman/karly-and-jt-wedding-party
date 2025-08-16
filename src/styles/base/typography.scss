@@ -1,0 +1,41 @@
+@font-face {
+  font-family: "Corinthia";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/Corinthia-Regular.ttf") format("truetype-variations");
+}
+
+@font-face {
+  font-family: "Old Standard TT Regular";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/OldStandardTT-Regular.ttf") format("truetype-variations");
+}
+
+@font-face {
+  font-family: "Old Standard TT Italic";
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src: url("/fonts/OldStandardTT-Italic.ttf") format("truetype-variations");
+}
+
+@font-face {
+  font-family: "Old Standard TT Bold";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/OldStandardTT-Bold.ttf") format("truetype-variations");
+}
+
+.serif {
+  font-family: "Old Standard TT Regular", serif;
+  letter-spacing: -0.03em;
+}
+
+.script {
+  font-family: "Corinthia", cursive;
+  letter-spacing: normal;
+}

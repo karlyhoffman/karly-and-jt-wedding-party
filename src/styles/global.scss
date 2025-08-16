@@ -1,7 +1,9 @@
 @use "./base/html";
 @use "./base/layout";
+@use "./base/typography";
 
 :root {
-  --container-width: 1200px;
-  --gutter: 20px;
+  --color--primary: #fbf3ea;
+  --color--text: #151413;
+  --layout--gutter: 20px;
 }

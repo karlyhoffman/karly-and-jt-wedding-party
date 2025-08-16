@@ -1,0 +1,47 @@
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  h2 {
+    font-weight: normal;
+
+    .script {
+      font-size: 25vw;
+    }
+
+    .text {
+      display: block;
+
+      &--jt,
+      &--and,
+      &--karly {
+        position: absolute;
+      }
+
+      &--jt {
+        top: 3vh;
+        left: 20vw;
+        transform: rotate(-4deg);
+      }
+
+      &--and {
+        top: 24vh;
+        left: 47vw;
+        font-size: 7vw;
+      }
+
+      &--karly {
+        top: 27vh;
+        right: 20.5vw;
+        transform: rotate(-12deg);
+      }
+
+      &--married {
+        font-size: 2.25rem;
+        margin-top: 78vh;
+      }
+    }
+  }
+}

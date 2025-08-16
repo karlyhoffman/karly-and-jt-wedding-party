@@ -1,9 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Intro from '../components/Intro.astro';
+import ReceptionDetails from '../components/ReceptionDetails.astro';
 
-const title = "Karly and JT's 10 Year Anniversary";
+const title = "Karly & JT's 10 Year Anniversary";
 ---
 
 <Layout title={title}>
-	<h2>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit blanditiis cum voluptatem quis dolor numquam, natus illum non assumenda, quidem animi nam nisi provident officia nulla corrupti obcaecati veniam dolorum.</h2>
+	<Hero />
+	<Intro />
+	<ReceptionDetails />
 </Layout>
