@@ -1,7 +1,37 @@
 ---
+import { Image } from 'astro:assets';
+import novo from '../assets/novo.avif';
 import '../styles/components/reception.scss';
 ---
 
-<section class="reception">
-  
+<section class="reception-details">
+  <h2 class="serif headline">Reception Details</h2>
+  <p><a href="https://themondayclubslo.org/OUR-HISTORY" target="_blank">The Monday Club</a> | 4 p.m. to 10 p.m.</p>
+
+  <p>The reception will begin at 4 o'clock with a cocktail hour on the patio overlooking the beautiful San Luis Obispo hills, during which the newlywed couple will have the chance to greet all the guests.</p>
+
+  <p>As the sun sets over the mountains, the reception will move indoors for dinner catered by Petra, a local favorite.</p>
+
+  <p>[Something about there will be many activities throughout the evening]</p>
+</section>
+
+<section class="reception-details">
+  <h2 class="serif headline">After Party</h2>
+  <p><a href="https://www.novorestaurant.com/contact-us" target="_blank">Novo</a> | 10 p.m.</p>
+
+  <p>Since everyone will need to leave the venue by promptly by 10 o'clock, we will have a shuttle service available to take guests a mile down the street to downtown San Luis Obispo where the celebration will continue at Novo (where the couple had their first interaction outside of Boo Boo Records).</p>
+
+  <figure>
+  <Image src={novo} alt="Karly and JT dancing at Novo." />
+  <figcaption>Credit: <a href="https://www.instagram.com/mego_roboto/" target="_blank">@mego_roboto</a></figcaption>
+  </figure>
+</section>
+
+<section class="reception-details">
+  <h2 class="serif headline">Sunday Brunch Picnic</h2>
+  <p><a href="https://maps.app.goo.gl/c2sbSw7W5ndc9XoV6" target="_blank">Terrace Hill</a> | 10 a.m.</p>
+
+  <p>[Something about saying goodbye to everyone before leaving]</p>
+
+  <p>[photos taken from the last trip]</p>
 </section>
