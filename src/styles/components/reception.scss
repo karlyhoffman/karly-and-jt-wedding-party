@@ -36,19 +36,11 @@
         @media screen and (min-width: 768px) {
           font-size: 2rem;
         }
-
-        a {
-          text-decoration-thickness: 1px;
-          text-underline-offset: 2px;
-        }
       }
     }
   }
 
   figure {
     max-width: min(100%, 500px);
-    height: auto;
-    margin-inline: auto;
-    padding: 0 var(--layout--gutter-2x);
   }
 }

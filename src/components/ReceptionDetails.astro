@@ -78,12 +78,16 @@ const copy = [
       {content.map((paragraph) => (
         <p set:html={paragraph}></p>
       ))}
-      {images?.map(({ src, alt, caption }) => (
-        <figure>
-          <Image src={src} alt={alt} />
-          <figcaption>{caption}</figcaption>
-        </figure>
-      ))}
+      {!!images?.length && (
+        <div class="img-wrapper">
+          {images.map(({ src, alt, caption }) => (
+            <figure>
+              <Image class="reveal" src={src} alt={alt} />
+              <figcaption>{caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      )}
       <button>Add to Calendar</button>
     </div>
   </section>

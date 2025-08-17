@@ -17,10 +17,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+figure {
+  margin-inline: auto;
+}
+
 figcaption {
   font-family: "Old Standard TT Regular", serif;
-  font-size: 0.5rem;
-  font-weight: 700;
+  font-size: 0.55rem;
+  letter-spacing: -0.01em;
   text-align: left;
   text-transform: uppercase;
   padding: 6px 0;
@@ -38,6 +42,9 @@ svg {
   width: 100%;
   max-width: 100%;
   height: auto;
+}
+
+img.reveal {
   /* TODO: Replace this with a GSAP animation that was similar to Hyundai image scroll animation, but instead of transforming the image, fade from black and white */
   filter: grayscale(1);
   transition: filter 1500ms var(--animate--ease);
