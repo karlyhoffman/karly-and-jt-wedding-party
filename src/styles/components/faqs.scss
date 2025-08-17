@@ -4,23 +4,33 @@
   details {
     text-align: left;
 
+    /* Headline */
     summary {
       display: flex;
       align-items: center;
-      gap: var(--layout--gutter-lg);
+      gap: 10px;
       cursor: pointer;
       text-transform: uppercase;
       padding: 12px 0 10px;
+
+      @media screen and (min-width: 768px) {
+        gap: var(--layout--gutter-lg);
+      }
 
       &::marker {
         content: "";
       }
 
       .caret {
-        width: 32px;
+        flex-shrink: 0;
+        width: 24px;
         transform: translateY(-3px);
         transform-origin: center;
         transition: transform 300ms var(--animate--ease);
+
+        @media screen and (min-width: 768px) {
+          width: 32px;
+        }
       }
 
       h3 {
@@ -29,21 +39,47 @@
       }
     }
 
-    .answer {
-      font-size: var(--text--font-sm);
+    /* Reveal Container */
+    .container {
       padding-block-start: 5px;
-      padding-inline-start: 20px;
+      padding-inline-start: 34px;
 
       @media screen and (min-width: 768px) {
-        font-size: 1.1rem;
         padding-inline-start: 60px;
       }
 
-      p {
-        margin-inline-start: 0;
+      .answer {
+        font-size: var(--text--font-sm);
 
-        &:first-of-type {
-          margin-block-start: 0;
+        @media screen and (min-width: 768px) {
+          font-size: 1.1rem;
+        }
+
+        p {
+          text-wrap: wrap;
+          max-width: 1200px;
+          margin-inline-start: 0;
+
+          &:first-of-type {
+            margin-block-start: 0;
+          }
+        }
+      }
+
+      .img-wrapper {
+        column-count: 4;
+        column-gap: 15px;
+        padding-block-start: var(--layout--gutter);
+        padding-block-end: 45px;
+
+        figure {
+          display: inline-block;
+          margin-block: 0;
+
+          figcaption {
+            margin-block-end: 0;
+            padding-block-end: 0;
+          }
         }
       }
     }

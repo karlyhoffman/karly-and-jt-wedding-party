@@ -1,4 +1,20 @@
 ---
+import { Image } from 'astro:assets';
+import avila from '../assets/faq-why-so-soon-avila.avif';
+import bobJones from '../assets/faq-why-so-soon-bob-jones.avif';
+import jtBooBooRecords from '../assets/faq-why-so-soon-jt-boo-boos.avif';
+import jtMorro from '../assets/faq-why-so-soon-jt-morro.avif';
+import jtTerraceHill from '../assets/faq-why-so-soon-jt-terrace-hill.avif';
+import karlyBedas from '../assets/faq-why-so-soon-karly-bedas.avif';
+import karlyBobJones from '../assets/faq-why-so-soon-karly-bob-jones.avif';
+import karlyMorro from '../assets/faq-why-so-soon-karly-morro.avif';
+import montanaDeOro from '../assets/faq-why-so-soon-montana-de-oro.avif';
+import morro from '../assets/faq-why-so-soon-morro.avif';
+import selfie from '../assets/faq-why-so-soon-selfie.avif';
+import selfieHotelSlo from '../assets/faq-why-so-soon-selfie-hotel-slo.avif';
+import selfieMorroBay from '../assets/faq-why-so-soon-selfie-morro.avif';
+import terraceHill from '../assets/faq-why-so-soon-terrace-hill.avif';
+
 import '../styles/components/faqs.scss';
 
 const faqs = [
@@ -8,29 +24,104 @@ const faqs = [
       "No, but thanks for asking!",
     ]
   },
-   {
+      {
     question: "Why so soon then?",
     answer: [
-      "It wasn't until a recent trip to San Luis Obispo that sparked the idea to get married on a date that was extremely meaningful to us."
+      "It wasn't until a recent trip to San Luis Obispo that sparked the idea to get married for our 10-year anniversary, a date that is extremely meaningful to us."
     ],
-    images: [],
+    images: [
+    {
+      src: jtBooBooRecords,
+      alt: "JT digging through records at Boo Boo Records.",
+      caption: "Boo Boo Records"
+    },
+    {
+      src: morro,
+      alt: "View of Morro Rock in Morro Bay.",
+      caption: "Morro Rock"
+    },
+    {
+      src: karlyBobJones,
+      alt: "Karly at Bob Jones Trail.",
+      caption: "Bob Jones Trail"
+    },
+    {
+      src: jtTerraceHill,
+      alt: "JT at Terrace Hill.",
+      caption: "Terrace Hill"
+    },
+    {
+      src: avila,
+      alt: "View of Avila Beach with Chamay beers in the foreground.",
+      caption: "Avila Beach"
+    },
+    {
+      src: selfieMorroBay,
+      alt: "Negative contact sheet of photos a film roll taken in San Luis Obispo.",
+      caption: "Morro Bay"
+    },
+    {
+      src: bobJones,
+      alt: "View of Bob Jones Trail.",
+      caption: "Bob Jones Trail"
+    },
+    {
+      src: montanaDeOro,
+      alt: "View of Montana de Oro State Park.",
+      caption: "Montaña de Oro State Park"
+    },
+    {
+      src: selfie,
+      alt: "Selfie of Karly and JT in San Luis Obispo.",
+      caption: "June 2025"
+    },
+    {
+      src: jtMorro,
+      alt: "JT at Morro Bay.",
+      caption: "Lunch in Morro Bay"
+    },
+    {
+      src: selfieHotelSlo,
+      alt: "Negative contact sheet of photos a film roll taken in San Luis Obispo.",
+      caption: "Hotel SLO"
+    },
+    {
+      src: karlyMorro,
+      alt: "Karly at Morro Bay.",
+      caption: "Morro Rock"
+    },
+    {
+      src: karlyBedas,
+      alt: "Karly at Beda's Biergarten.",
+      caption: "Beda's Biergarten"
+    },
+    {
+      src: terraceHill,
+      alt: "View from Terrace Hill of Bishop's Peak and Madonna Mountain.",
+      caption: "Terrace Hill"
+    }
+  ],
   },
   {
     question: "What is the dress code?",
     answer: [
-      "The dress code is semi-formal. We encourage you to dress up and celebrate with us!"
+      "Semi-formal.",
+      "[TODO: More dress code details]"
     ]
   },
     {
     question: "Where to stay?",
     answer: [
-      "We recommend staying in downtown San Luis Obispo, where there are plenty of hotels and accommodations."
+      "We recommend staying in downtown San Luis Obispo, where there are plenty of hotels and accommodations.",
+      "[TODO: More hotel options]"
     ]
   },
   {
-    question: "Where's the best place to fly in?",
+    question: "What's the best way to get to San Luis Obispo?",
     answer: [
-      "The closest airport is San Luis Obispo County Regional Airport (SBP), which is about 5 miles from downtown."
+      "The closest airport is <a href='https://sloairport.com/destinations/' target='_blank'>San Luis Obispo County Regional Airport (SBP)</a>, which is about 5 miles from downtown.",
+      "Popular destinations with direct flights include San Francisco (SFO), Denver (DEN), Los Angeles (LAX), Portland (PDX), Phoenix (PHX), and Seattle (SEA).",
+      "If you're coming from Southern California, the <a href='https://www.pacificsurfliner.com/' target='_blank'>Amtrak Pacific Surfliner</a> offers a scenic route along the coast."
     ]
   },
   {
@@ -39,10 +130,22 @@ const faqs = [
       "We recommend arriving at least 30 minutes early to allow time for parking and finding your seat."
     ]
   },
+  {
+    question: "What else is there to do in San Luis Obispo?",
+    answer: [
+      "Morro Bay",
+      "Wine Tasting in Paso Robles",
+      "Hiking in Montaña de Oro State Park",
+      "Exploring Downtown San Luis Obispo",
+      "Cayucos",
+      "Avila Beach",
+      "San Simeon",
+    ]
+  },
 ];
 ---
 
-<section class="faqs gutter">
+<section id="faqs" class="faqs gutter">
   <h2 class="headline">FAQS</h2>
   {faqs.map(faq => (
     <details class="border-b font-base">
@@ -52,19 +155,21 @@ const faqs = [
         </span>
         <h3>{faq.question}</h3>
       </summary>
-      <div class="answer">
-        {faq.answer.map(paragraph => <p>{paragraph}</p>)}
-      </div>
-      {!!faq.images?.length && (
-        <div class="img-wrapper">
-          {faq.images.map(({ src, alt, caption }) => (
-            <figure>
-              <img src={src} alt={alt} />
-              <figcaption>{caption}</figcaption>
-            </figure>
-          ))}
+      <div class="container">
+        <div class="answer">
+          {faq.answer.map(paragraph => <p set:html={paragraph}></p>)}
         </div>
-      )}
+        {!!faq.images?.length && (
+          <div class="img-wrapper">
+            {faq.images.map(({ src, alt, caption }) => (
+              <figure>
+                <Image src={src} alt={alt} />
+                {caption && <figcaption>{caption}</figcaption>}
+              </figure>
+            ))}
+          </div>
+        )}
+      </div>
     </details>
   ))}
 </section>
