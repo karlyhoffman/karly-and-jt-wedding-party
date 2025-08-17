@@ -1,5 +1,9 @@
 .gutter {
-  margin-inline: var(--layout--gutter-xl);
+  margin-inline: var(--layout--gutter-lg);
+
+  @media screen and (min-width: 768px) {
+    margin-inline: var(--layout--gutter-xl);
+  }
 }
 
 .border {

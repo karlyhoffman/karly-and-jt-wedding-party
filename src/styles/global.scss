@@ -3,6 +3,7 @@
 @use "./base/typography";
 
 :root {
+  --animate--ease: cubic-bezier(0.19, 1, 0.22, 1);
   --color--primary: #fbf3ea;
   --color--text: #151413;
   --layout--container: 1000px;
