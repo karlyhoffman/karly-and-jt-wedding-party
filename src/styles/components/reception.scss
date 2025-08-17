@@ -3,11 +3,10 @@
 
   .location-time {
     margin: 0 auto;
-    white-space: nowrap;
 
     &--sm {
       text-transform: uppercase;
-      font-size: 0.8rem;
+      font-size: var(--text--font-sm);
       padding-top: 10px;
       padding-bottom: 7px;
 
@@ -17,9 +16,8 @@
     }
 
     &:not(.location-time--sm) {
-      font-size: var(--text--font-sm);
-
       &.script {
+        font-size: var(--text--font-md);
         padding: 10px 0px 12px;
 
         @media screen and (min-width: 768px) {
@@ -28,10 +26,20 @@
       }
 
       &.serif {
+        font-size: 0.625rem;
         padding: 20px 0px 18px;
+
+        @media screen and (min-width: 415px) {
+          font-size: var(--text--font-sm);
+        }
 
         @media screen and (min-width: 768px) {
           font-size: 2rem;
+        }
+
+        a {
+          text-decoration-thickness: 1px;
+          text-underline-offset: 2px;
         }
       }
     }
