@@ -1,5 +1,36 @@
-.container {
-  border: var(--color--text) 15px double;
+.border {
+  $border-hide: calc(-2.25 * var(--layout--gutter));
+
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: $border-hide;
+  border: var(--color--primary) calc(2 * var(--layout--gutter)) solid;
+  pointer-events: none;
+
+  &--show-nav {
+    // The navbar will have the background color
+    top: 80px;
+  }
+
+  &--show-footer {
+    top: $border-hide;
+    bottom: 0;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: calc(-1 * var(--layout--gutter));
+    left: calc(-1 * var(--layout--gutter));
+    right: calc(-1 * var(--layout--gutter));
+    bottom: calc(-1 * var(--layout--gutter));
+    border: var(--color--text) 15px double;
+    pointer-events: none;
+    z-index: -1;
+  }
 }
 
 .headline {

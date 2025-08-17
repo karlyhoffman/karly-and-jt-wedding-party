@@ -1,6 +1,7 @@
 footer {
   font-size: 0.7rem;
-  margin-bottom: -13px;
+  border-top: var(--color--text) 4px solid;
+  padding-bottom: 6px;
 
   a {
     text-decoration-thickness: 1px;
