@@ -1,3 +1,57 @@
 .faqs {
   padding: var(--layout--gutter-xl) 0;
+
+  details {
+    text-align: left;
+
+    summary {
+      display: flex;
+      align-items: center;
+      gap: var(--layout--gutter-lg);
+      cursor: pointer;
+      text-transform: uppercase;
+      padding: 12px 0 10px;
+
+      &::marker {
+        content: "";
+      }
+
+      .caret {
+        width: 32px;
+        transform: translateY(-3px);
+        transform-origin: center;
+        transition: transform 300ms var(--animate--ease);
+      }
+
+      h3 {
+        margin: 0;
+        padding-block: 10px;
+      }
+    }
+
+    .answer {
+      font-size: var(--text--font-sm);
+      padding-block-start: 5px;
+      padding-inline-start: 20px;
+
+      @media screen and (min-width: 768px) {
+        font-size: 1.1rem;
+        padding-inline-start: 60px;
+      }
+
+      p {
+        margin-inline-start: 0;
+
+        &:first-of-type {
+          margin-block-start: 0;
+        }
+      }
+    }
+
+    &[open] {
+      .caret {
+        transform: rotate(90deg) translateY(-3px);
+      }
+    }
+  }
 }
