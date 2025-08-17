@@ -1,3 +1,7 @@
+.gutter {
+  margin-inline: var(--layout--gutter-xl);
+}
+
 .border {
   $border-hide: calc(-2.25 * var(--layout--gutter));
 
@@ -31,6 +35,10 @@
     pointer-events: none;
     z-index: -1;
   }
+
+  &-b {
+    border-bottom: var(--color--text) 3px solid;
+  }
 }
 
 .headline {
@@ -38,6 +46,12 @@
   border-bottom: var(--color--text) 8px double;
   font-size: var(--text--font-xl);
   text-transform: uppercase;
-  padding: 20px 0;
-  margin: 0 var(--layout--gutter-xl);
+  margin: 0 auto;
+  padding: 27px 0 20px;
+}
+
+.text-container {
+  max-width: var(--layout--container);
+  margin-inline: auto;
+  padding: 0 var(--layout--gutter);
 }

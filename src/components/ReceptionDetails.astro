@@ -61,24 +61,30 @@ const copy = [
 ---
 
 {copy.map(({ title, date, time, location, content, images }) => (
-  <section class="reception-details">
+  <section class="reception-details gutter">
     <h2 class="headline">{title}</h2>
     {date && (
-      <p class="location-time script">{date}</p>
+      <p class="location-time border-b script">{date}</p>
     )}
-    <p class="location-time location-time--sm serif">{location.address}</p>
-    <p class="location-time serif">
+    <p class="location-time location-time--sm border-b serif">
+      <a href={location.googleMapsLink} target="_blank">
+        {location.address}
+      </a>
+    </p>
+    <p class="location-time border-b serif">
       <a href={location.link} target="_blank">{location.name}</a> | {time}
     </p>
-    {content.map((paragraph) => (
-      <p set:html={paragraph}></p>
-    ))}
-    {images?.map(({ src, alt, caption }) => (
-      <figure>
-        <Image src={src} alt={alt} />
-        <figcaption>{caption}</figcaption>
-      </figure>
-    ))}
-    <button>Add to Calendar</button>
+    <div class="text-container font-base">
+      {content.map((paragraph) => (
+        <p set:html={paragraph}></p>
+      ))}
+      {images?.map(({ src, alt, caption }) => (
+        <figure>
+          <Image src={src} alt={alt} />
+          <figcaption>{caption}</figcaption>
+        </figure>
+      ))}
+      <button>Add to Calendar</button>
+    </div>
   </section>
 ))}

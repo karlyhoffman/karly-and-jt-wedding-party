@@ -1,53 +1,38 @@
 .reception-details {
-  padding-top: 60px;
+  padding: var(--layout--gutter-xl) 0;
 
-  p {
-    max-width: 1000px;
-    margin-inline: auto;
-    font-size: var(--text--font-lg);
-    padding: 0 var(--layout--gutter-2x);
+  .location-time {
+    margin: 0 auto;
+    white-space: nowrap;
 
-    &.location-time {
-      max-width: none;
-      white-space: nowrap;
-      border-bottom: var(--color--text) 3px solid;
-      margin: 0 var(--layout--gutter-xl);
+    &--sm {
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      padding-top: 10px;
+      padding-bottom: 7px;
 
-      &--sm {
-        text-transform: uppercase;
-        font-size: 0.8rem;
-        padding-top: 10px;
-        padding-bottom: 7px;
-      }
-
-      &:not(.location-time--sm) {
-        &.script {
-          padding: 10px 0px;
-          font-size: var(--text--font-sm);
-
-          @media screen and (min-width: 768px) {
-            font-size: 3.5rem;
-          }
-        }
-
-        &.serif {
-          padding: 20px 0px;
-          font-size: var(--text--font-sm);
-
-          @media screen and (min-width: 768px) {
-            font-size: 2rem;
-          }
-        }
+      a {
+        text-decoration: none;
       }
     }
 
-    a {
-      text-decoration: underline;
-      text-decoration-thickness: 2px;
-      text-underline-offset: 3px;
+    &:not(.location-time--sm) {
+      font-size: var(--text--font-sm);
 
-      &:hover {
-        text-decoration: none;
+      &.script {
+        padding: 10px 0px 12px;
+
+        @media screen and (min-width: 768px) {
+          font-size: 3.5rem;
+        }
+      }
+
+      &.serif {
+        padding: 20px 0px 18px;
+
+        @media screen and (min-width: 768px) {
+          font-size: 2rem;
+        }
       }
     }
   }

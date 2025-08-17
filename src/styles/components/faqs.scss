@@ -1,18 +1,3 @@
 .faqs {
-  padding-top: 60px;
-
-  p {
-    max-width: 1000px;
-    margin-inline: auto;
-
-    a {
-      text-decoration: underline;
-      text-decoration-thickness: 2px;
-      text-underline-offset: 3px;
-
-      &:hover {
-        text-decoration: none;
-      }
-    }
-  }
+  padding: var(--layout--gutter-xl) 0;
 }
