@@ -4,7 +4,7 @@
   p {
     max-width: 1000px;
     margin-inline: auto;
-    font-size: 1.5rem;
+    font-size: var(--text--font-lg);
 
     a {
       text-decoration: underline;

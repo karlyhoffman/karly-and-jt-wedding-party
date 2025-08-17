@@ -6,5 +6,9 @@
   --color--primary: #fbf3ea;
   --color--text: #151413;
   --layout--gutter: 12px;
-  --layout--gutter-2x: 24px;
+  --layout--gutter-lg: 24px;
+  --layout--gutter-xl: 36px;
+  --text--font-sm: 0.7rem;
+  --text--font-lg: clamp(0.9rem, 0.5rem + 2vw, 1.5rem);
+  --text--font-xl: clamp(1.25rem, 1.25rem + 2.5vw, 2.5rem);
 }

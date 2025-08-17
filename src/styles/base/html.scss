@@ -38,6 +38,7 @@ svg {
   width: 100%;
   max-width: 100%;
   height: auto;
+  /* TODO: Replace this with a GSAP animation that was similar to Hyundai image scroll animation, but instead of transforming the image, fade from black and white */
   filter: grayscale(1);
   transition: filter 500ms ease-in-out;
 

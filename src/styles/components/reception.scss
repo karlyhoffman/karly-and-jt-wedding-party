@@ -1,42 +1,42 @@
 .reception-details {
   padding-top: 60px;
 
-  .headline {
-    border-top: var(--color--text) 8px double;
-    border-bottom: var(--color--text) 8px double;
-    font-size: clamp(1.25rem, 1.25rem + 2.5vw, 2.5rem);
-    text-transform: uppercase;
-    padding: 20px 0;
-    margin: 0 30px;
-  }
-
   p {
     max-width: 1000px;
     margin-inline: auto;
-    font-size: clamp(0.9rem, 0.5rem + 2vw, 1.5rem);
+    font-size: var(--text--font-lg);
     padding: 0 var(--layout--gutter-2x);
 
     &.location-time {
       max-width: none;
       white-space: nowrap;
       border-bottom: var(--color--text) 3px solid;
-      margin: 0 30px;
+      margin: 0 var(--layout--gutter-xl);
 
-      &.script {
-        padding: 10px 0px;
-        font-size: 0.7rem;
-
-        @media screen and (min-width: 768px) {
-          font-size: 3.5rem;
-        }
+      &--sm {
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        padding-top: 10px;
+        padding-bottom: 7px;
       }
 
-      &.serif {
-        padding: 20px 0px;
-        font-size: 0.7rem;
+      &:not(.location-time--sm) {
+        &.script {
+          padding: 10px 0px;
+          font-size: var(--text--font-sm);
 
-        @media screen and (min-width: 768px) {
-          font-size: 2rem;
+          @media screen and (min-width: 768px) {
+            font-size: 3.5rem;
+          }
+        }
+
+        &.serif {
+          padding: 20px 0px;
+          font-size: var(--text--font-sm);
+
+          @media screen and (min-width: 768px) {
+            font-size: 2rem;
+          }
         }
       }
     }
