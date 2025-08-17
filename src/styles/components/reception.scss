@@ -4,7 +4,8 @@
   p {
     max-width: 1000px;
     margin-inline: auto;
-    font-size: 1.5rem;
+    font-size: clamp(0.9rem, 0.5rem + 2vw, 1.5rem);
+    padding: 0 var(--layout--gutter-2x);
 
     a {
       text-decoration: underline;
@@ -17,9 +18,18 @@
     }
   }
 
+  .location-time {
+    max-width: none;
+    white-space: nowrap;
+    border-bottom: var(--color--text) 3px solid;
+    margin: 0 30px;
+    padding: 1rem 0px;
+  }
+
   figure {
     max-width: min(100%, 500px);
     height: auto;
     margin-inline: auto;
+    padding: 0 var(--layout--gutter-2x);
   }
 }
