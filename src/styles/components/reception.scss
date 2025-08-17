@@ -20,4 +20,10 @@
       }
     }
   }
+
+  figure {
+    max-width: min(100%, 500px);
+    height: auto;
+    margin-inline: auto;
+  }
 }
