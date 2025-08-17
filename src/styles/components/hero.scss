@@ -3,16 +3,35 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  min-height: calc(100vh - var(--layout--gutter));
+  padding: 85px 0 50px;
+
+  @media screen and (min-width: 768px) {
+    padding-top: 0;
+    min-height: calc(100vh - var(--layout--gutter));
+  }
 
   h2 {
     display: block;
     position: relative;
     width: 90vw;
     aspect-ratio: 1.75;
+    font-weight: normal;
 
     .script {
-      font-size: 32vw;
+      font-size: 28vw;
+    }
+
+    *:not(.script) {
+      font-size: 8vw;
+    }
+
+    .group {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transform: translate(3%, -1.5%);
     }
 
     .text {
@@ -20,26 +39,24 @@
       position: absolute;
 
       &--jt {
-        top: -2vw;
-        left: 9vw;
+        top: -2.5vw;
+        left: 12vw;
         transform: rotate(-4deg);
       }
 
       &--and {
-        font-size: 8vw;
-        top: 11.5vw;
-        left: 45vw;
+        top: 9vw;
+        left: 44.5vw;
       }
 
       &--karly {
-        top: 13.8vw;
-        left: 18.5vw;
+        top: 12.5vw;
+        left: 21vw;
         transform: rotate(-12deg);
       }
 
       &--married {
-        font-size: 2.7vw;
-        top: 43vw;
+        top: 41.5vw;
         left: 50%;
         transform: translateX(-50%);
         white-space: nowrap;
