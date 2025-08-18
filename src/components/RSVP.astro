@@ -1,11 +1,16 @@
 ---
 import '../styles/components/rsvp.scss';
+import { getEntries } from '../lib/notion/index.js';
+
+const guestList = await getEntries() || [];
+// const lastNames = guestList.map(guest => guest.lastName);
+
 ---
 
 <section class="rsvp gutter">
   <h2 class="headline">RSVP</h2>
   <div class="text-container font-base">
     <p>Please RSVP by November 1st, 2025</p>
-    <p>[IN DEVELOPMENT]</p>
+    <p>[FORM]</p>
   </div>
 </section>
