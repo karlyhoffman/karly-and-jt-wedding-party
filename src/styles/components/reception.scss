@@ -29,6 +29,10 @@
         font-size: var(--text--font-sm);
         padding: 20px 0px 18px;
 
+        @media screen and (min-width: 388px) {
+          white-space: nowrap;
+        }
+
         @media screen and (min-width: 768px) {
           font-size: 2rem;
         }
