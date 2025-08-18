@@ -27,7 +27,7 @@ const faqs = [
       {
     question: "Why so soon then?",
     answer: [
-      "It wasn't until a recent trip to San Luis Obispo that sparked the idea to get married for our 10-year anniversary, a date that is extremely meaningful to us."
+      "A recent trip to San Luis Obispo sparked the idea of getting married there on our 10-year anniversary, a date and place that mean the world to us."
     ],
     images: [
     {
@@ -56,14 +56,14 @@ const faqs = [
       caption: "Avila Beach"
     },
     {
-      src: selfieMorroBay,
+      src: selfieHotelSlo,
       alt: "Negative contact sheet of photos a film roll taken in San Luis Obispo.",
-      caption: "Morro Bay"
+      caption: "Hotel SLO"
     },
     {
-      src: bobJones,
-      alt: "View of Bob Jones Trail.",
-      caption: "Bob Jones Trail"
+      src: karlyBedas,
+      alt: "Karly at Beda's Biergarten.",
+      caption: "Beda's Biergarten"
     },
     {
       src: montanaDeOro,
@@ -81,9 +81,9 @@ const faqs = [
       caption: "Lunch in Morro Bay"
     },
     {
-      src: selfieHotelSlo,
+      src: selfieMorroBay,
       alt: "Negative contact sheet of photos a film roll taken in San Luis Obispo.",
-      caption: "Hotel SLO"
+      caption: "Morro Bay"
     },
     {
       src: karlyMorro,
@@ -91,9 +91,9 @@ const faqs = [
       caption: "Morro Rock"
     },
     {
-      src: karlyBedas,
-      alt: "Karly at Beda's Biergarten.",
-      caption: "Beda's Biergarten"
+      src: bobJones,
+      alt: "View of Bob Jones Trail.",
+      caption: "Bob Jones Trail"
     },
     {
       src: terraceHill,
@@ -103,16 +103,17 @@ const faqs = [
   ],
   },
   {
-    question: "What is the dress code?",
+    question: "What should I wear?",
     answer: [
-      "Semi-formal.",
+      "[Semi-formal]",
       "[TODO: More dress code details]"
     ]
   },
     {
     question: "Where to stay?",
     answer: [
-      "We recommend staying in downtown San Luis Obispo, where there are plenty of hotels and accommodations.",
+      "There are plenty of hotels and accommodations in San Luis Obispo, and around the county.",
+      "[Plenty of hotels and accommodations next to the venue.]",
       "[TODO: More hotel options]"
     ]
   },
@@ -155,8 +156,8 @@ const faqs = [
         </div>
         {!!faq.images?.length && (
           <div class="img-wrapper">
-            {faq.images.map(({ src, alt, caption }) => (
-              <figure>
+            {faq.images.map(({ src, alt, caption }, index) => (
+              <figure class={index > 6 ? 'desktop-only' : ''}>
                 <Image src={src} alt={alt} />
                 {caption && <figcaption>{caption}</figcaption>}
               </figure>

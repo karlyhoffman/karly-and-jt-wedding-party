@@ -91,3 +91,12 @@ a {
   white-space: nowrap;
   border-width: 0;
 }
+
+.desktop-only {
+  display: none;
+
+  // TODO: convert to variable
+  @media screen and (min-width: 768px) {
+    display: block;
+  }
+}
