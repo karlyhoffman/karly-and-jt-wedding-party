@@ -4,6 +4,7 @@ import Footer from './Footer.astro';
 import '../styles/global.scss';
 
 const { title } = Astro.props;
+const isProduction = import.meta.env.PROD;
 ---
 
 <!doctype html>
@@ -31,6 +32,6 @@ const { title } = Astro.props;
 		</main>
 		<Footer />
 		<div class="border" aria-hidden="true"></div>
-		<Analytics />
+		{isProduction && <Analytics />}
 	</body>
 </html>
