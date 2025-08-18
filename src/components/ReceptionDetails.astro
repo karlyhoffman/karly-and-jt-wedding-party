@@ -36,7 +36,7 @@ const copy = [
       {
         src: novo,
         alt: "Karly and JT dancing at Novo.",
-        caption: "The couple had their first interaction outside of Boo Boo Records at Novo. Credit: Meghan"
+        caption: "<p>JT and Karly at Novo (when he finally asked for her number).</p><p>Credit: Meghan</p>"
       }
     ]
   },
@@ -51,7 +51,7 @@ const copy = [
       googleMapsLink: "https://maps.app.goo.gl/c2sbSw7W5ndc9XoV6",
     },
     content: [
-      "[something about saying goodbye to everyone before leaving if they can]",
+      "Join us for a picnic brunch at Terrace Hill, where you'll have the opportunity to catch up with friends and family before everyone heads home.",
       `*Please note: In order to get up to Terrace Hill, it's a bit of a steep walk on a dirt trail. But, it's absolutely worth the short hike. If you can stop by, be sure to wear appropriate shoes, and join us for some beers and <a href="https://www.highstdeli.com/high-st-menus/" target="_blank">High Street Sandwiches</a><br/>(Karly's favorite is the Mother Nature Veg with turkey added).`,
       "[photos taken from the last trip]"
     ],
@@ -67,7 +67,7 @@ const copy = [
       <p class="location-time border-b script">{date}</p>
     )}
     <p class="location-time location-time--sm border-b serif">
-      <a href={location.googleMapsLink} target="_blank">
+      <a class="location-link" href={location.googleMapsLink} target="_blank">
         {location.address}
       </a>
     </p>
@@ -83,7 +83,7 @@ const copy = [
           {images.map(({ src, alt, caption }) => (
             <figure>
               <Image class="reveal" src={src} alt={alt} />
-              <figcaption>{caption}</figcaption>
+              <figcaption set:html={caption}></figcaption>
             </figure>
           ))}
         </div>

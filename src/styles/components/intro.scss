@@ -4,7 +4,7 @@
   p {
     display: block;
     position: relative;
-    font-size: var(--text--font-base);
+    font-size: 1.2rem;
     line-height: 1.3;
     margin: 0 0 20px;
     padding: 0 var(--layout--gutter);
@@ -18,9 +18,8 @@
     }
 
     .script {
-      font-size: 1.7rem;
+      font-size: 1.9rem;
       line-height: 1;
-      white-space: nowrap;
 
       @media screen and (min-width: 768px) {
         font-size: 8vw;
@@ -41,6 +40,28 @@
     display: block;
     position: relative;
     margin-bottom: 0;
+
+    // TODO: cleanup implementation -- mobile only
+    @media screen and (max-width: 767px) {
+      aspect-ratio: 1.5;
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      &--hotel-slo img {
+        object-position: 45% 50%;
+      }
+
+      &--monday-club img {
+        object-position: 40% 50%;
+      }
+    }
   }
 
   /* Wedding */

@@ -26,12 +26,8 @@
       }
 
       &.serif {
-        font-size: 0.7rem;
+        font-size: var(--text--font-sm);
         padding: 20px 0px 18px;
-
-        @media screen and (min-width: 415px) {
-          font-size: var(--text--font-sm);
-        }
 
         @media screen and (min-width: 768px) {
           font-size: 2rem;
@@ -42,5 +38,16 @@
 
   figure {
     max-width: min(100%, 500px);
+
+    figcaption {
+      margin-block-end: 0;
+      padding-block-end: 0;
+
+      p {
+        text-wrap: auto;
+        margin-block-start: 0;
+        margin-block-end: 5px;
+      }
+    }
   }
 }

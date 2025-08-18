@@ -31,8 +31,6 @@ figcaption {
 
   a {
     font-weight: 400;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 2px;
   }
 }
 
@@ -46,11 +44,14 @@ svg {
 
 img.reveal {
   /* TODO: Replace this with a GSAP animation that was similar to Hyundai image scroll animation, but instead of transforming the image, fade from black and white */
-  filter: grayscale(1);
-  transition: filter 1500ms var(--animate--ease);
 
-  &:hover {
-    filter: grayscale(0);
+  @media screen and (min-width: 768px) {
+    filter: grayscale(1);
+    transition: filter 1500ms var(--animate--ease);
+
+    &:hover {
+      filter: grayscale(0);
+    }
   }
 }
 
@@ -72,8 +73,8 @@ a {
   position: relative;
   color: inherit;
   text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
 
   &:hover {
     text-decoration: none;
