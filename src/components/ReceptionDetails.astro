@@ -1,6 +1,10 @@
 ---
 import { Image } from 'astro:assets';
+import jtTerraceHill from '../assets/faq-why-so-soon-jt-terrace-hill.avif';
+import karlyTerraceHill from '../assets/terrace-hill-karly.avif';
+import terraceHill from '../assets/terrace-hill-views.avif';
 import novo from '../assets/novo.avif';
+
 import '../styles/components/reception.scss';
 
 const copy = [
@@ -53,9 +57,24 @@ const copy = [
     content: [
       "Join us for a picnic brunch at Terrace Hill, where you'll have the opportunity to catch up with friends and family before everyone heads home.",
       `*Please note: In order to get up to Terrace Hill, it's a bit of a steep walk on a dirt trail. But, it's absolutely worth the short hike. If you can stop by, be sure to wear appropriate shoes, and join us for some beers and <a href="https://www.highstdeli.com/high-st-menus/" target="_blank">High Street Sandwiches</a><br/>(Karly's favorite is the Mother Nature Veg with turkey added).`,
-      "[photos taken from the last trip]"
     ],
-    images: []
+    images: [
+      {
+        src: terraceHill,
+        alt: 'View of San Luis Obispo from Terrace Hill.',
+        caption: null,
+      },
+      {
+        src: karlyTerraceHill,
+        alt: 'Karly with a beautiful views of Terrace Hill in the background.',
+        caption: null,
+      },
+      {
+        src: jtTerraceHill,
+        alt: 'JT at Terrace Hill.',
+        caption: '<p>Views from Terrace Hill.</p>'
+      }
+    ]
   },
 ]
 ---
@@ -79,7 +98,10 @@ const copy = [
         <p set:html={paragraph}></p>
       ))}
       {!!images?.length && (
-        <div class="img-wrapper">
+        <div class={title === 'Picnic Brunch'
+          ? "img-wrapper img-wrapper--brunch"
+          : "img-wrapper"
+        }>
           {images.map(({ src, alt, caption }) => (
             <figure>
               <Image class="reveal" src={src} alt={alt} />
@@ -88,7 +110,6 @@ const copy = [
           ))}
         </div>
       )}
-      {/* <p>[Add to Calendar Button]</p> */}
     </div>
   </section>
 ))}

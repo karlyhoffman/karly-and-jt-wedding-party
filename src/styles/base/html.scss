@@ -32,6 +32,10 @@ figcaption {
   a {
     font-weight: 400;
   }
+
+  &:empty {
+    display: none;
+  }
 }
 
 img,
