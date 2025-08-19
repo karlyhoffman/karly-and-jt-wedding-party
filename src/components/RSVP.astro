@@ -1,16 +1,35 @@
 ---
 import '../styles/components/rsvp.scss';
-import { getEntries } from '../lib/notion/index.js';
+// import { getEntries } from '../lib/notion/index.js';
 
-const guestList = await getEntries() || [];
-// const lastNames = guestList.map(guest => guest.lastName);
+// const guestList = await getEntries() || [];
+// const lastNames = guestList.map(guest => guest.lastName).filter(lastName => lastName);
+// const duplicateLastNames = lastNames.filter((lastName, index) => lastNames.indexOf(lastName) !== index);
 
+// console.log(guestList);
+
+https://docs.astro.build/en/recipes/build-forms/
 ---
 
 <section class="rsvp gutter">
   <h2 class="headline">RSVP</h2>
   <div class="text-container font-base">
     <p>Please RSVP by November 1st, 2025</p>
-    <p>[FORM]</p>
+    <form-rsvp data-guests={[]}>
+      <button>Say hi!</button>
+    </form-rsvp>
   </div>
 </section>
+
+<script>
+  class FormRSVP extends HTMLElement {
+    connectedCallback() {
+      const guests = this.dataset.guests;
+      if (guests) {
+        console.log(guests);
+      }
+    }
+  }
+
+  customElements.define('form-rsvp', FormRSVP);
+</script>
