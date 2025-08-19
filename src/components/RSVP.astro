@@ -13,7 +13,7 @@ https://docs.astro.build/en/recipes/build-forms/
       <div data-status-message class="hidden">Loading...</div>
 
       <form method="POST" class="hidden">
-        <input type="text" name="firstName" placeholder="First Name" required disabled class="hidden"/>
+        <input type="text" name="firstName" placeholder="First Name" required />
         <input type="text" name="lastName" placeholder="Last Name" required />
         <button data-continue-btn type="button">Continue</button>
         <button disabled type="submit">Submit</button>
@@ -34,11 +34,6 @@ https://docs.astro.build/en/recipes/build-forms/
       guestEntry: {},
       firstNameInput: '',
       lastNameInput: '',
-      lastNameResults: [] as Array<{
-        id: string;
-        firstName: string;
-        lastName: string;
-      }>
     };
 
     $form: HTMLFormElement | null = null;
@@ -95,42 +90,18 @@ https://docs.astro.build/en/recipes/build-forms/
       const firstName = this.$inputFirstName?.value || null;
       const lastName = this.$inputLastName?.value || null;
 
-      if (!lastName) {
-        // error
+      if (!firstName || !lastName) {
+        if (this.$messageStatus) {
+          this.$messageStatus.textContent = `Please enter both your first and last name.`;
+          this.$messageStatus.classList.remove('hidden');
+        }
+
+        this.$inputFirstName?.focus();
+
         return;
       }
 
-      if (!firstName && this.state.lastNameInput !== lastName) {
-        this.state.lastNameResults = this.guests.filter(guest => (
-          this.sanitizeName(guest.lastName) === this.sanitizeName(lastName)
-        ));
-
-        if (this.state.lastNameResults.length) {
-          console.log(this.state.lastNameResults.length);
-
-          if (this.state.lastNameResults.length === 1) {
-            // Show entry data (and related data entry)
-            this.state.guestEntry = this.state.lastNameResults[0];
-
-            /* IDEA: Show a personalized message for the guest */
-          } else {
-            // Show first name input to narrow entries
-            this.$inputFirstName?.classList.remove('hidden');
-            this.$inputFirstName?.removeAttribute('disabled');
-
-            if (this.$messageStatus) {
-              this.$messageStatus.textContent = 
-                `Looks like several ${lastName}'s were invited! Please enter your first name.`;
-              this.$messageStatus.classList.remove('hidden');
-            }
-          }
-        } else {
-          // this.$messageStatus?.textContent = `No guests found with last name: ${this.lastName}`;
-          // this.$messageStatus?.classList.remove('hidden');
-        }
-      }
-
-      if (!!firstName && this.state.firstNameInput !== firstName) {
+      if (this.state.firstNameInput !== firstName || this.state.lastNameInput !== lastName) {
         const [guest] = this.guests.filter(guest => (
           this.sanitizeName(guest.firstName) === this.sanitizeName(firstName) &&
           this.sanitizeName(guest.lastName) === this.sanitizeName(lastName)
@@ -138,6 +109,11 @@ https://docs.astro.build/en/recipes/build-forms/
 
         if (guest) {
           this.state.guestEntry = guest;
+        } else {
+          if (this.$messageStatus) {
+            this.$messageStatus.textContent = `No guests found with that name. Please contact Karly or JT if this is a mistake.`;
+            this.$messageStatus.classList.remove('hidden');
+          }
         }
       }
 
