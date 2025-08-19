@@ -1,33 +1,209 @@
 ---
 import '../styles/components/rsvp.scss';
-// import { getEntries } from '../lib/notion/index.js';
-
-// const guestList = await getEntries() || [];
-// const lastNames = guestList.map(guest => guest.lastName).filter(lastName => lastName);
-// const duplicateLastNames = lastNames.filter((lastName, index) => lastNames.indexOf(lastName) !== index);
-
-// console.log(guestList);
 
 https://docs.astro.build/en/recipes/build-forms/
 ---
 
-<section class="rsvp gutter">
+<section id="rsvp" class="rsvp gutter">
   <h2 class="headline">RSVP</h2>
   <div class="text-container font-base">
     <p>Please RSVP by November 1st, 2025</p>
     <form-rsvp data-guests={[]}>
-      <button>Say hi!</button>
+      <button data-start-btn type="button">RSVP</button>
+      <div data-status-message class="hidden">Loading...</div>
+
+      <form method="POST" class="hidden">
+        <input type="text" name="firstName" placeholder="First Name" required disabled class="hidden"/>
+        <input type="text" name="lastName" placeholder="Last Name" required />
+        <button data-continue-btn type="button">Continue</button>
+        <button disabled type="submit">Submit</button>
+      </form>
     </form-rsvp>
   </div>
 </section>
 
 <script>
   class FormRSVP extends HTMLElement {
+    guests: {
+      id: string;
+      firstName: string;
+      lastName: string;
+    }[] = [];
+
+    state = {
+      guestEntry: {},
+      firstNameInput: '',
+      lastNameInput: '',
+      lastNameResults: [] as Array<{
+        id: string;
+        firstName: string;
+        lastName: string;
+      }>
+    };
+
+    $form: HTMLFormElement | null = null;
+    $buttonStart: HTMLButtonElement | null = null;
+    $buttonContinue: HTMLButtonElement | null = null;
+    $inputFirstName: HTMLInputElement | null = null;
+    $inputLastName: HTMLInputElement | null = null;
+    $messageStatus: HTMLDivElement | null = null;
+
     connectedCallback() {
-      const guests = this.dataset.guests;
-      if (guests) {
-        console.log(guests);
+      this.init().layout().enable();
+    }
+
+    init () {
+      return this;
+    }
+
+    layout() {
+      this.$form = this.querySelector('form');
+      this.$buttonStart = this.querySelector('[data-start-btn]');
+      this.$buttonContinue = this.querySelector('[data-continue-btn]');
+      this.$inputFirstName = this.querySelector('input[name="firstName"]');
+      this.$inputLastName = this.querySelector('input[name="lastName"]');
+      this.$messageStatus = this.querySelector('[data-status-message]');
+
+      return this;
+    }
+
+    enable() {
+      this.$form?.addEventListener('submit', this.handleSubmit);
+      this.$buttonStart?.addEventListener('click', this.handleStart);
+      this.$buttonContinue?.addEventListener('click', this.handleContinue);
+
+      return this;
+    }
+
+    async fetchGuests() {
+      try {
+        const response = await fetch(`/api/guests/index.json`);
+
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+
+        return await response.json();
+      } catch (error) {
+        console.error({ error });
       }
+    }
+
+    handleContinue = (e: Event) => {
+      e.preventDefault();
+
+      const firstName = this.$inputFirstName?.value || null;
+      const lastName = this.$inputLastName?.value || null;
+
+      if (!lastName) {
+        // error
+        return;
+      }
+
+      if (!firstName && this.state.lastNameInput !== lastName) {
+        this.state.lastNameResults = this.guests.filter(guest => (
+          this.sanitizeName(guest.lastName) === this.sanitizeName(lastName)
+        ));
+
+        if (this.state.lastNameResults.length) {
+          console.log(this.state.lastNameResults.length);
+
+          if (this.state.lastNameResults.length === 1) {
+            // Show entry data (and related data entry)
+            this.state.guestEntry = this.state.lastNameResults[0];
+
+            /* IDEA: Show a personalized message for the guest */
+          } else {
+            // Show first name input to narrow entries
+            this.$inputFirstName?.classList.remove('hidden');
+            this.$inputFirstName?.removeAttribute('disabled');
+
+            if (this.$messageStatus) {
+              this.$messageStatus.textContent = 
+                `Looks like several ${lastName}'s were invited! Please enter your first name.`;
+              this.$messageStatus.classList.remove('hidden');
+            }
+          }
+        } else {
+          // this.$messageStatus?.textContent = `No guests found with last name: ${this.lastName}`;
+          // this.$messageStatus?.classList.remove('hidden');
+        }
+      }
+
+      if (!!firstName && this.state.firstNameInput !== firstName) {
+        const [guest] = this.guests.filter(guest => (
+          this.sanitizeName(guest.firstName) === this.sanitizeName(firstName) &&
+          this.sanitizeName(guest.lastName) === this.sanitizeName(lastName)
+        )) || [];
+
+        if (guest) {
+          this.state.guestEntry = guest;
+        }
+      }
+
+      console.log('Current Guest:', this.state.guestEntry);
+    };
+
+    /**
+     * Fetch guest names on "RSVP" button click,
+     * then determine if guest can continue to form.
+     */
+    handleStart = async (e: Event) => {
+      e.preventDefault();
+
+      this.$buttonStart?.remove();
+
+      if (this.$messageStatus) {
+        this.$messageStatus.textContent = 'Loading...';
+        this.$messageStatus.classList.remove('hidden');
+      }
+
+      try {
+        this.guests = await this.fetchGuests() || [];
+
+        console.log(this.guests);
+
+        if (this.guests.length) {
+          this.$form?.classList.remove('hidden');
+          this.$messageStatus?.classList.add('hidden');
+        } else {
+          // Show form inputs, send values via a node mailer
+        }
+
+        console.log(this.$form, this.$messageStatus);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    handleSubmit = async (e: Event) => {
+      e.preventDefault();
+      console.log({ e });
+
+      // try {
+      //   const response = await fetch(`/api/guests/${this.id}.json`, {
+      //     method: 'POST',
+      //     headers: { 'Content-Type': 'application/json' },
+      //     body: JSON.stringify({ lastName: this.lastName }),
+      //   });
+
+      //   if (!response.ok) {
+      //     throw new Error(response.statusText);
+      //   }
+
+      //   const data = await response.json();
+      //   console.log(data);
+      // } catch (error) {
+      //   console.error(error);
+      // }
+    };
+
+    sanitizeName(name: string) {
+      if (!name) {
+        return '';
+      }
+    
+      return name.trim().toLowerCase().replace(/\s+/g, '');
     }
   }
 

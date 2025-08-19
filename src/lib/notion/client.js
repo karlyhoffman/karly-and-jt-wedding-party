@@ -5,7 +5,11 @@ const auth = import.meta.env.NOTION_TOKEN;
 
 export const notion = new Client({ auth });
 
-export async function getEntries() {
+/**
+ * Fetch entries from the Notion database.
+ * @returns {Promise<Array>} The list of entries.
+ */
+export async function getAllEntries() {
   try {
     const { results = [] } = await notion.databases.query({
       database_id: import.meta.env.NOTION_DATABASE_ID,
@@ -57,5 +61,22 @@ export async function getEntries() {
     return entries || [];
   } catch (error) {
     console.error(error);
+    return [];
   }
 }
+
+/**
+ * Update a single entry from the Notion database.
+ * @param {string} id - The ID of the entry to update.
+ * @param {Object} data - The updated entry data.
+ * @returns {Promise<Object>} The updated entry data.
+ */
+
+// export async function updateEntry(id, data) {
+//   try {
+//     const response = await notion.pages.update({ page_id: id, properties: data });
+//     return response;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
