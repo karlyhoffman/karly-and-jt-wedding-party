@@ -46,19 +46,6 @@ svg {
   height: auto;
 }
 
-img.reveal {
-  /* TODO: Replace this with a GSAP animation that was similar to Hyundai image scroll animation, but instead of transforming the image, fade from black and white */
-
-  // @media screen and (min-width: 768px) {
-  //   filter: grayscale(1);
-  //   transition: filter 1500ms var(--animate--ease);
-
-  //   &:hover {
-  //     filter: grayscale(0);
-  //   }
-  // }
-}
-
 h1,
 h2,
 h3,
@@ -82,26 +69,5 @@ a {
 
   &:hover {
     text-decoration: none;
-  }
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.desktop-only {
-  display: none;
-
-  // TODO: convert to variable
-  @media screen and (min-width: 768px) {
-    display: block;
   }
 }

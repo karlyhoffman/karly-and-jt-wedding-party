@@ -1,6 +1,7 @@
 @use "./base/html";
 @use "./base/layout";
 @use "./base/typography";
+@use "./base/utilities";
 
 :root {
   --animate--ease: cubic-bezier(0.19, 1, 0.22, 1);
