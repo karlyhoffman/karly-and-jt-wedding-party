@@ -14,7 +14,11 @@
   top: 0;
   left: 0;
   right: 0;
-  bottom: $border-hide;
+
+  // Temp:
+  // bottom: $border-hide;
+  bottom: 0;
+
   border: var(--color--primary) var(--layout--gutter-lg) solid;
   pointer-events: none;
 
@@ -35,9 +39,13 @@
     left: calc(-1 * var(--layout--gutter));
     right: calc(-1 * var(--layout--gutter));
     bottom: calc(-1 * var(--layout--gutter));
-    border: var(--color--text) 15px double;
+    border: var(--color--text) 11px double;
     pointer-events: none;
     z-index: -1;
+
+    @media screen and (min-width: 768px) {
+      border-width: 15px;
+    }
   }
 
   &-b {

@@ -15,11 +15,9 @@
 }
 
 .desktop-only {
-  display: none;
-
   // TODO: convert media queries to variable
-  @media screen and (min-width: 768px) {
-    display: block;
+  @media screen and (max-width: 767px) {
+    display: none !important;
   }
 }
 

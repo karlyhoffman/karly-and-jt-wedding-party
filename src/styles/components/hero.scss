@@ -7,8 +7,8 @@
 
   @media screen and (min-width: 768px) {
     min-height: calc(100vh - var(--layout--gutter));
-    padding-block-start: 0;
-    padding-block-end: 60vh;
+    margin-block-end: 25vh;
+    padding-block: 0;
   }
 
   h2 {
@@ -23,7 +23,7 @@
     }
 
     *:not(.script) {
-      font-size: 8vw;
+      font-size: 5vw;
     }
 
     .group {
@@ -46,8 +46,8 @@
       }
 
       &--and {
-        top: 9vw;
-        left: 44.5vw;
+        top: 11vw;
+        left: 46vw;
       }
 
       &--karly {
@@ -57,7 +57,7 @@
       }
 
       &--married {
-        top: 41.5vw;
+        top: 42.75vw;
         left: 50%;
         transform: translateX(-50%);
         white-space: nowrap;

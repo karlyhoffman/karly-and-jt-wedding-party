@@ -16,13 +16,16 @@ const copy = [
     location: {
       name: "The Monday Club",
       link: "https://themondayclubslo.org/OUR-HISTORY",
-      address: "1815 Monterey St, San Luis Obispo, CA 93401",
+      address: {
+        street: "1815 Monterey St",
+        cityState: "San Luis Obispo, CA 93401"
+      },
       googleMapsLink: "https://maps.app.goo.gl/UiYcjzpGSdGuhrSt8"
     },
     content: [
       "The reception will begin at 4 o'clock with a cocktail hour on the patio overlooking the San Luis Obispo hills, during which the newlywed couple will have the chance to greet all the guests.",
-      "As the sun sets over the mountains, the reception will move indoors for dinner catered by <a href='https://www.eatpetra.com/' target='_blank'>Petra</a>, a local favorite.",
-      "[Something about there will be many activities throughout the evening]"
+      "As the sun sets, the reception will move indoors for dinner catered by <a href='https://www.eatpetra.com/' target='_blank'>Petra</a>, a local favorite.",
+      "[More details about activities throughout the evening]"
     ]
   },
   {
@@ -30,7 +33,10 @@ const copy = [
     time: "10 p.m.",
     location: {
       name: "McCarthy's Irish Pub",
-      address: '600 Marsh St, San Luis Obispo, CA 93401',
+      address: {
+        street: "600 Marsh St",
+        cityState: "San Luis Obispo, CA 93401"
+      },
       link: 'https://maps.app.goo.gl/bYkXYMRoBZpfJLqA6',
       googleMapsLink: 'https://maps.app.goo.gl/bYkXYMRoBZpfJLqA6'
     },
@@ -52,13 +58,16 @@ const copy = [
     time: "10 a.m.",
     location: {
       name: "Terrace Hill",
-      address: "Terrace Hill, San Luis Obispo, CA 93401",
+      address: {
+        street: "Terrace Hill",
+        cityState: "San Luis Obispo, CA 93401"
+      },
       link: "https://maps.app.goo.gl/CHXmTsZtzanqrfoM6",
       googleMapsLink: "https://maps.app.goo.gl/8NCMxe1zYdVvd1j88",
     },
     content: [
       "Join us for a picnic brunch at Terrace Hill, where you'll have the chance to say goodbye to everyone before they head home.",
-      `<strong>*Please note:</strong> In order to get up to Terrace Hill, it's a bit of a steep walk on a short trail. But, it's absolutely worth <a href="https://maps.app.goo.gl/8NCMxe1zYdVvd1j88" target="_blank">the very quick hike</a>. If you can stop by, be sure to wear appropriate shoes, and join us for some beers and <a href="https://www.highstdeli.com/high-st-menus/" target="_blank">High Street Sandwiches</a><br/>(Karly's favorite is the Mother Nature Veg with turkey added).`,
+      `<strong>*Please note:</strong> In order to get up to Terrace Hill,<br/>it's a bit of a steep walk on a short trail. But, it's absolutely worth <a href="https://maps.app.goo.gl/8NCMxe1zYdVvd1j88" target="_blank">the very quick hike</a>. If you can stop by, be sure to wear appropriate shoes, and join us for some beers and <a href="https://www.highstdeli.com/high-st-menus/" target="_blank">High Street Sandwiches</a><br/>(Karly's favorite is the Mother Nature Veg with turkey added).`,
     ],
     images: [
       {
@@ -88,8 +97,8 @@ const copy = [
       <p class="location-time border-b script">{date}</p>
     )}
     <p class="location-time location-time--sm border-b serif">
-      <a class="no-underline" href={location.googleMapsLink} target="_blank">
-        {location.address}
+      <a href={location.googleMapsLink} target="_blank">
+        {location.address.street}<span>, </span>{location.address.cityState}
       </a>
     </p>
     <p class="location-time border-b serif">

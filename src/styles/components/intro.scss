@@ -1,5 +1,5 @@
 .intro {
-  padding-block-end: 40vh;
+  padding-block: 15vh;
 
   p {
     display: block;
@@ -24,10 +24,6 @@
       @media screen and (min-width: 768px) {
         font-size: 8vw;
       }
-    }
-
-    a {
-      text-decoration: none;
     }
   }
 
