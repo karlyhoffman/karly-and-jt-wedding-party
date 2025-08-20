@@ -12,6 +12,7 @@
 
       a {
         text-decoration: none;
+        transition-duration: 200ms;
       }
     }
 
@@ -37,6 +38,10 @@
           font-size: 2rem;
         }
       }
+    }
+
+    a {
+      font-weight: normal;
     }
   }
 

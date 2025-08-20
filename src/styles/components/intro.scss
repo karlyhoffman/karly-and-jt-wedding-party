@@ -1,5 +1,5 @@
 .intro {
-  padding-block-end: 150px;
+  padding-block-end: 40vh;
 
   p {
     display: block;
@@ -23,15 +23,6 @@
 
       @media screen and (min-width: 768px) {
         font-size: 8vw;
-      }
-    }
-
-    a {
-      text-decoration: none;
-      transition: opacity 400ms var(--animate--ease);
-
-      &:hover {
-        opacity: 0.5;
       }
     }
   }

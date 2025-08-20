@@ -6,8 +6,9 @@
   padding: 85px 0 50px;
 
   @media screen and (min-width: 768px) {
-    padding-top: 0;
     min-height: calc(100vh - var(--layout--gutter));
+    padding-block-start: 0;
+    padding-block-end: 60vh;
   }
 
   h2 {

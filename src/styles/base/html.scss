@@ -59,6 +59,10 @@ p {
   text-wrap: balance;
 }
 
+p a {
+  font-weight: bold;
+}
+
 a {
   display: inline-block;
   position: relative;
@@ -69,5 +73,14 @@ a {
 
   &:hover {
     text-decoration: none;
+  }
+
+  &.no-underline {
+    text-decoration: none;
+    transition: opacity 400ms var(--animate--ease);
+
+    &:hover {
+      opacity: 0.5;
+    }
   }
 }

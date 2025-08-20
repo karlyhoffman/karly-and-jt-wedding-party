@@ -29,19 +29,20 @@ const copy = [
     title: "After Party",
     time: "10 p.m.",
     location: {
-      name: "Novo",
-      address: '726 Higuera St, San Luis Obispo, CA 93401',
-      link: "https://www.novorestaurant.com/contact-us",
-      googleMapsLink: 'https://maps.app.goo.gl/3XtazvppEB4nbFur6'
+      name: "McCarthy's Irish Pub",
+      address: '600 Marsh St, San Luis Obispo, CA 93401',
+      link: 'https://maps.app.goo.gl/bYkXYMRoBZpfJLqA6',
+      googleMapsLink: 'https://maps.app.goo.gl/bYkXYMRoBZpfJLqA6'
     },
     content: [
-      "Since everyone will <strong>need to leave the venue promptly by 10 o'clock</strong>, there will be a shuttle service available to take guests a mile down the street to downtown San Luis Obispo where the celebration will continue at Novo (and/or possibly McCarthy's)."
+      "Since everyone will <strong>need to leave The Monday Club promptly by 10 o'clock</strong>, there will be a shuttle service available to take guests a mile down the street to downtown San Luis Obispo where the celebration will continue at McCarthy's Irish Pub.",
+      "(The couple originally wanted to go to Novo because it's where JT finally asked for Karly's number, but unfortunately, they no longer offer dancing at night 😭)"
     ],
     images: [
       {
         src: novo,
         alt: "Karly and JT dancing at Novo.",
-        caption: "<p>JT and Karly at Novo (when he finally asked for her number)</p><p>Credit: Meghan</p>"
+        caption: "Credit: Meghan"
       }
     ]
   },
@@ -53,11 +54,11 @@ const copy = [
       name: "Terrace Hill",
       address: "Terrace Hill, San Luis Obispo, CA 93401",
       link: "https://maps.app.goo.gl/CHXmTsZtzanqrfoM6",
-      googleMapsLink: "https://maps.app.goo.gl/c2sbSw7W5ndc9XoV6",
+      googleMapsLink: "https://maps.app.goo.gl/8NCMxe1zYdVvd1j88",
     },
     content: [
       "Join us for a picnic brunch at Terrace Hill, where you'll have the chance to say goodbye to everyone before they head home.",
-      `<strong>*Please note:</strong> In order to get up to Terrace Hill, it's a bit of a steep walk on a dirt trail. But, it's absolutely worth the short hike. If you can stop by, be sure to wear appropriate shoes, and join us for some beers and <a href="https://www.highstdeli.com/high-st-menus/" target="_blank">High Street Sandwiches</a><br/>(Karly's favorite is the Mother Nature Veg with turkey added).`,
+      `<strong>*Please note:</strong> In order to get up to Terrace Hill, it's a bit of a steep walk on a short trail. But, it's absolutely worth <a href="https://maps.app.goo.gl/8NCMxe1zYdVvd1j88" target="_blank">the very quick hike</a>. If you can stop by, be sure to wear appropriate shoes, and join us for some beers and <a href="https://www.highstdeli.com/high-st-menus/" target="_blank">High Street Sandwiches</a><br/>(Karly's favorite is the Mother Nature Veg with turkey added).`,
     ],
     images: [
       {
@@ -87,7 +88,7 @@ const copy = [
       <p class="location-time border-b script">{date}</p>
     )}
     <p class="location-time location-time--sm border-b serif">
-      <a href={location.googleMapsLink} target="_blank">
+      <a class="no-underline" href={location.googleMapsLink} target="_blank">
         {location.address}
       </a>
     </p>
