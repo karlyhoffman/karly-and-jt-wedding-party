@@ -27,11 +27,9 @@ figcaption {
   letter-spacing: -0.01em;
   text-align: left;
   text-transform: uppercase;
-  padding: 6px 0;
-
-  a {
-    font-weight: 400;
-  }
+  margin-block-end: 0;
+  padding-block-start: 6px;
+  padding-block-end: 0;
 
   &:empty {
     display: none;
