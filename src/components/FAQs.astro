@@ -156,12 +156,15 @@ const faqs = [
         <div class="answer">
           {faq.answer.map(paragraph => {
             if (paragraph.includes('Boo Boo')) {
-              return (
-                <div class="img-wrapper-inline-photo">
-                  <p set:html={paragraph}></p>
-                  <Image src={jtBooBooRecordsYoung} alt="JT at Boo Boo's" />
-                </div>
-              );
+              console.log(jtBooBooRecordsYoung);
+              
+
+              // return (
+              //   <div class="img-wrapper-inline-photo">
+              //     <p set:html={paragraph}></p>
+              //     <Image src={jtBooBooRecordsYoung} alt="JT at Boo Boo's" />
+              //   </div>
+              // );
             }
 
             return <p set:html={paragraph}></p>;
