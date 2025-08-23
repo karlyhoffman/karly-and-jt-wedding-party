@@ -49,6 +49,7 @@
       }
 
       .answer {
+        position: relative;
         font-size: var(--text--font-sm);
 
         @media screen and (min-width: 768px) {
@@ -87,6 +88,21 @@
           @media screen and (min-width: 768px) {
             display: inline-block;
             margin-block: 0;
+          }
+        }
+
+        &-inline-photo {
+          * {
+            display: inline-block;
+            vertical-align: top;
+          }
+
+          p {
+            margin-right: 15px;
+          }
+
+          img {
+            max-width: 180px;
           }
         }
       }

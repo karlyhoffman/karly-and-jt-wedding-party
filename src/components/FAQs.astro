@@ -4,6 +4,7 @@ import avila from '../assets/avila.avif';
 import bobJones from '../assets/bob-jones.avif';
 import fremont from '../assets/fremont.avif';
 import jtBooBooRecords from '../assets/jt-boo-boos.avif';
+import jtBooBooRecordsYoung from '../assets/jt-boo-boos-young.avif';
 import jtMorro from '../assets/jt-morro.avif';
 import jtTerraceHill from '../assets/jt-terrace-hill.avif';
 import karlyBedas from '../assets/karly-bedas.avif';
@@ -98,7 +99,7 @@ const faqs = [
     {
       src: fremont,
       alt: "View from Terrace Hill of Bishop's Peak and Madonna Mountain.",
-      caption: "Terrace Hill"
+      caption: "Fremont Theatre"
     }
   ],
   },
@@ -128,9 +129,9 @@ const faqs = [
   {
     question: "What else is there to do in San Luis Obispo?",
     answer: [
-      "Stop by JT and Karly's favorite spots while you're in town:",
+      "JT AND KARLY'S FAVORITE SPOTS:",
       "Walk along the <a href='https://maps.app.goo.gl/kKesoRzWhWE6fPcg9' target='_blank'>Morro Bay</a> waterfront and grab fresh grilled fish tacos at <a href='https://maps.app.goo.gl/zj4GpvuQkShj3dfd7' target='_blank'>Taco Template</a> (Warning: The portions are massive.)",
-      "Grab a record at Boo Boo's and say hi to the great staff. [PHOTO OF JT FROM BOOK]",
+      `Grab a record at <a href="https://booboorecords.com" target="_blank">Boo Boo Records</a> and say hello to the crew working behind the counter.`,
       "Since San Luis Obispo is so close to Paso Robles, it would be slightly embarrassing if you didn't go wine tasting in wine-county of the Central Coast—tour at least two different wineries while you're there.",
       "Bluff-front trail along the Montaña de Oro State Park--the trail is easy and the views are incredible",
       "Beda's Biergarten",
@@ -153,7 +154,18 @@ const faqs = [
       </summary>
       <div class="container">
         <div class="answer">
-          {faq.answer.map(paragraph => <p set:html={paragraph}></p>)}
+          {faq.answer.map(paragraph => {
+            if (paragraph.includes('Boo Boo')) {
+              return (
+                <div class="img-wrapper-inline-photo">
+                  <p set:html={paragraph}></p>
+                  <Image src={jtBooBooRecordsYoung} alt="JT at Boo Boo's" />
+                </div>
+              );
+            }
+
+            return <p set:html={paragraph}></p>;
+          })}
         </div>
         {!!faq.images?.length && (
           <div class="img-wrapper">
