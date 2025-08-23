@@ -25,30 +25,25 @@ export async function getAllEntries() {
           const [title, property] = p;
 
           if (RSVP_PROPERTIES[title]) {
-            /* Title */
-            if (property.type === "title" && property.title[0]?.text?.content) {
+            /* Format response data */
+            if (isValidTitleValue(property)) {
+              /* Title */
               data[RSVP_PROPERTIES[title].key] = property.title[0].text.content;
-            }
-
-            /* Rich Text */
-            if (
-              property.type === "rich_text" &&
-              property.rich_text[0]?.text?.content
-            ) {
+            } else if (isValidTextValue(property)) {
+              /* Rich Text */
               data[RSVP_PROPERTIES[title].key] =
                 property.rich_text[0].text.content;
-            }
-
-            /* Select */
-            if (property.type === "select" && property.select?.name) {
+            } else if (isValidSelectValue(property)) {
+              /* Select */
               data[RSVP_PROPERTIES[title].key] = property.select.name;
-            }
-
-            /* Relation */
-            if (property.type === "relation") {
+            } else if (property.type === "relation") {
+              /* Relations */
               data[RSVP_PROPERTIES[title].key] = property.relation.map(
                 (rel) => rel.id
               );
+            } else {
+              /* Current property is empty */
+              data[RSVP_PROPERTIES[title].key] = null;
             }
           }
         });
@@ -64,6 +59,20 @@ export async function getAllEntries() {
     return [];
   }
 }
+
+const isValidTitleValue = (property) => {
+  return property.type === "title" && property[property.type][0]?.text?.content;
+};
+
+const isValidTextValue = (property) => {
+  return (
+    property.type === "rich_text" && property[property.type][0]?.text?.content
+  );
+};
+
+const isValidSelectValue = (property) => {
+  return property.type === "select" && property[property.type]?.name;
+};
 
 /**
  * Update a single entry from the Notion database.

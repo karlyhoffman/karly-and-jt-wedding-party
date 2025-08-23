@@ -1,3 +1,11 @@
+/**
+ * RSVP Properties [Notion Column Names]:
+ * key: the reference key for the property (custom)
+ * type: the data type of the property (Notion API)
+ *
+ * Since key doesn't work for all properties... (rah! we added these hardcoded values from Notion)
+ */
+
 export const RSVP_PROPERTIES = {
   "Dietary Restrictions": {
     key: "dietRestrictions",
@@ -27,9 +35,17 @@ export const RSVP_PROPERTIES = {
     key: "sandwichRequest",
     type: "select",
   },
+  "Shuttle Count": {
+    key: "shuttleCount",
+    type: "select",
+  },
   "Song Request": {
     key: "songRequest",
     type: "rich_text",
+  },
+  "Artist of Song Request": {
+    key: "artistOfSongRequest",
+    type: "select",
   },
   "Sunday Picnic RSVP": {
     key: "sundayPicnicRSVP",
