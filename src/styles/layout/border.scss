@@ -1,0 +1,109 @@
+.border {
+  /* Initial */
+  $border-hide: calc(-2.25 * var(--layout--gutter));
+
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: var(--color--primary) var(--layout--gutter-lg) solid;
+  pointer-events: none;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: calc(-1 * var(--layout--gutter));
+    left: calc(-1 * var(--layout--gutter));
+    right: calc(-1 * var(--layout--gutter));
+    bottom: calc(-1 * var(--layout--gutter));
+    border: var(--color--text) 11px double;
+    pointer-events: none;
+    z-index: -1;
+
+    @media screen and (min-width: 768px) {
+      border-width: 15px;
+    }
+  }
+
+  /* States */
+  &--show-nav {
+    // The navbar will have the background color
+    top: 80px;
+  }
+
+  &--show-footer {
+    top: $border-hide;
+    bottom: 0;
+  }
+
+  /* Border Reveal Masks */
+  .border-mask {
+    position: absolute;
+    background-color: var(--color--primary);
+
+    $offset: 3px;
+    $gutter: var(--layout--gutter-lg);
+    $width: calc($gutter + $offset);
+    $gutter-offset: calc(-1 * $gutter);
+
+    &[data-position="top"],
+    &[data-position="bottom"] {
+      left: $gutter-offset;
+      right: $gutter-offset;
+      height: $width;
+    }
+
+    &[data-position="left"],
+    &[data-position="right"] {
+      width: $width;
+      top: $gutter-offset;
+      bottom: $gutter-offset;
+    }
+
+    &[data-position="top"] {
+      top: $gutter-offset;
+      clip-path: polygon(0 0, 100% 0, calc(100% - $width) 100%, $width 100%);
+      background: none;
+
+      // For this reveal effect, you need two inner masks
+      .inner-mask {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        background-color: var(--color--primary);
+
+        &--left {
+          left: $gutter-offset;
+          right: 49%;
+        }
+
+        &--right {
+          right: $gutter-offset;
+          left: 49%;
+        }
+      }
+    }
+
+    &[data-position="left"] {
+      left: $gutter-offset;
+      clip-path: polygon(0 0, 100% $width, 100% calc(100% - $width), 0% 100%);
+    }
+
+    &[data-position="right"] {
+      right: $gutter-offset;
+      clip-path: polygon(0 $width, 100% 0, 100% 100%, 0 calc(100% - $width));
+    }
+
+    &[data-position="bottom"] {
+      bottom: $gutter-offset;
+      clip-path: polygon($width 0, calc(100% - $width) 0, 100% 100%, 0 100%);
+    }
+  }
+
+  /* Variations */
+  &-b {
+    border-bottom: var(--color--text) var(--layout--border-width-sm) solid;
+  }
+}

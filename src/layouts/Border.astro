@@ -1,0 +1,120 @@
+---
+import '../styles/layout/border.scss';
+---
+
+<border-reveal class="border" aria-hidden="true">
+  <div class="border-mask" data-position="top">
+    <div class="inner-mask inner-mask--left"></div>
+    <div class="inner-mask inner-mask--right"></div>
+  </div>
+  <div class="border-mask" data-position="left"></div>
+  <div class="border-mask" data-position="right"></div>
+  <div class="border-mask" data-position="bottom"></div>
+</border-reveal>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const ANIMATION_DEFAULTS = {
+    duration: 2,
+    ease: 'none',
+  };
+    
+  type Position = 'top' | 'left' | 'right' | 'bottom';
+
+  class Border extends HTMLElement {
+    $masks: Record<Position, HTMLElement | null> = {
+      top: null,
+      left: null,
+      right: null,
+      bottom: null
+    };
+
+    connectedCallback() {
+      this.init().createChildRefs().enable();
+    }
+
+    init () {
+      return this;
+    }
+
+    createChildRefs () {
+      [...this.children].forEach(mask => {
+        const { position = '' } = (mask as HTMLElement).dataset;
+        if (['top', 'left', 'right', 'bottom'].includes(position)) {
+          this.$masks[position as Position] = mask as HTMLElement;
+        }
+      });
+
+      return this;
+    }
+
+    enable () {
+      // TODO: set prefers-reduced-motion option
+      this.revealBorder();
+
+      return this;
+    }
+    
+
+    revealBorder = () => {
+      const isMobile = window.innerWidth < 768;
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: 'body',
+          start: 'top top',
+          endTrigger: '#hero',
+          end: isMobile
+            ? 'bottom top'
+            : 'bottom center',
+          scrub: 0.5,
+        }
+      });
+
+      const offset = 27;
+      const tweenStartOffset = (window.innerWidth - offset) / window.innerWidth * 100;
+      
+      if (this.$masks.top && this.$masks.left && this.$masks.right && this.$masks.bottom) {
+        /* Top */
+        const [left, right] = [...this.$masks.top.children];
+
+        const revealTopLeft = gsap.to(left, {
+          right: '100%',
+          ...ANIMATION_DEFAULTS,
+          duration: ANIMATION_DEFAULTS.duration * 0.25
+        });
+
+        const revealTopRight = gsap.to(right, {
+          left: '100%',
+          ...ANIMATION_DEFAULTS,
+          duration: ANIMATION_DEFAULTS.duration * 0.25
+        });
+
+        tl.add([revealTopLeft, revealTopRight]);
+
+        /* Sides */
+        const revealSides = gsap.to([this.$masks.left, this.$masks.right], {
+          top: `calc(100% + ${offset}px)`,
+          ...ANIMATION_DEFAULTS
+        });
+
+        tl.add(revealSides, `<${tweenStartOffset}%`);
+
+        /* Bottom */
+        const revealBottom = gsap.to(this.$masks.bottom, {
+          left: '51%',
+          right: '51%',
+          ...ANIMATION_DEFAULTS
+        });
+
+        tl.add(revealBottom, `<${tweenStartOffset}%`);
+      }
+    }
+  }
+
+  customElements.define('border-reveal', Border);
+</script>
