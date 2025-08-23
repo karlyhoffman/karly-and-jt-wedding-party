@@ -6,15 +6,19 @@
 
 html {
   font-size: 24px;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: clip;
 }
 
 body {
   position: relative;
   background-color: var(--color--primary);
   color: var(--color--text);
-  padding: var(--layout--gutter);
   text-align: center;
   -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: var(--layout--gutter);
 }
 
 figure {
@@ -28,7 +32,7 @@ figcaption {
   text-align: left;
   text-transform: uppercase;
   margin-block-end: 0;
-  padding-block-start: 6px;
+  padding-block-start: 3px;
   padding-block-end: 0;
 
   &:empty {

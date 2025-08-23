@@ -49,13 +49,13 @@
   }
 
   &-b {
-    border-bottom: var(--color--text) 3px solid;
+    border-bottom: var(--color--text) var(--layout--border-width-sm) solid;
   }
 }
 
 .headline {
-  border-top: var(--color--text) 8px double;
-  border-bottom: var(--color--text) 8px double;
+  border-top: var(--color--text) var(--layout--border-width) double;
+  border-bottom: var(--color--text) var(--layout--border-width) double;
   font-size: var(--text--font-xl);
   text-transform: uppercase;
   margin: 0 auto;
