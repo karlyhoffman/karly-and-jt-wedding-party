@@ -1,4 +1,4 @@
-#hero {
+.hero {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,7 +9,6 @@
     min-height: calc(100vh - var(--layout--gutter));
     margin-block-end: 25vh;
     padding-block: 0;
-    padding-block-start: 15vh;
   }
 
   h2 {

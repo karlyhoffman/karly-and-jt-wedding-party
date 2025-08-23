@@ -1,6 +1,5 @@
 ---
-import Analytics from '@vercel/analytics/astro';
-import Border from './Border.astro';
+import Analytics from '@vercel/analytics/astro'
 import Footer from './Footer.astro';
 import '../styles/global.scss';
 
@@ -32,7 +31,7 @@ const isProduction = import.meta.env.PROD;
 			<slot />
 		</main>
 		<Footer />
-		<Border />
+		<div class="border" aria-hidden="true"></div>
 		{isProduction && <Analytics />}
 	</body>
 </html>
