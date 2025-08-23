@@ -1,7 +1,19 @@
 ---
 import '../styles/layout/footer.scss';
+
+// TODO: blog write up
+const aboutDevRoute = "/about-the-dev";
+const isEnabled = false;
 ---
 
 <footer class="gutter">
-  <p>Karly coded this website using <a href="https://astro.build/" target="_blank">Astro</a> and <a href="https://developers.notion.com/" target="_blank">Notion</a>. Please <a href="mailto:karlyhoffman+wedding@gmail.com" target="_blank">let her know</a> if you experience any issues.</p>
+  <p>
+    Karly {isEnabled ? (
+      <a href={aboutDevRoute} target="_blank">
+        coded this site
+      </a>
+    ) : (
+      "coded this site"
+    )}
+    this website using <a href="https://astro.build/" target="_blank">Astro</a> and <a href="https://developers.notion.com/" target="_blank">Notion</a>. Please <a href="mailto:karlyhoffman+wedding@gmail.com" target="_blank">let her know</a> if you experience any issues.</p>
 </footer>
