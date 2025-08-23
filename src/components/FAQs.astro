@@ -129,14 +129,14 @@ const faqs = [
   {
     question: "What else is there to do in San Luis Obispo?",
     answer: [
-      "JT AND KARLY'S FAVORITE SPOTS:",
-      "Walk along the <a href='https://maps.app.goo.gl/kKesoRzWhWE6fPcg9' target='_blank'>Morro Bay</a> waterfront and grab fresh grilled fish tacos at <a href='https://maps.app.goo.gl/zj4GpvuQkShj3dfd7' target='_blank'>Taco Template</a> (Warning: The portions are massive.)",
+      "JT AND KARLY'S RECOMMENDATIONS",
+      "Walk along the <a href='https://maps.app.goo.gl/kKesoRzWhWE6fPcg9' target='_blank'>Morro Bay</a> waterfront and grab fresh grilled fish tacos at <a href='https://maps.app.goo.gl/zj4GpvuQkShj3dfd7' target='_blank'>Taco Temple</a> (<em>warning: the portions are MASSIVE.</em>)",
       `Grab a record at <a href="https://booboorecords.com" target="_blank">Boo Boo Records</a> and say hello to the crew working behind the counter.`,
       "Since San Luis Obispo is so close to Paso Robles, it would be slightly embarrassing if you didn't go wine tasting in wine-county of the Central Coast—tour at least two different wineries while you're there.",
       "Bluff-front trail along the Montaña de Oro State Park--the trail is easy and the views are incredible",
       "Beda's Biergarten",
       "Avila Beach",
-      "A drive up HWY 101 for the coastal views—you only need to go as far as San Simeon to see (and if you're there, you might as while stop by Hearst Castle and see if you can spot any zebras.)",
+      "A drive up HWY 101 for the coastal views—you only need to go as far as San Simeon (might as well stop by Hearst Castle there and see if you can spot any zebras.)",
     ]
   },
 ];
@@ -159,7 +159,12 @@ const faqs = [
               return (
                 <div class="img-wrapper-inline-photo">
                   <p set:html={paragraph}></p>
-                  <Image src={jtBooBooRecordsYoung} alt="JT at Boo Boo's" />
+                  <figure>
+                    <Image src={jtBooBooRecordsYoung} alt="JT at Boo Boo's" />
+                    <figcaption>
+                      JT in <a href="http://recordstoresbook.com/the-book/" target="_blank"><em>Record Stores</em></a> by Bernd Jonkmanns
+                    </figcaption>
+                  </figure>
                 </div>
               );
             }
