@@ -21,25 +21,6 @@ body {
   padding: var(--layout--gutter);
 }
 
-figure {
-  margin-inline: auto;
-}
-
-figcaption {
-  font-family: "Old Standard TT Regular", serif;
-  font-size: 0.55rem;
-  letter-spacing: -0.01em;
-  text-align: left;
-  text-transform: uppercase;
-  margin-block-end: 0;
-  padding-block-start: 5px;
-  padding-block-end: 0;
-
-  &:empty {
-    display: none;
-  }
-}
-
 img,
 svg {
   display: block;
@@ -66,44 +47,74 @@ p a {
 }
 
 a {
-  display: inline-block;
-  position: relative;
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-
-  &:hover {
+  &:not(:has(img)) {
+    display: inline-block;
+    position: relative;
+    color: inherit;
     text-decoration: none;
-  }
 
-  &.no-underline {
-    text-decoration: none;
-    transition: opacity 400ms var(--animate--ease);
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: 80%;
+      left: 0;
+      right: 0;
+      height: var(--layout--border-width-xs);
+      background-color: var(--color--text);
+      transition: top 200ms var(--animate--ease);
+    }
 
-    &:hover {
-      opacity: 0.5;
+    &:hover::after {
+      top: calc(80% + 4px);
+    }
+
+    &.no-underline {
+      transition: opacity 400ms var(--animate--ease);
+
+      &::before,
+      &::after {
+        display: none;
+      }
+
+      &:hover {
+        opacity: 0.5;
+      }
     }
   }
+
+  // &:has(img) {
+  //   position: relative;
+  //   overflow: clip;
+
+  //   img {
+  //     transition: transform 600ms var(--animate--ease);
+  //     transform-origin: center;
+  //   }
+
+  //   &:hover img {
+  //     transform: scale(1.01);
+  //   }
+  // }
 }
 
 .btn {
   position: relative;
   background-color: var(--color--primary);
-  border: var(--layout--border-width-sm) solid var(--color--text);
+  border: var(--layout--border-width-xs) solid var(--color--text);
   border-radius: none;
   font-family: "Old Standard TT Regular", serif;
   font-size: 1.25rem;
   line-height: 1;
   text-transform: uppercase;
-  padding: 10px 23px 7px;
+  padding: 10px 23px 6px;
   cursor: pointer;
 
   &:hover::after {
-    top: -8.5px;
-    left: -8.5px;
-    right: -8.5px;
-    bottom: -8.5px;
+    top: -5.5px;
+    left: -5.5px;
+    right: -5.5px;
+    bottom: -5.5px;
   }
 
   &::after {
@@ -113,7 +124,37 @@ a {
     left: -3px;
     right: -3px;
     bottom: -3px;
-    border: var(--layout--border-width-sm) solid var(--color--text);
+    border: var(--layout--border-width-xs) solid var(--color--text);
     transition: all 300ms var(--animate--ease);
+  }
+}
+
+figure {
+  margin-inline: auto;
+}
+
+figcaption {
+  font-family: "Old Standard TT Regular", serif;
+  font-size: 0.55rem;
+  letter-spacing: -0.01em;
+  text-align: left;
+  text-transform: uppercase;
+  margin-block-end: 0;
+  padding-block-start: 5px;
+  padding-block-end: 0;
+
+  &:empty {
+    display: none;
+  }
+
+  a {
+    &::before,
+    &::after {
+      height: 1px;
+    }
+
+    &:hover::after {
+      top: calc(80% + 2px);
+    }
   }
 }

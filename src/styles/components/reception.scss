@@ -10,17 +10,12 @@
       padding-top: 10px;
       padding-bottom: 7px;
 
-      a {
-        text-decoration: none;
-        transition-duration: 200ms;
-
-        span {
-          @media screen and (max-width: 767px) {
-            display: block;
-            opacity: 0;
-            height: 0;
-            overflow: hidden;
-          }
+      a span {
+        @media screen and (max-width: 767px) {
+          display: block;
+          opacity: 0;
+          height: 0;
+          overflow: hidden;
         }
       }
     }
