@@ -9,14 +9,14 @@ https://docs.astro.build/en/recipes/build-forms/
   <div class="text-container font-base">
     <p>Please RSVP by November 1st, 2025</p>
     <form-rsvp data-guests={[]}>
-      <button data-start-btn type="button">RSVP</button>
+      <button data-start-btn type="button" class="btn">RSVP</button>
       <div data-status-message class="hidden">Loading...</div>
 
       <form method="POST" class="hidden">
         <input type="text" name="firstName" placeholder="First Name" required />
         <input type="text" name="lastName" placeholder="Last Name" required />
-        <button data-continue-btn type="button">Continue</button>
-        <button disabled type="submit">Submit</button>
+        <button data-continue-btn type="button" class="btn">Continue</button>
+        <button disabled type="submit" class="btn">Submit</button>
       </form>
     </form-rsvp>
   </div>

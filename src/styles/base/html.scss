@@ -86,3 +86,34 @@ a {
     }
   }
 }
+
+.btn {
+  position: relative;
+  background-color: var(--color--primary);
+  border: var(--layout--border-width-sm) solid var(--color--text);
+  border-radius: none;
+  font-family: "Old Standard TT Regular", serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  text-transform: uppercase;
+  padding: 10px 23px 7px;
+  cursor: pointer;
+
+  &:hover::after {
+    top: -8.5px;
+    left: -8.5px;
+    right: -8.5px;
+    bottom: -8.5px;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border: var(--layout--border-width-sm) solid var(--color--text);
+    transition: all 300ms var(--animate--ease);
+  }
+}
