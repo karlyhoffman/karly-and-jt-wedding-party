@@ -101,6 +101,7 @@ a {
 .btn {
   position: relative;
   background-color: var(--color--primary);
+  color: var(--color--text);
   border: var(--layout--border-width-xs) solid var(--color--text);
   border-radius: none;
   font-family: "Old Standard TT Regular", serif;
