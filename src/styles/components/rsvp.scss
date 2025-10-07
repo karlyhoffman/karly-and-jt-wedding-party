@@ -1,3 +1,51 @@
 .rsvp {
   padding: var(--layout--gutter-xl) 0;
+
+  form:not(.hidden) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 15px;
+    row-gap: 23px;
+
+    fieldset {
+      flex: 1 1 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      border: none;
+      padding: 0px;
+
+      @media screen and (min-width: 768px) {
+        flex-wrap: nowrap;
+      }
+
+      input {
+        flex: 1 1 100%;
+
+        @media screen and (min-width: 768px) {
+          flex: 1 1 50%;
+        }
+      }
+    }
+  }
+
+  [data-status-message] {
+    position: relative;
+    border: var(--layout--border-width-xs) solid var(--color--text);
+    margin-top: var(--layout--gutter-xl);
+    margin-inline: 5px;
+    padding: 20px 20px 16px;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: -5.5px;
+      left: -5.5px;
+      right: -5.5px;
+      bottom: -5.5px;
+      border: var(--layout--border-width-xs) solid var(--color--text);
+      transition: all 300ms var(--animate--ease);
+    }
+  }
 }

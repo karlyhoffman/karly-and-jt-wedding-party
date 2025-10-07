@@ -7,17 +7,20 @@ https://docs.astro.build/en/recipes/build-forms/
 <section id="rsvp" class="rsvp gutter">
   <h2 class="headline">RSVP</h2>
   <div class="text-container font-base">
-    <p>Please RSVP by November 15th, 2025</p>
+    <p>Please RSVP by November 15th</p>
     <form-rsvp data-guests={[]}>
       <button data-start-btn type="button" class="btn">Let us know!</button>
-      <div data-status-message class="hidden">Loading...</div>
 
       <form method="POST" class="hidden">
-        <input type="text" name="firstName" placeholder="First Name" required />
-        <input type="text" name="lastName" placeholder="Last Name" required />
+        <fieldset>
+          <input type="text" name="firstName" placeholder="First Name" required />
+          <input type="text" name="lastName" placeholder="Last Name" required />
+        </fieldset>
         <button data-continue-btn type="button" class="btn">Continue</button>
-        <button disabled type="submit" class="btn">Submit</button>
+        <button data-submit-btn disabled type="submit" class="btn hidden">Submit</button>
       </form>
+
+      <div data-status-message class="hidden">Loading...</div>
     </form-rsvp>
   </div>
 </section>
@@ -111,7 +114,7 @@ https://docs.astro.build/en/recipes/build-forms/
           this.state.guestEntry = guest;
         } else {
           if (this.$messageStatus) {
-            this.$messageStatus.textContent = `No guests found with that name. Please contact Karly or JT if this is a mistake.`;
+            this.$messageStatus.textContent = `Sorry, that name doesn't appear to be on the guest list. Please contact Karly or JT if this is a mistake.`;
             this.$messageStatus.classList.remove('hidden');
           }
         }
