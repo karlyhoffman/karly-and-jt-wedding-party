@@ -98,6 +98,16 @@ a {
   // }
 }
 
+fieldset {
+  width: 100%;
+  text-align: left;
+  border-color: var(--color--text);
+
+  p {
+    font-size: 1.2rem;
+  }
+}
+
 input,
 select,
 textarea {

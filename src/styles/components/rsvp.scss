@@ -8,23 +8,27 @@
     column-gap: 15px;
     row-gap: 23px;
 
-    fieldset {
-      flex: 1 1 100%;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      border: none;
-      padding: 0px;
-
-      @media screen and (min-width: 768px) {
-        flex-wrap: nowrap;
-      }
-
-      input {
+    [data-fieldset-step-1],
+    [data-fieldset-step-2],
+    [data-fieldset-step-3] {
+      &:not(.hidden) {
         flex: 1 1 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        border: none;
+        padding: 0px;
 
         @media screen and (min-width: 768px) {
-          flex: 1 1 50%;
+          flex-wrap: nowrap;
+        }
+
+        input {
+          flex: 1 1 100%;
+
+          @media screen and (min-width: 768px) {
+            flex: 1 1 50%;
+          }
         }
       }
     }

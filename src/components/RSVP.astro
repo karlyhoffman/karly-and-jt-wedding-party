@@ -12,10 +12,39 @@ https://docs.astro.build/en/recipes/build-forms/
       <button data-start-btn type="button" class="btn">Let us know!</button>
 
       <form method="POST" class="hidden">
-        <fieldset>
+        <div data-fieldset-step-1>
           <input type="text" name="firstName" placeholder="First Name" required />
           <input type="text" name="lastName" placeholder="Last Name" required />
-        </fieldset>
+        </div>
+
+        <div data-fieldset-step-2 class="hidden">
+          <fieldset>
+            <legend>Can you join us?</legend>
+            <p>
+              <input type="radio" name="rsvp" id="rsvp_yes" value="Yes" />
+              <label for="rsvp_yes">Yes, I'll be there!</label>
+            </p>
+            <p>
+              <input type="radio" name="rsvp" id="rsvp_no" value="No" />
+              <label for="rsvp_no">Sadly, I can't make it.</label>
+            </p>
+          </fieldset>          
+        </div>
+
+        <div data-fieldset-step-3 class="hidden">
+          <fieldset>
+            <legend>Please select your meal preference:</legend>
+            <p>
+              <input type="radio" name="meal" id="meal_vegetarian" value="Vegetarian" />
+              <label for="meal_vegetarian">Vegetarian</label>
+            </p>
+            <p>
+              <input type="radio" name="meal" id="meal_meat" value="Meat" />
+              <label for="meal_meat">Meat</label>
+            </p>
+          </fieldset> 
+        </div>
+
         <button data-continue-btn type="button" class="btn">Continue</button>
         <button data-submit-btn disabled type="submit" class="btn hidden">Submit</button>
       </form>
@@ -37,13 +66,20 @@ https://docs.astro.build/en/recipes/build-forms/
       guestEntry: {},
       firstNameInput: '',
       lastNameInput: '',
+      step: 1,
     };
 
     $form: HTMLFormElement | null = null;
+    $fieldsetStep1: HTMLFieldSetElement | null = null;
+    $fieldsetStep2: HTMLFieldSetElement | null = null;
+    $fieldsetStep3: HTMLFieldSetElement | null = null;
     $buttonStart: HTMLButtonElement | null = null;
     $buttonContinue: HTMLButtonElement | null = null;
+    $buttonSubmit: HTMLButtonElement | null = null;
     $inputFirstName: HTMLInputElement | null = null;
     $inputLastName: HTMLInputElement | null = null;
+    $inputRsvpYes: HTMLInputElement | null = null;
+    $inputRsvpNo: HTMLInputElement | null = null;
     $messageStatus: HTMLDivElement | null = null;
 
     connectedCallback() {
@@ -56,10 +92,16 @@ https://docs.astro.build/en/recipes/build-forms/
 
     layout() {
       this.$form = this.querySelector('form');
+      this.$fieldsetStep1 = this.querySelector('[data-fieldset-step-1]');
+      this.$fieldsetStep2 = this.querySelector('[data-fieldset-step-2]');
+      this.$fieldsetStep3 = this.querySelector('[data-fieldset-step-3]');
       this.$buttonStart = this.querySelector('[data-start-btn]');
       this.$buttonContinue = this.querySelector('[data-continue-btn]');
+      this.$buttonSubmit = this.querySelector('[data-submit-btn]');
       this.$inputFirstName = this.querySelector('input[name="firstName"]');
       this.$inputLastName = this.querySelector('input[name="lastName"]');
+      this.$inputRsvpYes = this.querySelector('input#rsvp_yes');
+      this.$inputRsvpNo = this.querySelector('input#rsvp_no');
       this.$messageStatus = this.querySelector('[data-status-message]');
 
       return this;
@@ -69,6 +111,8 @@ https://docs.astro.build/en/recipes/build-forms/
       this.$form?.addEventListener('submit', this.handleSubmit);
       this.$buttonStart?.addEventListener('click', this.handleStart);
       this.$buttonContinue?.addEventListener('click', this.handleContinue);
+      this.$inputRsvpYes?.addEventListener('change', this.handleRsvpChange);
+      this.$inputRsvpNo?.addEventListener('change', this.handleRsvpChange);
 
       return this;
     }
@@ -104,6 +148,9 @@ https://docs.astro.build/en/recipes/build-forms/
         return;
       }
 
+      /**
+       * Validate guest name against fetched guest list.
+       */
       if (this.state.firstNameInput !== firstName || this.state.lastNameInput !== lastName) {
         const [guest] = this.guests.filter(guest => (
           this.sanitizeName(guest.firstName) === this.sanitizeName(firstName) &&
@@ -117,10 +164,59 @@ https://docs.astro.build/en/recipes/build-forms/
             this.$messageStatus.textContent = `Sorry, that name doesn't appear to be on the guest list. Please contact Karly or JT if this is a mistake.`;
             this.$messageStatus.classList.remove('hidden');
           }
+
+          return;
         }
       }
 
-      console.log('Current Guest:', this.state.guestEntry);
+      this.$messageStatus?.classList.add('hidden');
+      
+      /**
+       * Determine which step of the form to show next.
+       */
+      if (this.state.guestEntry) {
+        console.log(this.state.guestEntry);
+        
+        /**
+         * Show RSVP "Yes" or "No" fieldset
+         */
+        if (this.state.step === 1) {
+          this.$fieldsetStep1?.classList.add('hidden');
+          this.$fieldsetStep2?.classList.remove('hidden');
+          this.$buttonContinue?.setAttribute('disabled', 'true');
+        }
+
+        /**
+         * Show remaining form inputs and submit button if RSVP is "Yes"
+         */
+        if (this.state.step === 2) {
+          // TODO: populate form with guest info from this.state.guestEntry
+
+          this.$buttonContinue?.remove();
+          this.$fieldsetStep1?.classList.add('hidden');
+          this.$fieldsetStep2?.classList.add('hidden');
+          this.$fieldsetStep3?.classList.remove('hidden');
+          this.$buttonSubmit?.classList.remove('hidden');
+        }
+      }
+    };
+
+    handleRsvpChange = (e: Event) => {
+      e.preventDefault();
+
+      this.state.step = 2;
+
+      if (this.$inputRsvpYes?.checked) {
+        this.$buttonContinue?.classList.remove('hidden');
+        this.$buttonContinue?.removeAttribute('disabled');
+        this.$buttonSubmit?.classList.add('hidden');
+      }
+      
+      if (this.$inputRsvpNo?.checked){
+        this.$buttonContinue?.classList.add('hidden');
+        this.$buttonSubmit?.classList.remove('hidden');
+        this.$buttonSubmit?.removeAttribute('disabled');
+      }
     };
 
     /**
@@ -139,8 +235,6 @@ https://docs.astro.build/en/recipes/build-forms/
 
       try {
         this.guests = await this.fetchGuests() || [];
-
-        console.log(this.guests);
 
         if (this.guests.length) {
           this.$form?.classList.remove('hidden');
@@ -175,6 +269,13 @@ https://docs.astro.build/en/recipes/build-forms/
       // } catch (error) {
       //   console.error(error);
       // }
+
+      this.$form.remove();
+      
+      if (this.$messageStatus) {
+        this.$messageStatus.classList.remove('hidden');
+        this.$messageStatus.textContent = 'Thank you for your RSVP!';
+      }
     };
 
     sanitizeName(name: string) {
