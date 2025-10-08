@@ -31,6 +31,7 @@ export const POST: APIRoute = async ({ request }) => {
         <p><strong>Song Request:</strong> ${formData.song || ''}</p>
         <p><strong>Shuttle to McCarthy's:</strong> ${formData.shuttle || ''}</p>
         <p><strong>Sunday Picnic:</strong> ${formData.picnic || ''}</p>
+        <p><strong>Comments:</strong> ${formData.comments || ''}</p>
       `;
     }
 
