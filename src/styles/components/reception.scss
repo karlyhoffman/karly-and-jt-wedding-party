@@ -22,7 +22,7 @@
 
     &:not(.location-time--sm) {
       &.script {
-        font-size: var(--text--font-md);
+        font-size: var(--text--font-lg);
         padding: 10px 0px 12px;
 
         @media screen and (min-width: 768px) {
