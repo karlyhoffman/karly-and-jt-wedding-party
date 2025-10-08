@@ -217,23 +217,23 @@ https://docs.astro.build/en/recipes/build-forms/
       /**
        * Validate guest name against fetched guest list.
        */
-      if (this.state.firstNameInput !== firstName || this.state.lastNameInput !== lastName) {
-        const [guest] = this.guests.filter(guest => (
-          this.sanitizeName(guest.firstName) === this.sanitizeName(firstName) &&
-          this.sanitizeName(guest.lastName) === this.sanitizeName(lastName)
-        )) || [];
+      // if (this.state.firstNameInput !== firstName || this.state.lastNameInput !== lastName) {
+      //   const [guest] = this.guests.filter(guest => (
+      //     this.sanitizeName(guest.firstName) === this.sanitizeName(firstName) &&
+      //     this.sanitizeName(guest.lastName) === this.sanitizeName(lastName)
+      //   )) || [];
 
-        if (guest) {
-          this.state.guestEntry = guest;
-        } else {
-          if (this.$messageStatus) {
-            this.$messageStatus.textContent = `Sorry, that name doesn't appear to be on the guest list. Please contact Karly or JT if this is a mistake.`;
-            this.$messageStatus.classList.remove('hidden');
-          }
+      //   if (guest) {
+      //     this.state.guestEntry = guest;
+      //   } else {
+      //     if (this.$messageStatus) {
+      //       this.$messageStatus.textContent = `Sorry, that name doesn't appear to be on the guest list. Please contact Karly or JT if this is a mistake.`;
+      //       this.$messageStatus.classList.remove('hidden');
+      //     }
 
-          return;
-        }
-      }
+      //     return;
+      //   }
+      // }
 
       this.$messageStatus?.classList.add('hidden');
       
