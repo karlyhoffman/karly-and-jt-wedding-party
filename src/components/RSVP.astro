@@ -7,7 +7,7 @@ https://docs.astro.build/en/recipes/build-forms/
 <section id="rsvp" class="rsvp gutter">
   <h2 class="headline">RSVP</h2>
   <div class="text-container font-base">
-    <p>Please RSVP by November 15th</p>
+    <p>Please RSVP by November 15th:</p>
     <form-rsvp data-guests={[]}>
       <button data-start-btn type="button" class="btn">Let us know!</button>
 
@@ -69,12 +69,12 @@ https://docs.astro.build/en/recipes/build-forms/
             <p>
               <label for="song_title">Song Title</label>
               <br />
-              <input type="text" name="song" id="song_title" value="" />
+              <input type="text" name="song_title" id="song_title" value="" />
             </p>
             <p>
               <label for="song_artist">Artist</label>
               <br />
-              <input type="text" name="song" id="song_artist" value="" />
+              <input type="text" name="song_artist" id="song_artist" value="" />
             </p>
           </fieldset>
 
@@ -217,23 +217,23 @@ https://docs.astro.build/en/recipes/build-forms/
       /**
        * Validate guest name against fetched guest list.
        */
-      if (this.state.firstNameInput !== firstName || this.state.lastNameInput !== lastName) {
-        const [guest] = this.guests.filter(guest => (
-          this.sanitizeName(guest.firstName) === this.sanitizeName(firstName) &&
-          this.sanitizeName(guest.lastName) === this.sanitizeName(lastName)
-        )) || [];
+      // if (this.state.firstNameInput !== firstName || this.state.lastNameInput !== lastName) {
+      //   const [guest] = this.guests.filter(guest => (
+      //     this.sanitizeName(guest.firstName) === this.sanitizeName(firstName) &&
+      //     this.sanitizeName(guest.lastName) === this.sanitizeName(lastName)
+      //   )) || [];
 
-        if (guest) {
-          this.state.guestEntry = guest;
-        } else {
-          if (this.$messageStatus) {
-            this.$messageStatus.textContent = `Sorry, that name doesn't appear to be on the guest list. Please contact Karly or JT if this is a mistake.`;
-            this.$messageStatus.classList.remove('hidden');
-          }
+      //   if (guest) {
+      //     this.state.guestEntry = guest;
+      //   } else {
+      //     if (this.$messageStatus) {
+      //       this.$messageStatus.textContent = `Sorry, that name doesn't appear to be on the guest list. Please contact Karly or JT if this is a mistake.`;
+      //       this.$messageStatus.classList.remove('hidden');
+      //     }
 
-          return;
-        }
-      }
+      //     return;
+      //   }
+      // }
 
       this.$messageStatus?.classList.add('hidden');
       
@@ -241,8 +241,6 @@ https://docs.astro.build/en/recipes/build-forms/
        * Determine which step of the form to show next.
        */
       if (this.state.guestEntry) {
-        console.log(this.state.guestEntry);
-        
         /**
          * Show RSVP "Yes" or "No" fieldset
          */
@@ -316,32 +314,73 @@ https://docs.astro.build/en/recipes/build-forms/
       }
     };
 
+    /**
+     * Collect all form data into an object
+     */
+    collectFormData() {
+      if (!this.$form) return {};
+
+      const formData = new FormData(this.$form);
+      const data: Record<string, string> = {};
+
+      // Collect basic form fields
+      for (const [key, value] of formData.entries()) {
+        data[key] = value as string;
+      }
+
+      // Handle song fields (combine title and artist)
+      const songTitle = data.song_title || '';
+      const songArtist = data.song_artist || '';
+      
+      if (songTitle || songArtist) {
+        data.song = `${songTitle}${songArtist ? ` by ${songArtist}` : ''}`.trim();
+      }
+
+      return data;
+    }
+
+    /**
+     * Handle form submission
+     */
     handleSubmit = async (e: Event) => {
       e.preventDefault();
-      console.log({ e });
-
-      // try {
-      //   const response = await fetch(`/api/guests/${this.id}.json`, {
-      //     method: 'POST',
-      //     headers: { 'Content-Type': 'application/json' },
-      //     body: JSON.stringify({ lastName: this.lastName }),
-      //   });
-
-      //   if (!response.ok) {
-      //     throw new Error(response.statusText);
-      //   }
-
-      //   const data = await response.json();
-      //   console.log(data);
-      // } catch (error) {
-      //   console.error(error);
-      // }
-
-      this.$form.remove();
 
       if (this.$messageStatus) {
+        this.$messageStatus.textContent = 'Submitting your RSVP...';
         this.$messageStatus.classList.remove('hidden');
-        this.$messageStatus.textContent = 'Thank you for your RSVP!';
+      }
+
+      try {
+        const formData = this.collectFormData();
+        
+        const response = await fetch('/api/rsvp/index.json', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || response.statusText);
+        }
+
+        const data = await response.json();
+        console.log('RSVP submitted successfully:', data);
+
+        this.$form?.remove();
+
+        if (this.$messageStatus) {
+          this.$messageStatus.classList.remove('hidden');
+          this.$messageStatus.textContent = 'Thank you for your RSVP!';
+        }
+
+      } catch (error) {
+        console.error('Error submitting RSVP:', error);
+        
+        if (this.$messageStatus) {
+          this.$messageStatus.classList.remove('hidden');
+          this.$messageStatus.textContent = 'Sorry, there was an error submitting your RSVP. Please try again.';
+        }
       }
 
       const $section = document.getElementById('rsvp');
