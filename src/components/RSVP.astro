@@ -28,7 +28,9 @@ https://docs.astro.build/en/recipes/build-forms/
               <input type="radio" name="rsvp" id="rsvp_no" value="No" />
               <label for="rsvp_no">Sadly, I can't make it.</label>
             </p>
-          </fieldset>          
+          </fieldset>
+
+          <p data-plus-one-message class="hidden">We have you down for one guest. Reach out if we missed your plus one!</p>
         </div>
 
         <div data-fieldset-step-3 class="hidden">
@@ -134,6 +136,7 @@ https://docs.astro.build/en/recipes/build-forms/
       id: string;
       firstName: string;
       lastName: string;
+      related?: any[];
     }[] = [];
 
     state = {
@@ -154,6 +157,7 @@ https://docs.astro.build/en/recipes/build-forms/
     $inputLastName: HTMLInputElement | null = null;
     $inputRsvpYes: HTMLInputElement | null = null;
     $inputRsvpNo: HTMLInputElement | null = null;
+    $messagePlusOne: HTMLParagraphElement | null = null;
     $messageStatus: HTMLDivElement | null = null;
 
     connectedCallback() {
@@ -176,6 +180,7 @@ https://docs.astro.build/en/recipes/build-forms/
       this.$inputLastName = this.querySelector('input[name="lastName"]');
       this.$inputRsvpYes = this.querySelector('input#rsvp_yes');
       this.$inputRsvpNo = this.querySelector('input#rsvp_no');
+      this.$messagePlusOne = this.querySelector('[data-plus-one-message]');
       this.$messageStatus = this.querySelector('[data-status-message]');
 
       return this;
@@ -223,25 +228,25 @@ https://docs.astro.build/en/recipes/build-forms/
       }
 
       /**
-       * Validate guest name against fetched guest list.
+       * Validate guest name against fetched guest list for plus one eligibility
        */
-      // if (this.state.firstNameInput !== firstName || this.state.lastNameInput !== lastName) {
-      //   const [guest] = this.guests.filter(guest => (
-      //     this.sanitizeName(guest.firstName) === this.sanitizeName(firstName) &&
-      //     this.sanitizeName(guest.lastName) === this.sanitizeName(lastName)
-      //   )) || [];
+      if (this.state.firstNameInput !== firstName || this.state.lastNameInput !== lastName) {
+        const [guest] = this.guests.filter(guest => (
+          this.sanitizeName(guest.firstName) === this.sanitizeName(firstName) &&
+          this.sanitizeName(guest.lastName) === this.sanitizeName(lastName)
+        )) || [];
 
-      //   if (guest) {
-      //     this.state.guestEntry = guest;
-      //   } else {
-      //     if (this.$messageStatus) {
-      //       this.$messageStatus.textContent = `Sorry, that name doesn't appear to be on the guest list. Please contact Karly or JT if this is a mistake.`;
-      //       this.$messageStatus.classList.remove('hidden');
-      //     }
+        if (guest) {
+          this.state.guestEntry = guest;
+          this.$messagePlusOne?.classList.remove('hidden');
 
-      //     return;
-      //   }
-      // }
+          if (!!guest.related?.length) {
+            const guestCopy = guest.related.length > 1 ? 'guests' : 'guest';
+
+            this.$messagePlusOne.innerHTML = `We have you down for ${guest.related.length} additional ${guestCopy}.<br/><br/>Please make sure each guest completes their own RSVP form so we can account for everyone!`;
+          }
+        }
+      }
 
       this.$messageStatus?.classList.add('hidden');
       

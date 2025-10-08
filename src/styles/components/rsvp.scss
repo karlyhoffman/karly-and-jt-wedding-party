@@ -33,6 +33,7 @@
       }
     }
 
+    [data-fieldset-step-2],
     [data-fieldset-step-3] {
       flex-direction: column;
 
@@ -40,6 +41,12 @@
         margin-block: 0.5rem;
       }
     }
+  }
+
+  [data-plus-one-message] {
+    font-size: var(--text--font-md);
+    max-width: 660px;
+    margin-inline: auto;
   }
 
   [data-status-message] {
