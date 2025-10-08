@@ -109,8 +109,7 @@ fieldset {
 }
 
 input,
-select,
-textarea {
+select {
   background-color: var(--color--primary);
   color: var(--color--text);
   border: var(--layout--border-width-xs) solid var(--color--text);
@@ -129,6 +128,26 @@ textarea {
     outline-offset: 1.5px;
     outline: var(--layout--border-width-xs) solid var(--color--text);
   }
+
+  &[type="radio"] {
+    accent-color: var(--color--text); 
+    outline: transparent;
+  }
+}
+
+textarea,
+fieldset input[type="text"] {
+  display: block;
+  width: 100%;
+  background-color: var(--color--primary);
+  color: var(--color--text);
+  border: 1px solid var(--color--text);
+  border-radius: 0px;
+  outline: none;
+  font-family: inherit;
+  font-size: var(--text--font-sm);
+  margin-top: 15px;
+  padding: 12px 15px 9px;
 }
 
 .btn {
@@ -154,10 +173,10 @@ textarea {
   &::after {
     content: "";
     position: absolute;
-    top: -3px;
-    left: -3px;
-    right: -3px;
-    bottom: -3px;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
     border: var(--layout--border-width-xs) solid var(--color--text);
     transition: all 300ms var(--animate--ease);
   }

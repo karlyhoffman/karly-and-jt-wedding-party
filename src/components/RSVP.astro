@@ -33,16 +33,82 @@ https://docs.astro.build/en/recipes/build-forms/
 
         <div data-fieldset-step-3 class="hidden">
           <fieldset>
-            <legend>Please select your meal preference:</legend>
+            <legend>Meal Preference</legend>
             <p>
-              <input type="radio" name="meal" id="meal_vegetarian" value="Vegetarian" />
-              <label for="meal_vegetarian">Vegetarian</label>
+              <input type="radio" name="meal" id="meal_chicken" value="Chicken" />
+              <label for="meal_chicken">Chicken</label>
             </p>
             <p>
-              <input type="radio" name="meal" id="meal_meat" value="Meat" />
-              <label for="meal_meat">Meat</label>
+              <input type="radio" name="meal" id="meal_falafel" value="Falafel" />
+              <label for="meal_falafel">Falafel</label>
             </p>
-          </fieldset> 
+            <p>
+              <input type="radio" name="meal" id="meal_veggies" value="Veggies" />
+              <label for="meal_veggies">Grilled Veggies</label>
+            </p>
+            <p>
+              <input type="radio" name="meal" id="meal_gyro" value="Gyro" />
+              <label for="meal_gyro">Gyro</label>
+            </p>
+            <p>
+              <input type="radio" name="meal" id="meal_tri_tip" value="Tri-Tip" />
+              <label for="meal_tri_tip">Tri-Tip</label>
+            </p>
+          </fieldset>
+
+          <fieldset>
+            <legend>Dietary Restrictions</legend>
+            <p>
+              <label for="dietary_restrictions">Please let us know if you have any dietary restrictions below.</label>
+              <textarea name="dietary_restrictions" id="dietary_restrictions" rows="4"></textarea>
+            </p>
+          </fieldset>
+
+          <fieldset>
+            <legend>Song Request</legend>
+            <p>
+              <label for="song_title">Song Title</label>
+              <br />
+              <input type="text" name="song" id="song_title" value="" />
+            </p>
+            <p>
+              <label for="song_artist">Artist</label>
+              <br />
+              <input type="text" name="song" id="song_artist" value="" />
+            </p>
+          </fieldset>
+
+          <fieldset>
+            <legend>Shuttle to McCarthy's</legend>
+            <p>
+              <input type="radio" name="shuttle" id="shuttle_yes" value="Yes" />
+              <label for="shuttle_yes">Yes, I need a ride after the reception!</label>
+            </p>
+            <p>
+              <input type="radio" name="shuttle" id="shuttle_maybe" value="Maybe" />
+              <label for="shuttle_maybe">Maybe</label>
+            </p>
+            <p>
+              <input type="radio" name="shuttle" id="shuttle_no" value="No" />
+              <label for="shuttle_no">I've gotta get to bed!</label>
+            </p>
+          </fieldset>
+
+          <fieldset>
+            <legend>Sunday Picnic</legend>
+            <p>
+              <input type="radio" name="picnic" id="picnic_yes" value="Yes" />
+              <label for="picnic_yes">Yes</label>
+            </p>
+            <p>
+              <input type="radio" name="picnic" id="picnic_maybe" value="Maybe" />
+              <label for="picnic_maybe">Maybe</label>
+            </p>
+            <p>
+              <input type="radio" name="picnic" id="picnic_no" value="No" />
+              <label for="picnic_no">No</label>
+            </p>
+          </fieldset>
         </div>
 
         <button data-continue-btn type="button" class="btn">Continue</button>
@@ -197,6 +263,7 @@ https://docs.astro.build/en/recipes/build-forms/
           this.$fieldsetStep2?.classList.add('hidden');
           this.$fieldsetStep3?.classList.remove('hidden');
           this.$buttonSubmit?.classList.remove('hidden');
+          this.$buttonSubmit?.removeAttribute('disabled');
         }
       }
     };
@@ -271,11 +338,14 @@ https://docs.astro.build/en/recipes/build-forms/
       // }
 
       this.$form.remove();
-      
+
       if (this.$messageStatus) {
         this.$messageStatus.classList.remove('hidden');
         this.$messageStatus.textContent = 'Thank you for your RSVP!';
       }
+
+      const $section = document.getElementById('rsvp');
+      $section?.scrollIntoView({ behavior: 'smooth' });
     };
 
     sanitizeName(name: string) {
