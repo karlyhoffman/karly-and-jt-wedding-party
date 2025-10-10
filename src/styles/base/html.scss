@@ -136,7 +136,8 @@ select {
 }
 
 textarea,
-fieldset input[type="text"] {
+fieldset input[type="text"],
+fieldset input[type="email"] {
   display: block;
   width: 100%;
   background-color: var(--color--primary);

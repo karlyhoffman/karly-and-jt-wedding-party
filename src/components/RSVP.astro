@@ -119,6 +119,14 @@ https://docs.astro.build/en/recipes/build-forms/
               <textarea name="comments" id="comments" rows="4"></textarea>
             </p>
           </fieldset>
+
+          <fieldset>
+            <legend>Email Confirmation</legend>
+            <p>
+              <label for="email_confirm">Just to make sure we got your email right! We'll send your RSVP confirmation and event updates to this address:</label>
+              <input type="email" name="email_confirm" id="email_confirm" value="" />
+            </p>
+          </fieldset>
         </div>
 
         <button data-continue-btn type="button" class="btn">Continue</button>
@@ -352,6 +360,8 @@ https://docs.astro.build/en/recipes/build-forms/
     handleSubmit = async (e: Event) => {
       e.preventDefault();
 
+      this.$buttonSubmit?.remove();
+
       if (this.$messageStatus) {
         this.$messageStatus.textContent = 'Submitting your RSVP...';
         this.$messageStatus.classList.remove('hidden');
@@ -372,15 +382,19 @@ https://docs.astro.build/en/recipes/build-forms/
         }
 
         const data = await response.json();
-        console.log('RSVP submitted successfully:', data);
 
         this.$form?.remove();
 
         if (this.$messageStatus) {
           this.$messageStatus.classList.remove('hidden');
           this.$messageStatus.textContent = 'Thank you for your RSVP!';
-        }
 
+          if (formData.rsvp === 'Yes') {
+            this.$messageStatus.innerHTML += `<br/><br/>We're looking forward to celebrating with you on December 6th, 2025!<br/><br/>If you provided an email address, you should receive a confirmation shortly.`;
+          } else {
+            this.$messageStatus.innerHTML += `<br/><br/>We're sorry you can't make it. We'll miss you!`;
+          }
+        }
       } catch (error) {
         console.error('Error submitting RSVP:', error);
         

@@ -16,16 +16,14 @@ export const POST: APIRoute = async ({ request }) => {
     });
 
     // Prepare email content
-    const subject = `RSVP Response from ${formData.firstName} ${formData.lastName}`;
-    
     let emailBody = `
-      <h2>New RSVP Response</h2>
       <p><strong>Name:</strong> ${formData.firstName} ${formData.lastName}</p>
-      <p><strong>Attending:</strong> ${formData.rsvp || ''}</p>
     `;
 
     if (formData.rsvp === 'Yes') {
       emailBody += `
+        <p><strong>Email:</strong> ${formData.email_confirm || ''}</p>
+        <p><strong>Attending:</strong> ${formData.rsvp || ''}</p>
         <p><strong>Meal Preference:</strong> ${formData.meal || ''}</p>
         <p><strong>Dietary Restrictions:</strong> ${formData.dietary_restrictions || ''}</p>
         <p><strong>Song Request:</strong> ${formData.song || ''}</p>
@@ -35,15 +33,68 @@ export const POST: APIRoute = async ({ request }) => {
       `;
     }
 
-    const mailOptions = {
+    if (formData.rsvp === 'No') {
+      emailBody += `
+        <p><strong>Attending:</strong> ${formData.rsvp || ''}</p>
+      `;
+    }
+
+    const mailOptionsAlert = {
       from: import.meta.env.NODEMAILER_USER,
       to: import.meta.env.NODEMAILER_RECIPIENTS || import.meta.env.NODEMAILER_USER,
-      subject: subject,
+      subject: `${formData.rsvp === 'Yes' ? '🎉' : '🚫'} RSVP Response | ${formData.firstName} ${formData.lastName}`,
       html: emailBody,
     };
 
-    // Send email
-    const info = await transporter.sendMail(mailOptions);
+    // Send email alert
+    const emailAlert = await transporter.sendMail(mailOptionsAlert);
+
+    // Send email confirmation
+    if (formData.email_confirm?.length) {
+
+      const isAttendingBody = `
+        <p>${formData.firstName},</p>
+        <p>Thank you so much for your RSVP. We're thrilled to know that you'll be joining us to celebrate our wedding!</p>
+        <p><strong>Here's a quick reminder of the event details:</strong></p>
+        <ul>
+          <li><strong>Date:</strong> December 6th, 2025</li>
+          <li><strong>Time:</strong> 4:00 PM</li>
+          <li><strong>Location:</strong> The Monday Club, 1815 Monterey St, San Luis Obispo, CA 93401</li>
+        </ul>
+        <p>If you would like to update your choices, please let us know by replying to this email.</p>
+        <p>Below are the details you provided.</p>
+        <br/>
+        <hr/>
+        <br/>
+      ` + emailBody
+      + `
+        <br/>
+        <hr/>
+        <br/>
+        <p style="margin-bottom: 1.5rem;">We can't wait to celebrate with you!</p>
+        <p>With love,</p>
+        <p>JT & Karly</p>
+      `;
+
+      const isNotAttendingBody = `
+        <p>${formData.firstName},</p>
+        <p>Thank you so much for letting us know you won't be able to join us for our wedding. While we'll miss celebrating with you in person, we completely understand and are so grateful for your love and support from afar.</p>
+        <p>We'll be sure to share photos and memories from the day, and we hope to celebrate together sometime soon!</p>
+        <p>With love,</p>
+        <p>JT & Karly</p>
+      `;
+
+      const html = formData.rsvp === 'Yes' ? isAttendingBody : isNotAttendingBody;
+
+      const mailOptionsConfirm = {
+        from: import.meta.env.NODEMAILER_USER,
+        to: formData.email_confirm,
+        subject: `Your RSVP has been received! 💌`,
+        html,
+      };
+
+      const emailConfirmation = await transporter.sendMail(mailOptionsConfirm);      
+    }
 
     return new Response(
       JSON.stringify({
