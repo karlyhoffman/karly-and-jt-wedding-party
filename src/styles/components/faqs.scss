@@ -54,7 +54,7 @@
         max-width: var(--layout--container-xl);
 
         @media screen and (min-width: 768px) {
-          font-size: 1.1rem;
+          font-size: var(--text--font-md);
         }
 
         p {

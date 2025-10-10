@@ -115,7 +115,7 @@ select {
   border: var(--layout--border-width-xs) solid var(--color--text);
   border-radius: 0px;
   font-family: inherit;
-  font-size: 100%;
+  font-size: var(--text--font-md);
   padding: 12px 15px 9px;
 
   @media screen and (min-width: 768px) {
@@ -157,7 +157,7 @@ fieldset input[type="text"] {
   border: var(--layout--border-width-xs) solid var(--color--text);
   border-radius: 0px;
   font-family: "Old Standard TT Regular", serif;
-  font-size: 1.25rem;
+  font-size: var(--text--font-md);
   line-height: 1;
   text-transform: uppercase;
   padding: 10px 23px 6px;
