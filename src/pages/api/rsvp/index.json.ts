@@ -58,7 +58,7 @@ export const POST: APIRoute = async ({ request }) => {
         <p><strong>Here's a quick reminder of the event details:</strong></p>
         <ul>
           <li><strong>Date:</strong> December 6th, 2025</li>
-          <li><strong>Time:</strong> 4:00 PM</li>
+          <li><strong>Time:</strong> 4:00 PM - 10:00 PM</li>
           <li><strong>Location:</strong> The Monday Club, 1815 Monterey St, San Luis Obispo, CA 93401</li>
         </ul>
         <p>If you would like to update your choices, please let us know by replying to this email.</p>
