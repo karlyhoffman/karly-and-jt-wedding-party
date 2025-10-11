@@ -49,6 +49,19 @@
       fieldset {
         margin-block: 0.5rem;
       }
+
+      p:has(input[type="radio"]) {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 15px;
+
+        input {
+          flex: none;
+          margin: 0;
+          padding: 0;
+        }
+      }
     }
   }
 
