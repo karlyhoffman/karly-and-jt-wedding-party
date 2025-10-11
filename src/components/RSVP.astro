@@ -145,6 +145,8 @@ https://docs.astro.build/en/recipes/build-forms/
 </section>
 
 <script>
+  const isProduction = import.meta.env.PROD;
+  
   class FormRSVP extends HTMLElement {
     guests: {
       id: string;
@@ -334,7 +336,7 @@ https://docs.astro.build/en/recipes/build-forms/
       }
 
       try {
-        this.guests = await this.fetchGuests() || [];
+        this.guests = isProduction ? await this.fetchGuests() || [] : [];
 
         this.$form?.classList.remove('hidden');
         this.$messageStatus?.classList.add('hidden');
