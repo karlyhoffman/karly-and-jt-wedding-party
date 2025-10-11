@@ -10,6 +10,12 @@ nav {
   justify-content: center;
   padding-top: var(--layout--gutter);
   z-index: 10;
+  transform: translateY(-100%);
+  transition: transform 300ms ease-in-out;
+
+  &.active {
+    transform: none;
+  }
 
   ul {
     list-style: none;
