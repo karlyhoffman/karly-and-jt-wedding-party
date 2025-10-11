@@ -7,29 +7,18 @@
 }
 
 .border {
-  $border-hide: calc(-2.25 * var(--layout--gutter));
-
   display: block;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-
-  // Temp:
-  // bottom: $border-hide;
   bottom: 0;
 
   border: var(--color--primary) var(--layout--gutter-lg) solid;
   pointer-events: none;
 
   &--show-nav {
-    // The navbar will have the background color
-    top: 80px;
-  }
-
-  &--show-footer {
-    top: $border-hide;
-    bottom: 0;
+    top: var(--layout--nav-height);
   }
 
   &::before {

@@ -1,0 +1,23 @@
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--layout--nav-height);
+  background-color: var(--color--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--layout--gutter);
+  z-index: 10;
+
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    width: min(100%, 600px);
+    font-size: var(--text--font-md);
+    margin: 0;
+    padding: 0;
+  }
+}
