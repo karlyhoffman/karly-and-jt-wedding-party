@@ -13,8 +13,14 @@ https://docs.astro.build/en/recipes/build-forms/
 
       <form method="POST" class="hidden">
         <div data-fieldset-step-1>
-          <input type="text" name="firstName" placeholder="First Name" required />
-          <input type="text" name="lastName" placeholder="Last Name" required />
+          <p>
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" required />
+          </p>
+          <p>
+            <label for="lastName">Last Name</label>
+            <input type="text" name="lastName" required />
+          </p>
         </div>
 
         <div data-fieldset-step-2 class="hidden">
@@ -250,8 +256,16 @@ https://docs.astro.build/en/recipes/build-forms/
 
           if (!!guest.related?.length) {
             const guestCopy = guest.related.length > 1 ? 'guests' : 'guest';
+            const guestCount = {
+              1: 'one',
+              2: 'two',
+              3: 'three',
+              4: 'four',
+              5: 'five',
+              6: 'six',
+            }
 
-            this.$messagePlusOne.innerHTML = `We have you down for ${guest.related.length} additional ${guestCopy}.<br/><br/>Please make sure everyone in your party completes their own RSVP form so we can account for everyone!`;
+            this.$messagePlusOne.innerHTML = `We have you down for <strong>${guestCount[guest.related.length]}</strong> additional ${guestCopy}.<br/><br/>Please make sure everyone in your party completes their own RSVP form so we can account for everyone!`;
           }
         }
       }

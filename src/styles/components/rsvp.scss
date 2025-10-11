@@ -33,6 +33,14 @@
       }
     }
 
+    [data-fieldset-step-1] p {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      text-align: left;
+      margin: 0;
+    }
+
     [data-fieldset-step-2],
     [data-fieldset-step-3] {
       flex-direction: column;
