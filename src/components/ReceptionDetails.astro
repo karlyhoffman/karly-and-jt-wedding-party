@@ -9,6 +9,7 @@ import '../styles/components/reception.scss';
 
 const copy = [
   {
+    id: 'details',
     title: "Reception Details",
     date: "Saturday, December 6th, 2025",
     time: "4 p.m. to 10 p.m.",
@@ -89,8 +90,8 @@ const copy = [
 ]
 ---
 
-{copy.map(({ title, date, time, location, content, images }) => (
-  <section class="reception-details gutter">
+{copy.map(({ id, title, date, time, location, content, images }) => (
+  <section id={id} class="reception-details gutter">
     <h2 class="headline">{title}</h2>
     {date && (
       <p class="location-time border-b script">{date}</p>

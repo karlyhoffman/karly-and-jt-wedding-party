@@ -7,31 +7,21 @@
 }
 
 .border {
-  $border-hide: calc(-2.25 * var(--layout--gutter));
-
   display: block;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-
-  // Temp:
-  // bottom: $border-hide;
   bottom: 0;
-
   border: var(--color--primary) var(--layout--gutter-lg) solid;
   pointer-events: none;
+  transition: top 300ms ease-in-out;
 
   &--show-nav {
-    // The navbar will have the background color
-    top: 80px;
+    top: var(--layout--nav-height);
   }
 
-  &--show-footer {
-    top: $border-hide;
-    bottom: 0;
-  }
-
+  // Border
   &::before {
     content: "";
     position: absolute;
@@ -46,6 +36,18 @@
     @media screen and (min-width: 768px) {
       border-width: 15px;
     }
+  }
+
+  // Background extension for nav
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: var(--layout--nav-height);
+    background-color: var(--color--primary);
+    z-index: -10;
   }
 
   &-b {

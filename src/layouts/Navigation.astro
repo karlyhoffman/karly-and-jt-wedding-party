@@ -1,0 +1,45 @@
+---
+import '../styles/layout/navigation.scss';
+
+---
+
+<nav data-jump-nav>
+  <ul class="gutter" role="list">
+    <li><a href="#intro">Intro</a></li>
+    <li><a href="#details">Details</a></li>
+    <li><a href="#rsvp">RSVP</a></li>
+    <li><a href="#faqs">FAQs</a></li>
+  </ul>
+</nav>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger) 
+
+  const border = document.querySelector('[data-border]');
+  const navigation = document.querySelector('[data-jump-nav]');
+
+  const onShowNav = () => {
+    navigation.classList.add('active');
+    border.classList.add('border--show-nav');
+  }
+
+  const onHideNav = () => {
+    navigation.classList.remove('active');
+    border.classList.remove('border--show-nav');
+  }
+
+  ScrollTrigger.create({
+    trigger: 'body',
+    start: 'top top',
+    onUpdate: ({ direction }) => {
+      if (direction === -1) {
+        onShowNav();
+      } else {
+        onHideNav();
+      }
+    }
+  });
+</script>
