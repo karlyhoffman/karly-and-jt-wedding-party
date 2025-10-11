@@ -119,7 +119,7 @@ https://docs.astro.build/en/recipes/build-forms/
           </fieldset>
 
           <fieldset>
-            <legend>Anything Else You'd Like Us to Know?</legend>
+            <legend>Anything Else?</legend>
             <p>
               <label for="comments">Questions? Comments? Let us know!</label>
               <textarea name="comments" id="comments" rows="4"></textarea>
@@ -265,7 +265,7 @@ https://docs.astro.build/en/recipes/build-forms/
               6: 'six',
             }
 
-            this.$messagePlusOne.innerHTML = `We have you down for <strong>${guestCount[guest.related.length]}</strong> additional ${guestCopy}.<br/><br/>Please make sure everyone in your party completes their own RSVP form so we can account for everyone!`;
+            this.$messagePlusOne.innerHTML = `<strong>We have you down for ${guestCount[guest.related.length]} additional ${guestCopy}.</strong><br/><br/>Please make sure everyone in your party completes their own RSVP form so we can account for everyone!`;
           }
         }
       }
