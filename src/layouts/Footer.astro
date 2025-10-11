@@ -2,19 +2,13 @@
 import '../styles/layout/footer.scss';
 
 // TODO: blog write up
-const aboutDevRoute = "/about-the-dev";
-const isEnabled = false;
+const aboutDevRoute = "https://github.com/karlyhoffman/karly-and-jt-wedding-party";
+// const aboutDevRoute = "/about-the-dev";
+
 ---
 
 <footer class="gutter">
   <p>
-    Karly {isEnabled ? (
-      <a href={aboutDevRoute} target="_blank">
-        coded this website
-      </a>
-    ) : (
-      "coded this website"
-    )},
-    so please <a href="mailto:karlyhoffman+wedding@gmail.com" target="_blank">let her know</a> if you encounter any issues!
+    Karly <a href={aboutDevRoute} target="_blank">coded this website</a>, so please <a href="mailto:karlyhoffman+wedding@gmail.com" target="_blank">let her know</a> if you encounter any issues!
   </p>
 </footer>
