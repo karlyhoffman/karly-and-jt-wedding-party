@@ -1,7 +1,6 @@
 import type { APIRoute } from "astro";
 import { getAllEntries } from "../../../lib/notion/index.js";
 
-// TODO: UPDATE TO POST REQUEST
 export const GET: APIRoute = async ({ params, request }) => {
   const { id } = params;
 

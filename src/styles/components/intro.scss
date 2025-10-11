@@ -32,7 +32,6 @@
     position: relative;
     margin-bottom: 0;
 
-    // TODO: cleanup implementation -- mobile only
     @media screen and (max-width: 767px) {
       aspect-ratio: 1.5;
 
