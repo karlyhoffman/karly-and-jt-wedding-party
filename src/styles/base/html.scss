@@ -81,17 +81,6 @@ a {
         opacity: 0.5;
       }
     }
-
-    // Safari fix for underlines on links
-    @media screen and (max-width: 767px) {
-      display: inline;
-      text-decoration: underline;
-
-      &::before,
-      &::after {
-        display: none;
-      }
-    }
   }
 
   // &:has(img) {
