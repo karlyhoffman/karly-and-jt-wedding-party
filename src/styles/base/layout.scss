@@ -42,10 +42,11 @@
   &::after {
     content: "";
     position: absolute;
-    left: 0;
-    right: 0;
+    left: 50%;
     bottom: 100%;
-    height: var(--layout--nav-height);
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 200px;
     background-color: var(--color--primary);
     z-index: -10;
   }
