@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - var(--layout--gutter));
+  min-height: calc(100dvh - var(--layout--gutter));
   padding-block: 0;
 
   // TEMP:
