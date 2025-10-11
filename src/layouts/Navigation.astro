@@ -31,15 +31,18 @@ import '../styles/layout/navigation.scss';
     border.classList.remove('border--show-nav');
   }
 
+  const handleNav = (condition) => {
+    if (condition) {
+      onShowNav();
+    } else {
+      onHideNav();
+    }
+  }
+
   ScrollTrigger.create({
     trigger: 'body',
-    start: 'top top',
-    onUpdate: ({ direction }) => {
-      if (direction === -1) {
-        onShowNav();
-      } else {
-        onHideNav();
-      }
-    }
+    start: 'top+=60 top',
+    onToggle: ({ isActive }) => handleNav(isActive),
+    onUpdate: ({ direction }) => handleNav(direction === -1),
   });
 </script>
