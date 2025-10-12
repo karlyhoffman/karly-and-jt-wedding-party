@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   min-height: calc(100dvh - var(--layout--gutter));
-  padding-block: 0;
+  padding-block: var(--layout--gutter-lg) 0px;
 
   // TEMP:
   @media screen and (min-width: 768px) {

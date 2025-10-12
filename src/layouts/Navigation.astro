@@ -3,7 +3,7 @@ import '../styles/layout/navigation.scss';
 
 ---
 
-<nav data-jump-nav>
+<nav data-jump-nav class="active">
   <ul class="gutter" role="list">
     <li><a href="#intro">Intro</a></li>
     <li><a href="#details">Details</a></li>
@@ -42,7 +42,7 @@ import '../styles/layout/navigation.scss';
   ScrollTrigger.create({
     trigger: 'body',
     start: 'top top',
-    onToggle: ({ isActive }) => handleNav(isActive),
+    // onToggle: ({ isActive }) => handleNav(isActive),
     onUpdate: ({ direction }) => handleNav(direction === -1),
   });
 </script>

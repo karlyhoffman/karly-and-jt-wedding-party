@@ -35,7 +35,7 @@ const isProduction = import.meta.env.PROD;
 			<slot />
 		</main>
 		<Footer />
-		<div data-border class="border" aria-hidden="true"></div>
+		<div data-border class="border border--show-nav" aria-hidden="true"></div>
 		{isProduction && <Analytics />}
 	</body>
 </html>
