@@ -12,6 +12,8 @@ import '../styles/components/outro.scss';
         <Image
           class="reveal"
           src={barbAndStar}
+          widths={[240, 540, 720, barbAndStar.width]}
+          sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${barbAndStar.width}px`}
           alt="The poster of the movie Barb and Star with JT and Karly's faces photoshopped onto the characters."
         />
       </a>

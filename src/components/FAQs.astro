@@ -180,7 +180,12 @@ const faqs = [
                 <div class="img-wrapper-inline-photo">
                   <p set:html={paragraph}></p>
                   <figure>
-                    <Image src={jtBooBooRecordsYoung} alt="JT at Boo Boo's" />
+                    <Image
+                      src={jtBooBooRecordsYoung}
+                      widths={[240, 540, 720, jtBooBooRecordsYoung.width]}
+                      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${jtBooBooRecordsYoung.width}px`}
+                      alt="JT at Boo Boo's"
+                    />
                     <figcaption>
                       JT in <a href="http://recordstoresbook.com/the-book/" target="_blank"><em>Record Stores</em></a> by Bernd Jonkmanns
                     </figcaption>
@@ -196,7 +201,12 @@ const faqs = [
           <div class="img-wrapper">
             {faq.images.map(({ src, alt, caption }, index) => (
               <figure class={index > 6 ? 'desktop-only' : ''}>
-                <Image src={src} alt={alt} />
+                <Image
+                  src={src}
+                  alt={alt}
+                  widths={[240, 540, 720, src.width]}
+                  sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${src.width}px`}
+                />
                 {caption && <figcaption>{caption}</figcaption>}
               </figure>
             ))}

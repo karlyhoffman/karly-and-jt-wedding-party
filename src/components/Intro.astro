@@ -22,6 +22,8 @@ import '../styles/components/intro.scss';
     <Image
       class="reveal"
       src={hotelSlo}
+      widths={[240, 540, 720, hotelSlo.width]}
+      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${hotelSlo.width}px`}
       alt="Drone view of Hotel SLO's rooftop with Bishop's Peak and Madonna Mountain in the background."
     />
   </a>
@@ -41,6 +43,8 @@ import '../styles/components/intro.scss';
     <Image
       class="reveal"
       src={mondayClub}
+      widths={[240, 540, 720, mondayClub.width]}
+      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${mondayClub.width}px`}
       alt="View of The Monday Club with San Luis Obispo mountain in the background."
     />
   </a>

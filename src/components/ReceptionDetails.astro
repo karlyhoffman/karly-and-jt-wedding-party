@@ -115,7 +115,13 @@ const copy = [
         }>
           {images.map(({ src, alt, caption }) => (
             <figure>
-              <Image class="reveal" src={src} alt={alt} />
+              <Image
+                class="reveal"
+                src={src}
+                alt={alt}
+                widths={[240, 540, 720, src.width]}
+                sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${src.width}px`}
+              />
               <figcaption set:html={caption}></figcaption>
             </figure>
           ))}
