@@ -16,6 +16,7 @@
   border: var(--color--primary) var(--layout--gutter-lg) solid;
   pointer-events: none;
   transition: top 300ms ease-in-out;
+  will-change: top;
 
   &--show-nav {
     top: var(--layout--nav-height);
