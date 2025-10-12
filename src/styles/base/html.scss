@@ -156,7 +156,7 @@ fieldset input[type="email"] {
   position: relative;
   background-color: var(--color--primary);
   color: var(--color--text);
-  border: var(--layout--border-width-xs) solid var(--color--text);
+  border: var(--layout--border-width-sm) solid var(--color--text);
   border-radius: 0px;
   font-family: "Old Standard TT Regular", serif;
   font-size: var(--text--font-md);
@@ -166,20 +166,20 @@ fieldset input[type="email"] {
   cursor: pointer;
 
   &:hover::after {
-    top: -6px;
-    left: -6px;
-    right: -6px;
-    bottom: -6px;
+    top: calc(var(--layout--border-width-sm) * -3);
+    left: calc(var(--layout--border-width-sm) * -3);
+    right: calc(var(--layout--border-width-sm) * -3);
+    bottom: calc(var(--layout--border-width-sm) * -3);
   }
 
   &::after {
     content: "";
     position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    border: var(--layout--border-width-xs) solid var(--color--text);
+    top: calc(var(--layout--border-width-sm) * -1);
+    left: calc(var(--layout--border-width-sm) * -1);
+    right: calc(var(--layout--border-width-sm) * -1);
+    bottom: calc(var(--layout--border-width-sm) * -1);
+    border: var(--layout--border-width-sm) solid var(--color--text);
     transition: all 300ms var(--animate--ease);
   }
 
