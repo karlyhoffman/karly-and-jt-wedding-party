@@ -3,7 +3,7 @@
  * key: the reference key for the property (custom)
  * type: the data type of the property (Notion API)
  *
- * Since key doesn't work for all properties... (rah! we added these hardcoded values from Notion)
+ * TODO: can we make this more dynamic?
  */
 
 export const RSVP_PROPERTIES = {
