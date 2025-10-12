@@ -413,10 +413,12 @@ https://docs.astro.build/en/recipes/build-forms/
         }
       } catch (error) {
         console.error('Error submitting RSVP:', error);
+
+        this.$form?.remove();
         
         if (this.$messageStatus) {
           this.$messageStatus.classList.remove('hidden');
-          this.$messageStatus.textContent = 'Sorry, there was an error submitting your RSVP. Please try again.';
+          this.$messageStatus.innerHTML = 'Sorry, there was an error submitting your RSVP.<br/><br/>Please refresh the page and try again.';
         }
       }
 
