@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import photoBooth from '../assets/photo-booth.avif';
 import '../styles/components/hero.scss';
 ---
 
@@ -14,3 +16,11 @@ import '../styles/components/hero.scss';
     </span>
   </h2>
 </section>
+
+<div class="hero-img text-container">
+  <Image
+    class="reveal"
+    src={photoBooth}
+    alt="The wedding couple goofing around in a photo booth."
+  />
+</div>
