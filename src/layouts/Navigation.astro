@@ -42,6 +42,7 @@ import '../styles/layout/navigation.scss';
   ScrollTrigger.create({
     trigger: 'body',
     start: 'top top',
+    end: 'bottom bottom',
     // onToggle: ({ isActive }) => handleNav(isActive),
     onUpdate: ({ direction }) => handleNav(direction === -1),
   });
