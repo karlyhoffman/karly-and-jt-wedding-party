@@ -9,13 +9,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/vercel": "^8.2.8",
-    "@notionhq/client": "^4.0.2",
-    "@vercel/analytics": "^1.5.0",
-    "astro": "^5.14.1",
-    "gsap": "^3.13.0",
-    "nodemailer": "^7.0.9",
-    "sass": "^1.90.0"
+    "@astrojs/vercel": "8.0.4",
+    "@notionhq/client": "4.0.2",
+    "@vercel/analytics": "1.5.0",
+    "astro": "5.14.6",
+    "gsap": "3.13.0",
+    "nodemailer": "7.0.9",
+    "sass": "1.93.2"
   },
   "devDependencies": {
     "prettier": "3.6.2"
