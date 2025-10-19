@@ -83,17 +83,6 @@ a {
       }
     }
   }
-
-  // Safari iOS fix for underlines on links
-  @media (hover: none) and (pointer: coarse) {
-    display: inline;
-    text-decoration: underline;
-
-    &::before,
-    &::after {
-      display: none;
-    }
-  }
 }
 
 fieldset {
