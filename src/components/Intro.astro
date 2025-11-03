@@ -12,13 +12,9 @@ import '../styles/components/intro.scss';
     <span><span class="script">Karly</span> and <span class="script">JT</span></span>
     <span>will tie the knot in an intimate ceremony</span>
     <span>joined by their immediate family</span>
-    <span>at <a class="script no-underline" href="https://hotel-slo.com/dining/high-bar/" target="_blank">Hotel SLO</a></span>
+    <span>at <span class="script no-underline">Hotel SLO</span></span>
   </p>
-  <a
-    class="img-wrapper img-wrapper--hotel-slo"
-    href="https://hotel-slo.com/dining/high-bar/"
-    target="_blank"
-  >
+  <div class="img-wrapper img-wrapper--hotel-slo">
     <Image
       class="reveal"
       src={hotelSlo}
@@ -26,7 +22,7 @@ import '../styles/components/intro.scss';
       sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${hotelSlo.width}px`}
       alt="Drone view of Hotel SLO's rooftop with Bishop's Peak and Madonna Mountain in the background."
     />
-  </a>
+  </div>
 </section>
 
 <section class="intro intro--reception">
