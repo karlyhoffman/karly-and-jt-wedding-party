@@ -3,6 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import Intro from '../components/Intro.astro';
 import ReceptionDetails from '../components/ReceptionDetails.astro';
+import RSVP from '../components/archive/RSVP.astro';
+import Registry from '../components/archive/Registry.astro';
+import Venue from '../components/archive/Venue.astro';
+import FAQs from '../components/archive/FAQs.astro';
 import Outro from '../components/Outro.astro';
 
 const title = "Karly & JT are getting married!";
@@ -12,5 +16,11 @@ const title = "Karly & JT are getting married!";
 	<Hero />
 	<Intro />
 	<ReceptionDetails />
+	<!-- TODO: remove for phase 2 -->
+	<RSVP />
+	<Registry />
+	<Venue />
+	<FAQs />
+	<!--/-->
 	<Outro />
 </Layout>
