@@ -1,7 +1,6 @@
 ---
 import Vercel from '../components/Vercel.astro';
 import Footer from './Footer.astro';
-import Navigation from './Navigation.astro';
 import '../styles/global.scss';
 
 const { title } = Astro.props;
@@ -29,12 +28,14 @@ const isProduction = import.meta.env.PROD;
 		<link rel="manifest" href="/favicon/site.webmanifest" />
 	</head>
 	<body class="serif">
-		<Navigation />
-		<main>
+		<a href="#main-content" class="sr-only">Skip to main content</a>
+		<main id="main-content">
 			<h1 class="sr-only">{title}</h1>
 			<slot />
 		</main>
-		<Footer />
+		<Footer>
+			<slot name="footer-copy" />
+		</Footer>
 		<div data-border class="border border--show-nav" aria-hidden="true"></div>
 		{isProduction && <Vercel isEnabled={true} />}
 	</body>
