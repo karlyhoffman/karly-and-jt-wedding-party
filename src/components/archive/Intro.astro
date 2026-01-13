@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import hotelSlo from '../../assets/archive/hotel-slo.avif';
+import mondayClub from '../../assets/archive/monday-club.avif';
+import '../../styles/components/intro.scss';
+---
+
+<section id="intro" class="intro intro--wedding">
+  <p>
+    <span>On Thursday, <span class="script">December 4th, 2025,</span></span>
+    <span>their 10-year anniversary,</span>
+    <span><span class="script">Karly</span> and <span class="script">JT</span></span>
+    <span>will tie the knot in an intimate ceremony</span>
+    <span>joined by their immediate family</span>
+    <span>at <span class="script no-underline">Hotel SLO</span></span>
+  </p>
+  <div class="img-wrapper img-wrapper--hotel-slo">
+    <Image
+      class="reveal"
+      src={hotelSlo}
+      widths={[240, 540, 720, hotelSlo.width]}
+      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${hotelSlo.width}px`}
+      alt="Drone view of Hotel SLO's rooftop with Bishop's Peak and Madonna Mountain in the background."
+    />
+  </div>
+</section>
+
+<section class="intro intro--reception">
+  <p>
+    <span>On Saturday, <span class="script">December 6th, 2025,</span></span>
+    <span>celebrate with us</span>
+    <span>at <a class="script no-underline" href="https://themondayclubslo.org/OUR-HISTORY" target="_blank">The Monday Club!</a></span>
+  </p>
+  <a
+    class="img-wrapper img-wrapper--monday-club"
+    href="https://themondayclubslo.org/OUR-HISTORY"
+    target="_blank"
+  >
+    <Image
+      class="reveal"
+      src={mondayClub}
+      widths={[240, 540, 720, mondayClub.width]}
+      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${mondayClub.width}px`}
+      alt="View of The Monday Club with San Luis Obispo mountain in the background."
+    />
+  </a>
+</section>

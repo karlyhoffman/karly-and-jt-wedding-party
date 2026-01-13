@@ -1,0 +1,21 @@
+---
+import { Image } from 'astro:assets';
+import photo from '../../assets/homepage/outro.avif'; 
+import '../../styles/components/outro.scss';
+---
+
+<section class="outro gutter">
+  <h2 class="script">Thank you for celebrating with us!</h2>
+  <div class="text-container">
+    <figure>
+      <Image
+        class="reveal"
+        src={photo}
+        widths={[240, 540, 720, photo.width]}
+        sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${photo.width}px`}
+        alt="The couple dancing at the reception surrounded by their friends and family celebrating."
+      />
+      <figcaption>Credit: Jesse</figcaption>
+    </figure>
+  </div>
+</section>

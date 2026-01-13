@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import photo from '../../assets/homepage/hero-wide.avif';
+import '../../styles/components/hero.scss';
+---
+
+<section class="hero">
+  <h2>
+    <span class="group">
+      <span class="script text text--jt">JT</span>
+      <span class="text text--and">and</span>
+      <span class="script text text--karly">Karly</span>
+    </span>
+    <span class="text text--married">
+      got married!
+    </span>
+  </h2>
+</section>
+
+<div class="hero-img hero-img--wide gradient">
+  <Image
+    class="reveal"
+    src={photo}
+    widths={[240, 540, 720, photo.width]}
+    priority
+    quality={100}
+    sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${photo.width}px`}
+    alt="The wedding couple goofing around in a photo booth."
+  />
+</div>

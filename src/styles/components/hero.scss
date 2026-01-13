@@ -68,6 +68,10 @@
 }
 
 .hero-img {
-  margin-bottom: 15vh;
+  margin-block-end: 15vh;
   padding-inline: var(--layout--gutter);
+
+  &--wide {
+    margin-block-start: -17vh;
+  }
 }
