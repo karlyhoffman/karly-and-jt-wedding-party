@@ -1,10 +1,11 @@
 footer {
-  font-size: var(--text--font-sm);
+  font-size: var(--text--font-xs);
   border-top: var(--color--text) var(--layout--border-width-sm) solid;
   margin: 0 var(--layout--gutter-xl);
-  padding-bottom: 11px;
+  padding-block-end: 15px;
 
   p {
     text-wrap: auto;
+    line-height: 1;
   }
 }
