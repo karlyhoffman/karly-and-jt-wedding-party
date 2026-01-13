@@ -10,7 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: calc(100dvh - var(--layout--gutter));
+    min-height: calc(100vh - var(--layout--gutter));
     z-index: 1;
 
     h2 {
@@ -75,7 +75,7 @@
 
     /* GSAP Pin Adjustments */
     &:has(h2[data-headline]) {
-      margin-bottom: calc(-1 * (100dvh - var(--layout--gutter)));
+      margin-bottom: calc(-1 * (100vh - var(--layout--gutter)));
     }
   }
 
