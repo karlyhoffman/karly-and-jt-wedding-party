@@ -444,3 +444,4 @@ FodyWeavers.xsd
 .vscode/launch.json
 .vscode/extensions.json
 .vercel
+.env*.local

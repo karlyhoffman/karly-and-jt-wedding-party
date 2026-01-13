@@ -1,8 +1,12 @@
-.reception-details {
+.section {
   scroll-margin-top: var(--layout--scroll-offset);
   padding: var(--layout--gutter-xl) 0;
 
-  .location-time {
+  & > *:empty {
+    display: none;
+  }
+
+  .heading {
     margin: 0 auto;
 
     &--sm {
@@ -21,7 +25,7 @@
       }
     }
 
-    &:not(.location-time--sm) {
+    &:not(.heading--sm) {
       &.script {
         font-size: var(--text--font-lg);
         padding: 10px 0px 12px;
@@ -66,6 +70,7 @@
   }
 
   .img-wrapper {
+  
     &--brunch {
       figure:nth-child(1) {
         display: none;

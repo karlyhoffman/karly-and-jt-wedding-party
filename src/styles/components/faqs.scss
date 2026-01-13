@@ -1,6 +1,6 @@
 .faqs {
   scroll-margin-top: var(--layout--scroll-offset);
-  padding: var(--layout--gutter-xl) 0;
+  padding-block-start: calc(var(--layout--gutter-xl) * 2);
 
   details {
     text-align: left;

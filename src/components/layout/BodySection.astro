@@ -1,0 +1,17 @@
+---
+import '../../styles/layout/body.scss';
+
+const { title = '', id = '' } = Astro.props;
+---
+
+<section id={id} class="section gutter">
+  <h2 class="headline">{title}</h2>
+
+  <p class="heading border-b script"><slot name="heading" /></p>
+
+  <p class="heading heading--sm border-b serif"><slot name="small-text" /></p>
+
+  <p class="heading border-b serif"><slot name="subheading" /></p>
+
+  <div class="text-container font-base"><slot /></div>
+</section>

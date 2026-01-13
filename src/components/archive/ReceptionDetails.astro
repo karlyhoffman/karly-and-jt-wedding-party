@@ -1,0 +1,86 @@
+---
+import { Image } from 'astro:assets';
+import jtTerraceHill from '../../assets/archive/jt-terrace-hill.avif';
+import karlyTerraceHill from '../../assets/archive/terrace-hill-karly.avif';
+import terraceHill from '../../assets/archive/terrace-hill-sunset.avif';
+import novo from '../../assets/archive/novo.avif';
+import Section from '../../components/layout/BodySection.astro';
+---
+
+<Section title="Reception Details" id="details">
+  <Fragment slot="heading">Saturday, December 6th, 2025</Fragment>
+  <Fragment slot="small-text">
+    <a class="no-underline" href="https://maps.app.goo.gl/UiYcjzpGSdGuhrSt8" target="_blank">1815 Monterey St<span>, </span>San Luis Obispo, CA 93401</a>
+  </Fragment>
+  <Fragment slot="subheading">
+    <a href="https://themondayclubslo.org" target="_blank">The Monday Club</a> | 4 p.m. to 10 p.m.
+  </Fragment>
+  <p>The reception will begin at 4 o'clock with a cocktail hour on the patio overlooking the San Luis Obispo hills, during which the newlywed couple will have the chance to greet all the guests.</p>
+  <p>The reception will move indoors as the sun sets for dinner catered by <a href='https://www.eatpetra.com/' target='_blank'>Petra</a>, a local favorite.</p>
+  <p>After dinner, the party will continue with dancing and drinks. 🥂</p>
+</Section>
+
+<Section title="After Party">
+  <Fragment slot="small-text">
+    <a class="no-underline" href="https://maps.app.goo.gl/bYkXYMRoBZpfJLqA6" target="_blank">600 Marsh St<span>, </span>San Luis Obispo, CA 93401</a>
+  </Fragment>
+  <Fragment slot="subheading">
+    <a href="https://maps.app.goo.gl/bYkXYMRoBZpfJLqA6" target="_blank">McCarthy's Irish Pub</a> | 10 p.m.
+  </Fragment>
+  <p>Since everyone will <strong>need to leave The Monday Club promptly by 10 o'clock</strong>, there will be a shuttle service available to take guests a mile down the street to downtown San Luis Obispo where the celebration will continue at McCarthy's.</p>
+  <p>(The couple originally wanted to go to Novo, where they first met outside of Boo Boo Records, but unfortunately, they no longer offer dancing at night. 😭)</p>
+  <div class="img-wrapper">
+    <figure>
+      <Image
+        class="reveal"
+        src={novo}
+        alt="Karly and JT dancing at Novo."
+        widths={[240, 540, 720, novo.width]}
+        sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${novo.width}px`}
+      />
+      <figcaption>Photo Credit: Meghan</figcaption>
+    </figure>
+  </div>
+</Section>
+
+<Section title="Picnic Brunch">
+  <Fragment slot="heading">Sunday, December 7th, 2025</Fragment>
+  <Fragment slot="small-text">
+    <a class="no-underline" href="https://maps.app.goo.gl/CHXmTsZtzanqrfoM6" target="_blank">Terrace Hill<span>, </span>San Luis Obispo, CA 93401</a>
+  </Fragment>
+  <Fragment slot="subheading">
+    <a href="https://maps.app.goo.gl/CHXmTsZtzanqrfoM6" target="_blank">Terrace Hill</a> | 10 a.m.
+  </Fragment>
+  <p>Join us for a picnic brunch at Terrace Hill, where you'll have the chance to say goodbye to everyone before they head home.</p>
+  <p><strong>*Please note:</strong> To get up to Terrace Hill, it's a bit of a steep walk on a short trail. But it's absolutely worth <a href="https://maps.app.goo.gl/8NCMxe1zYdVvd1j88" target="_blank">the very quick hike.</a> If you can stop by, be sure to wear appropriate shoes, and join us for some beers and <a href="https://www.highstdeli.com/high-st-menus/" target="_blank">High Street Deli</a> sandwiches.</p>
+  <div class="img-wrapper img-wrapper--brunch">
+    <figure>
+      <Image
+        class="reveal"
+        src={terraceHill}
+        alt="View of San Luis Obispo from Terrace Hill."
+        widths={[240, 540, 720, terraceHill.width]}
+        sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${terraceHill.width}px`}
+      />
+    </figure>
+    <figure>
+      <Image
+        class="reveal"
+        src={karlyTerraceHill}
+        alt="Karly with a beautiful views of Terrace Hill in the background."
+        widths={[240, 540, 720, karlyTerraceHill.width]}
+        sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${karlyTerraceHill.width}px`}
+      />
+    </figure>
+    <figure>
+      <Image
+        class="reveal"
+        src={jtTerraceHill}
+        alt="JT at Terrace Hill."
+        widths={[240, 540, 720, jtTerraceHill.width]}
+        sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${jtTerraceHill.width}px`}
+      />
+      <figcaption><p>Views from Terrace Hill.</p></figcaption>
+    </figure>
+  </div>
+</Section>

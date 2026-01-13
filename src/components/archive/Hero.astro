@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+import photoBooth from '../../assets/archive/photo-booth-2.avif';
+import '../../styles/components/hero.scss';
+---
+
+<section class="hero">
+  <div class="hero__title">
+    <h2>
+      <span class="group">
+        <span class="script text text--jt">JT</span>
+        <span class="text text--and">and</span>
+        <span class="script text text--karly">Karly</span>
+      </span>
+      <span class="text text--married">
+        are getting married!
+      </span>
+    </h2>
+  </div>
+  <div class="text-container">
+    <Image
+      class="reveal"
+      src={photoBooth}
+      widths={[240, 540, 720, photoBooth.width]}
+      priority
+      quality={100}
+      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${photoBooth.width}px`}
+      alt="The wedding couple goofing around in a photo booth."
+    />
+  </div>
+</section>

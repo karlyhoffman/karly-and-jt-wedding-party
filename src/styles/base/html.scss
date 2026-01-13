@@ -48,6 +48,8 @@ p a {
 }
 
 a {
+  cursor: pointer;
+
   &:not(:has(img)) {
     display: inline-block;
     position: relative;

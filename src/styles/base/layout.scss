@@ -57,6 +57,20 @@
   }
 }
 
+.gradient {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6%;
+    background: linear-gradient(0deg,rgba(251, 243, 234, 0) 0%, rgba(251, 243, 234, 1) 100%);
+  }
+}
+
 .headline {
   border-top: var(--color--text) var(--layout--border-width) double;
   border-bottom: var(--color--text) var(--layout--border-width) double;
