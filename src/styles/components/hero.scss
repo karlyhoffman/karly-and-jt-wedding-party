@@ -1,77 +1,88 @@
 .hero {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(100dvh - var(--layout--gutter));
-  padding-block: var(--layout--nav-height) 0px;
+  z-index: -1;
+  padding-block-end: 15vh;
 
-  // TEMP:
-  @media screen and (min-width: 768px) {
-    transform: scale(0.75);
-    transform-origin: center;
-  }
+  // border-bottom: 10px solid red;
 
-  h2 {
-    display: block;
-    position: relative;
-    width: 90vw;
-    aspect-ratio: 1.75;
-    font-weight: 400;
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100dvh - var(--layout--gutter));
+    z-index: 1;
 
-    .script {
-      font-size: 28vw;
-    }
-
-    *:not(.script) {
-      font-size: 5vw;
-    }
-
-    .group {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      transform: translate(3%, -1.5%);
-    }
-
-    .text {
+    h2 {
       display: block;
-      position: absolute;
+      position: relative;
+      width: 90vw;
+      aspect-ratio: 1.75;
+      font-weight: 400;
 
-      &--jt {
-        top: -2.5vw;
-        left: 12vw;
-        transform: rotate(-4deg);
+      // TODO: update font sizes instead of scaling
+      @media screen and (min-width: 768px) {
+        transform: scale(0.75);
+        transform-origin: center;
       }
 
-      &--and {
-        top: 11vw;
-        left: 46vw;
+      .script {
+        font-size: 28vw;
       }
 
-      &--karly {
-        top: 12.5vw;
-        left: 21vw;
-        transform: rotate(-12deg);
+      *:not(.script) {
+        font-size: 5vw;
       }
 
-      &--married {
-        top: 42.75vw;
-        left: 50%;
-        transform: translateX(-50%);
-        white-space: nowrap;
+      .group {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transform: translate(3%, -1.5%);
+      }
+
+      .text {
+        display: block;
+        position: absolute;
+
+        &--jt {
+          top: -2.5vw;
+          left: 12vw;
+          transform: rotate(-4deg);
+        }
+
+        &--and {
+          top: 11vw;
+          left: 46vw;
+        }
+
+        &--karly {
+          top: 12.5vw;
+          left: 21vw;
+          transform: rotate(-12deg);
+        }
+
+        &--married {
+          top: 42.75vw;
+          left: 50%;
+          transform: translateX(-50%);
+          white-space: nowrap;
+        }
       }
     }
+
+    /* GSAP Pin Adjustments */
+    &:has(h2[data-headline]) {
+      margin-bottom: calc(-1 * (100dvh - var(--layout--gutter)));
+    }
   }
-}
 
-.hero-img {
-  margin-block-end: 15vh;
-  padding-inline: var(--layout--gutter);
+  &__img {
+    margin-block-start: calc(10vh + var(--layout--nav-height));
+    padding-inline: var(--layout--gutter);
+    z-index: -1;
 
-  &--wide {
-    margin-block-start: -17vh;
+    opacity: 0;
   }
 }

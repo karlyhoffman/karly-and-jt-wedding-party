@@ -1,30 +1,60 @@
 ---
 import { Image } from 'astro:assets';
-import photo from '../../assets/homepage/hero-wide.avif';
+import photo from '../../assets/homepage/hero-tall.avif';
 import '../../styles/components/hero.scss';
 ---
 
 <section class="hero">
-  <h2>
-    <span class="group">
-      <span class="script text text--jt">JT</span>
-      <span class="text text--and">and</span>
-      <span class="script text text--karly">Karly</span>
-    </span>
-    <span class="text text--married">
-      got married!
-    </span>
-  </h2>
+  <div class="hero__title">
+    <h2 data-headline>
+      <span class="group">
+        <span class="script text text--jt">JT</span>
+        <span class="text text--and">and</span>
+        <span class="script text text--karly">Karly</span>
+      </span>
+      <span class="text text--married">
+        got married!
+      </span>
+    </h2>
+  </div>
+  <div class="hero__img gradient" data-bg-img>
+    <Image
+      src={photo}
+      widths={[240, 540, 720, photo.width]}
+      priority
+      quality={100}
+      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${photo.width}px`}
+      alt="The couple kissing with champagne glasses in hand with the sunset and mountains in the background."
+    />
+  </div>
 </section>
 
-<div class="hero-img hero-img--wide gradient">
-  <Image
-    class="reveal"
-    src={photo}
-    widths={[240, 540, 720, photo.width]}
-    priority
-    quality={100}
-    sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${photo.width}px`}
-    alt="The wedding couple goofing around in a photo booth."
-  />
-</div>
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger) 
+
+  const headline = document.querySelector('[data-headline]');
+  const bgImg = document.querySelector('[data-bg-img]');
+
+  const pinText = ScrollTrigger.create({
+    trigger: "body",
+    pin: headline,
+    start: "top top",
+    endTrigger: bgImg,
+    end: "29% 50%",
+  });
+
+  const revealImg = gsap.to(bgImg, {
+    opacity: 1,
+    ease: "none",
+    scrollTrigger: {
+      trigger: 'body',
+      start: 'top top',
+      endTrigger: headline,
+      end: 'bottom 25%',
+      scrub: 0.5,
+    },
+  });
+</script>
