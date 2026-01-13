@@ -7,5 +7,17 @@ footer {
   p {
     text-wrap: auto;
     line-height: 1;
+
+    a {
+      &::before,
+      &::after {
+        top: 85%;
+        height: 1px;
+      }
+
+      &:hover::after {
+        top: calc(85% + 3px);
+      }
+    }
   }
 }
