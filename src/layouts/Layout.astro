@@ -1,5 +1,5 @@
 ---
-import Analytics from '@vercel/analytics/astro'
+import Vercel from '../components/Vercel.astro';
 import Footer from './Footer.astro';
 import Navigation from './Navigation.astro';
 import '../styles/global.scss';
@@ -36,6 +36,6 @@ const isProduction = import.meta.env.PROD;
 		</main>
 		<Footer />
 		<div data-border class="border border--show-nav" aria-hidden="true"></div>
-		{isProduction && <Analytics />}
+		{isProduction && <Vercel isEnabled={true} />}
 	</body>
 </html>
