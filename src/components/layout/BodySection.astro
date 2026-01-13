@@ -1,10 +1,10 @@
 ---
 import '../../styles/layout/body.scss';
 
-const { title = '' } = Astro.props;
+const { title = '', id = '' } = Astro.props;
 ---
 
-<section class="section gutter">
+<section id={id} class="section gutter">
   <h2 class="headline">{title}</h2>
 
   <p class="heading border-b script"><slot name="heading" /></p>
