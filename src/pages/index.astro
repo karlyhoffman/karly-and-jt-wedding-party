@@ -4,6 +4,7 @@ import Navigation from '../layouts/Navigation.astro';
 import Hero from '../components/homepage/Hero.astro';
 import Intro from '../components/homepage/Intro.astro';
 import Outro from '../components/homepage/Outro.astro';
+import Section from '../components/layout/BodySection.astro';
 
 const title = "Karly & JT Got Married!";
 ---
@@ -16,20 +17,19 @@ const title = "Karly & JT Got Married!";
 	</Navigation>
 
 	<Hero />
+
 	<Intro />
-	<section class="gutter">
-		<h2 class="headline">Photo Gallery</h2>
-		<div class="text-container">
-			<p class="serif">[UNDER CONSTRUCTION]</p>
-		</div>
-	</section>
-	<br>
-	<section class="gutter">
-		<h2 class="headline">Music</h2>
-		<div class="text-container">
-			<p class="serif">[UNDER CONSTRUCTION]</p>
-		</div>
-	</section>
+
+	<Section title="Photos">
+		<Fragment slot="small-text">Karly is currently working on this section.</Fragment>
+		<Fragment slot="subheading">[Under Construction]</Fragment>
+	</Section>
+
+	<Section title="Music">
+		<Fragment slot="small-text">Karly is currently working on this section.</Fragment>
+		<Fragment slot="subheading">[Under Construction]</Fragment>
+	</Section>
+
 	<Outro />
 
 	<p slot="footer-copy">Website built with ❤️ by <a href="mailto:karlyhoffman@gmail.com" target="_blank">Karly</a>. (Missed the previous version? View it <a href="/archive">here</a>.)</p>
