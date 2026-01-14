@@ -1,0 +1,73 @@
+---
+import '@splidejs/splide/css';
+import '../../styles/components/carousel.scss';
+import { Image } from 'astro:assets';
+
+// TODO: update to make navigation carousel vertical and positioned on the left side
+
+const {
+  images = [],
+  label = 'Carousel of photos featuring the couple\'s wedding',
+  priority = false,
+} = Astro.props;
+---
+
+{
+  !!images.length && (
+    <div class="carousel">
+      <splide-carousel class="splide" aria-label={label}>
+        <div class="splide__track">
+          <ul class="splide__list">
+            {images.map((image: any) => (
+              <li class="splide__slide carousel__slide">
+                <Image
+                  src={image.src}
+                  alt={image.alt || ''}
+                  class="carousel__photo"
+                  widths={[240, 540, 720, image.src.width]}
+                  sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${image.src.width}px`}
+                  priority={priority}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </splide-carousel>
+    </div>
+  )
+}
+
+<script>
+  import Splide from '@splidejs/splide';
+
+  // Convert to thumbnail carousel: https://splidejs.com/tutorials/thumbnail-carousel/
+
+  class SplideCarousel extends HTMLElement {
+    $carousel: any;
+
+    connectedCallback() {
+      this.init();
+    }
+
+    init() {
+      this.$carousel = new Splide(this, {
+        type: 'loop',
+        perPage: 4,
+        perMove: 4,
+        gap: 12,
+        // pagination: false,
+        // arrows: false,
+        // interval: 0,
+        breakpoints: {
+          640: {
+            perPage: 3,
+          },
+        },
+      }).mount();
+
+      return this;
+    }
+  }
+
+  customElements.define('splide-carousel', SplideCarousel);
+</script>

@@ -5,6 +5,7 @@ import Hero from '../components/homepage/Hero.astro';
 import Intro from '../components/homepage/Intro.astro';
 import Outro from '../components/homepage/Outro.astro';
 import Section from '../components/layout/BodySection.astro';
+import PhotoGallery from '../components/layout/PhotoGallery.astro';
 
 const title = "Karly & JT Got Married!";
 ---
@@ -14,6 +15,7 @@ const title = "Karly & JT Got Married!";
 		<li><a href="#intro">Intro</a></li>
 		<li><a href="#photos">Photos</a></li>
 		<li><a href="#playlist">Music</a></li>
+		<li><a href="#thank-you">Thank You</a></li>
 	</Navigation>
 
 	<Hero />
@@ -21,17 +23,34 @@ const title = "Karly & JT Got Married!";
 	<Intro />
 
 	<Section title="Photo Gallery" id="photos">
-		<Fragment slot="small-text">Karly is currently working on this section.</Fragment>
-		<h3><strong>[Under Construction]</strong></h3>
+		<Fragment slot="small-text">Karly is currently working on this section</Fragment>
+		<h3><strong>🚧 Under Construction 🚧</strong></h3>
 		<p>Please be patient as Karly builds out this section. She'll send an email notification to those who attended the reception once the photo gallery is complete.</p>
-		<p>In the meantime, enjoy these few photos from the reception!</p>
+		<p>In the meantime, enjoy the film photos that were taken at the reception!</p>
+		<p>The contact sheets from each camera are available to <a href="/src/assets/homepage/gallery/contact-sheets.zip" download="contact-sheets.zip">download here</a>.</p>
+		<Fragment slot="wide-content">
+			<PhotoGallery />
+		</Fragment>
 	</Section>
 
 	<Section title="Music" id="playlist">
-		<Fragment slot="small-text">This section is coming soon.</Fragment>
-		<h3><strong>[Under Construction]</strong></h3>
+		<Fragment slot="small-text">Coming soon</Fragment>
+		<h3><strong>🚧 Under Construction 🚧</strong></h3>
 		<p>Please be patient as Karly builds out this section, too!</p>
 		<p>In the meantime, dance your heart away to the <a href="https://open.spotify.com/playlist/2uME1BuGAZBt2CoJ1B7qrZ" target="_blank">reception playlist</a> that was played that night. We needed about four more receptions to play through the whole thing, as it ended up being over 19 hours long...</p>
+		<!-- TODO: include the following content: -->
+		<!-- 
+			* include sections that highlight:
+					- "Realistik Heaven"
+					- The song that played after vows
+					- Our first dance song
+					- Father/Daughter + Mother/Son dances
+			* subsections for mood playlists:
+					- Cocktail Hour
+					- Dinner
+					- Dancing
+					- Last call	
+			-->
 	</Section>
 
 	<Outro />
