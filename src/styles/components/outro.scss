@@ -20,4 +20,8 @@
       }
     }
   }
+
+  p {
+    padding-block-start: var(--layout--gutter-xl)
+  }
 }
