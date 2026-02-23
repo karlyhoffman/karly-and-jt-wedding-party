@@ -13,7 +13,7 @@ const images = Object.entries(imageModules).map(([path, image], index) => ({
     src: image,
     alt: `Wedding photo ${index + 1}`,
   }
-));
+)) || [];
 ---
 
 {!!images?.length && (
@@ -23,7 +23,7 @@ const images = Object.entries(imageModules).map(([path, image], index) => ({
     <div class="grid">
       {images.map((image: any, index) => (
         <div class="grid__item">
-          <a href={image.path.replace('../../assets', '/src/assets')} target="_blank" rel="noopener noreferrer">
+          <a href={image.src.src || '#'} target="_blank" rel="noopener noreferrer">
             <Image
               src={image.src}
               alt={image.alt || ''}
