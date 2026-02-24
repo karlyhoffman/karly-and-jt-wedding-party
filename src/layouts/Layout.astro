@@ -1,6 +1,7 @@
 ---
-import Vercel from '../components/utils/Vercel.astro';
 import Footer from './Footer.astro';
+import Navigation from '../layouts/Navigation.astro';
+import Vercel from '../components/utils/Vercel.astro';
 import '../styles/global.scss';
 
 const { title } = Astro.props;
@@ -29,7 +30,13 @@ const isProduction = import.meta.env.PROD;
 	</head>
 	<body class="serif">
 		<a href="#main-content" class="sr-only">Skip to main content</a>
-		<main id="main-content">
+		<Navigation>
+			<li><a href="#intro">Intro</a></li>
+			<li><a href="#photos">Photos</a></li>
+			<li><a href="#playlist">Music</a></li>
+			<li><a href="#thank-you">Thank You</a></li>
+		</Navigation>
+		<main id="main-content" class="fade-in">
 			<h1 class="sr-only">{title}</h1>
 			<slot />
 		</main>

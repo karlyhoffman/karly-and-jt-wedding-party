@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navigation from '../layouts/Navigation.astro';
 import Hero from '../components/homepage/Hero.astro';
 import Intro from '../components/homepage/Intro.astro';
 import Outro from '../components/homepage/Outro.astro';
@@ -11,13 +10,6 @@ const title = "Karly & JT Got Married!";
 ---
 
 <Layout title={title}>
-	<Navigation>
-		<li><a href="#intro">Intro</a></li>
-		<li><a href="#photos">Photos</a></li>
-		<li><a href="#playlist">Music</a></li>
-		<li><a href="#thank-you">Thank You</a></li>
-	</Navigation>
-
 	<Hero />
 
 	<Intro />
