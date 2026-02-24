@@ -2,44 +2,75 @@
 import '../styles/layout/navigation.scss';
 ---
 
-<nav data-jump-nav class="active">
-  <ul class="gutter" role="list">
-    <slot />
-  </ul>
-</nav>
+<reveal-nav>
+  <nav data-jump-nav class="active">
+    <ul class="gutter" role="list">
+      <slot />
+    </ul>
+  </nav>
+</reveal-nav>
 
 <script>
   import gsap from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-  gsap.registerPlugin(ScrollTrigger) 
+  gsap.registerPlugin(ScrollTrigger);
 
-  const border = document.querySelector('[data-border]');
-  const navigation = document.querySelector('[data-jump-nav]');
+  class RevealNav extends HTMLElement {
+    $border: any;
+    $navigation: any;
 
-  const onShowNav = () => {
-    navigation.classList.add('active');
-    border.classList.add('border--show-nav');
-  }
+    connectedCallback() {
+      this.init();
+    }
 
-  const onHideNav = () => {
-    navigation.classList.remove('active');
-    border.classList.remove('border--show-nav');
-  }
+    init() {
+      this.layout().enable();
 
-  const handleNav = (condition) => {
-    if (condition) {
-      onShowNav();
-    } else {
-      onHideNav();
+      return this;
+    }
+
+    layout() {
+      this.$border = document.querySelector('[data-border]');
+      this.$navigation = document.querySelector('[data-jump-nav]');
+
+      return this;
+    }
+
+    enable() {
+      this.enableHideOnScroll();
+
+      return this;
+    }
+
+    onHideNav = () => {
+      this.$navigation.classList.remove('active');
+      this.$border.classList.remove('border--show-nav');
+    }
+
+    onShowNav = () => {
+      this.$navigation.classList.add('active');
+      this.$border.classList.add('border--show-nav');
+    }
+
+    enableHideOnScroll() {
+      ScrollTrigger.create({
+        trigger: 'body',
+        start: 'top top',
+        end: 'bottom bottom',
+        // onToggle: ({ isActive }) => handleNav(isActive),
+        onUpdate: ({ direction }) => this.handleNav(direction === -1),
+      });
+    }
+
+    handleNav = (condition) => {
+      if (condition) {
+        this.onShowNav();
+      } else {
+        this.onHideNav();
+      }
     }
   }
 
-  ScrollTrigger.create({
-    trigger: 'body',
-    start: 'top top',
-    end: 'bottom bottom',
-    // onToggle: ({ isActive }) => handleNav(isActive),
-    onUpdate: ({ direction }) => handleNav(direction === -1),
-  });
+  customElements.define('reveal-nav', RevealNav);
 </script>
