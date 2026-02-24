@@ -38,6 +38,8 @@ import '../styles/layout/navigation.scss';
     }
 
     enable() {
+      if (!this.$border || !this.$navigation) return;
+    
       this.enableHideOnScroll();
 
       return this;
