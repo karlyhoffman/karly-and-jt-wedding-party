@@ -1,15 +1,14 @@
 photo-gallery {
   .main__slide {
-    aspect-ratio: 1.5;
-    height: 100%;
-    overflow: hidden;
-    margin-bottom: var(--layout--gutter);
+    margin-top: 5px;
 
     &__photo {
+      aspect-ratio: 1.5;
       width: 100%;
       height: 100%;
       object-fit: contain;
       object-position: center bottom;
+      margin-block: var(--layout--gutter);
     }
   }
 
