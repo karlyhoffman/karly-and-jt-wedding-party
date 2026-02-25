@@ -3,8 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/homepage/Hero.astro';
 import Intro from '../components/homepage/Intro.astro';
 import Outro from '../components/homepage/Outro.astro';
+import PhotoGallery from '../components/homepage/PhotoGallery.astro';
 import Section from '../components/layout/BodySection.astro';
-import PhotoGallery from '../components/layout/PhotoGallery.astro';
 
 const title = "Karly & JT Got Married!";
 ---
@@ -15,9 +15,8 @@ const title = "Karly & JT Got Married!";
 	<Intro />
 
 	<Section title="Photo Gallery" id="photos">
-		<Fragment slot="small-text">🚧 Under Construction 🚧</Fragment>
-		<p>Please be patient as Karly builds out this section. She expects to finish it by the end of February. Check back again soon!</p>
-		<p>In the meantime, enjoy the film photos that were taken by guests at the reception that night. You can also <a href="/gallery/contact-sheets.zip" download="contact-sheets.zip">download</a> the contact sheets from each camera.</p>
+		<p>We're so excited to share these memories with you!</p>
+		<p>Most of the photos are from the film cameras that were available at the reception that night. You can download the contact sheets from each camera <a href="/gallery/contact-sheets.zip" download="contact-sheets.zip">here</a>.</p>
 		<Fragment slot="wide-content">
 			<PhotoGallery />
 		</Fragment>
