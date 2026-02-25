@@ -56,9 +56,9 @@ a {
     color: inherit;
     text-decoration: none;
 
-    &::before,
-    &::after {
-      content: "";
+    &:not(.btn)::before,
+    &:not(.btn)::after {
+      content: '';
       position: absolute;
       top: 80%;
       left: 0;
@@ -118,15 +118,15 @@ select {
     outline: var(--layout--border-width-xs) solid var(--color--text);
   }
 
-  &[type="radio"] {
-    accent-color: var(--color--text); 
+  &[type='radio'] {
+    accent-color: var(--color--text);
     outline: transparent;
   }
 }
 
 textarea,
-fieldset input[type="text"],
-fieldset input[type="email"] {
+fieldset input[type='text'],
+fieldset input[type='email'] {
   display: block;
   width: 100%;
   background-color: var(--color--primary);
@@ -146,7 +146,7 @@ fieldset input[type="email"] {
   color: var(--color--text);
   border: var(--layout--border-width-sm) solid var(--color--text);
   border-radius: 0px;
-  font-family: "Old Standard TT Regular", serif;
+  font-family: 'Old Standard TT Regular', serif;
   font-size: var(--text--font-md);
   line-height: 1;
   text-transform: uppercase;
@@ -161,7 +161,7 @@ fieldset input[type="email"] {
   }
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: calc(var(--layout--border-width-sm) * -1);
     left: calc(var(--layout--border-width-sm) * -1);
@@ -186,7 +186,7 @@ figure {
 }
 
 figcaption {
-  font-family: "Old Standard TT Regular", serif;
+  font-family: 'Old Standard TT Regular', serif;
   font-size: 0.55rem;
   letter-spacing: -0.01em;
   text-align: left;
