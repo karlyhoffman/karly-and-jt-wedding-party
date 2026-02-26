@@ -5,7 +5,6 @@ photo-gallery {
     &__photo {
       aspect-ratio: 1.5;
       width: 100%;
-      height: 100%;
       object-fit: contain;
       object-position: center bottom;
       margin-block: var(--layout--gutter);
@@ -14,7 +13,6 @@ photo-gallery {
 
   .thumb__slide {
     aspect-ratio: 1 / 1;
-    height: 100%;
     overflow: hidden;
     transition: opacity 200ms linear;
     opacity: 0.65;
