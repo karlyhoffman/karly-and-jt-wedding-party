@@ -109,15 +109,19 @@ const images = Object.entries(imageModules).map(([path, image], index) => ({
         pagination: false,
         arrows: false,
         rewind: true,
+        speed: 400,
       });
 
       this.thumbSlider = new Splide(this.$thumbPhotos, {
-        gap: 5,
-        focus: 'center',
-        rewind: true,
+        type: 'loop',
+        drag: false,
         pagination: false,
         isNavigation: true,
+        rewind: true,
         perPage: 9,
+        gap: 5,
+        speed: 200,
+        focus: 'center',
         breakpoints: {
           992: {
             perPage: 6,
