@@ -1,6 +1,7 @@
 photo-gallery {
+
   .main__slide {
-    margin-top: 5px;
+    margin-block-end: var(--layout--gutter);
 
     &__photo {
       aspect-ratio: 1.5;
