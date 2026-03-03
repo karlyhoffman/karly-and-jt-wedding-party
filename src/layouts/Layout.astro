@@ -31,10 +31,7 @@ const isProduction = import.meta.env.PROD;
 	<body class="serif">
 		<a href="#main-content" class="sr-only">Skip to main content</a>
 		<Navigation>
-			<li><a href="#intro">Intro</a></li>
-			<li><a href="#photos">Photos</a></li>
-			<li><a href="#playlist">Music</a></li>
-			<li><a href="#thank-you">Thank You</a></li>
+			<slot name="nav-items" />
 		</Navigation>
 		<main id="main-content" class="fade-in">
 			<h1 class="sr-only">{title}</h1>

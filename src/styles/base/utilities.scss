@@ -35,11 +35,12 @@ img.reveal {
 }
 
 .fade-in {
-  animation: opacity-0-100 2.5s 1 alternate forwards; 
+  animation: opacity-0-100 2.5s 1 normal forwards;
 }
 
 @keyframes opacity-0-100 {
-  0%, 10% {
+  0%,
+  10% {
     opacity: 0;
   }
   100% {
