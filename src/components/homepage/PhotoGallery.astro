@@ -59,7 +59,7 @@ const images = Object.entries(imageModules).map(([path, image], index) => ({
                 sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 1200px, ${image.src.width}px`}
                 priority={index < 10}
               />
-              <a class="btn" href={image.src.src || '#'} target="_blank" rel="noopener noreferrer">Download</a>
+              <a class="btn" href={image.src.src || '#'} download={`photo-${index + 1}`}>Download</a>
             </li>
           ))}
         </ul>
