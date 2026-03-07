@@ -41,7 +41,7 @@ const images =
                   class="thumb__slide__photo"
                   widths={[240, 540, 720, image.src.width]}
                   sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 1200px, ${image.src.width}px`}
-                  priority={index < 10}
+                  priority={index < 6 || index >= images.length - 6}
                 />
               </li>
             ))}
@@ -64,7 +64,7 @@ const images =
                   class="main__slide__photo"
                   widths={[240, 540, 720, image.src.width]}
                   sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 1200px, ${image.src.width}px`}
-                  priority={index < 10}
+                  priority={index < 6 || index >= images.length - 6}
                 />
               </li>
             ))}
