@@ -175,7 +175,7 @@ const images =
       this.mainSlider.mount();
       this.thumbSlider.mount();
 
-      this.mainSlider.on('active', () => {
+      this.mainSlider.on('moved', () => {
         this.currentIndex = this.mainSlider.index;
         this.updateDownloadHref();
       });
@@ -184,13 +184,11 @@ const images =
     }
 
     updateDownloadHref() {
-      const $currentSlide = this.$mainSlider.querySelector(
-        '.main__slide.is-active.is-visible'
-      ) as HTMLLIElement | null;
+      if (!this.$downloadBtn) return;
 
-      if (!this.$downloadBtn || !$currentSlide?.dataset.downloadUrl) return;
-
-      this.$downloadBtn.setAttribute('href', $currentSlide.dataset.downloadUrl);
+      const currentSlide = this.$mainSlider.querySelector('.is-active.is-visible');
+      const downloadUrl = currentSlide?.getAttribute('data-download-url') || '#';
+      this.$downloadBtn.setAttribute('href', downloadUrl);
 
       return this;
     }
