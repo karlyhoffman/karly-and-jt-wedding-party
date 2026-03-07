@@ -40,36 +40,31 @@ photo-gallery {
   }
 
   .button-menu {
-    display: inline-flex;
-    flex-wrap: wrap;
+    display: flex;
     justify-content: space-between;
-    column-gap: var(--layout--gutter-xl);
-    row-gap: var(--layout--gutter);
 
     @media screen and (min-width: 768px) {
-      padding-block-start: var(--layout--gutter-lg);
+      display: inline-flex;
+      column-gap: var(--layout--gutter-xl);
+      padding-block-start: var(--layout--gutter);
     }
 
     button {
-      &:nth-of-type(2) {
-        order: 2;
+      aspect-ratio: 1 / 1;
+      padding: 0;
+
+      img {
+        display: block;
+        max-width: 32px;
 
         @media screen and (min-width: 768px) {
-          order: 3;
+          max-width: 42px;
         }
       }
-    }
 
-    a {
-      display: block;
-      width: 100%;
-      margin-inline: auto;
-      order: -1;
-
-      @media screen and (min-width: 768px) {
-        display: inline-block;
-        width: auto;
-        order: 2;
+      &[data-arrow-prev] img {
+        position: relative;
+        transform: scaleX(-1);
       }
     }
   }

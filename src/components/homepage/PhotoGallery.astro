@@ -79,7 +79,8 @@ const images =
           aria-label="Previous slide"
           aria-controls="splide01-track"
         >
-          Previous
+          <span class="sr-only">Previous</span>
+          <img src="/icons/chevron.svg" alt="Arrow icon" />
         </button>
         <a data-download-btn class="btn" href={images[0]?.src?.src || '#'} download>
           Download
@@ -91,7 +92,8 @@ const images =
           aria-label="Next slide"
           aria-controls="splide01-track"
         >
-          Next
+          <span class="sr-only">Next</span>
+          <img src="/icons/chevron.svg" alt="Arrow icon" />
         </button>
       </div>
     </photo-gallery>
