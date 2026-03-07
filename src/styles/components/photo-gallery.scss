@@ -45,7 +45,6 @@ photo-gallery {
     justify-content: space-between;
     column-gap: var(--layout--gutter-xl);
     row-gap: var(--layout--gutter);
-    padding-inline: 7px;
 
     button {
       &:nth-of-type(2) {
@@ -61,7 +60,7 @@ photo-gallery {
       display: block;
       width: 100%;
       margin-inline: auto;
-      order: 3;
+      order: -1;
 
       @media screen and (min-width: 768px) {
         display: inline-block;
