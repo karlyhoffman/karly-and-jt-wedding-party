@@ -43,7 +43,8 @@ photo-gallery {
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 40px;
+    column-gap: var(--layout--gutter-xl);
+    row-gap: var(--layout--gutter);
     padding-inline: 7px;
 
     button {

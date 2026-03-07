@@ -147,11 +147,16 @@ fieldset input[type='email'] {
   border: var(--layout--border-width-sm) solid var(--color--text);
   border-radius: 0px;
   font-family: 'Old Standard TT Regular', serif;
-  font-size: var(--text--font-md);
   line-height: 1;
   text-transform: uppercase;
-  padding: 14px 23px 9px;
+  font-size: var(--text--font-sm);
+  padding: 10px 19px 5px;
   cursor: pointer;
+
+  @media screen and (min-width: 768px) {
+    font-size: var(--text--font-md);
+    padding: 14px 23px 9px;
+  }
 
   &:hover::after {
     top: calc(var(--layout--border-width-sm) * -3);
