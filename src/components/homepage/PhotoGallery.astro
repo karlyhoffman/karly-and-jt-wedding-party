@@ -62,6 +62,7 @@ const images =
                 />
                 <div class="button-menu">
                   <button
+                    data-arrow-prev
                     class="btn"
                     type="button"
                     aria-label="Previous slide"
@@ -78,10 +79,13 @@ const images =
                   </a>
                   <button
                     class="btn"
+                    data-arrow-next
                     type="button"
                     aria-label="Next slide"
                     aria-controls="splide01-track"
-                  >Next</button>
+                  >
+                    Next
+                  </button>
                 </div>
               </li>
             ))}
@@ -99,6 +103,8 @@ const images =
     $element: any;
     $mainPhotos: any;
     $thumbPhotos: any;
+    $arrowsPrev: any;
+    $arrowsNext: any;
     mainSlider: any;
     thumbSlider: any;
 
@@ -117,6 +123,8 @@ const images =
     layout() {
       this.$mainPhotos = this.$element.querySelector('[main-slider]');
       this.$thumbPhotos = this.$element.querySelector('[thumb-slider]');
+      this.$arrowsPrev = [...this.$element.querySelectorAll('[data-arrow-prev]')];
+      this.$arrowsNext = [...this.$element.querySelectorAll('[data-arrow-next]')];
 
       return this;
     }
@@ -132,6 +140,14 @@ const images =
         arrows: false,
         rewind: true,
         speed: 600,
+      });
+
+      this.$arrowsPrev.forEach((arrow: any) => {
+        arrow.addEventListener('click', () => this.mainSlider.go('<'));
+      });
+
+      this.$arrowsNext.forEach((arrow: any) => {
+        arrow.addEventListener('click', () => this.mainSlider.go('>'));
       });
 
       this.thumbSlider = new Splide(this.$thumbPhotos, {
