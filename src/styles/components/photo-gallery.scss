@@ -45,6 +45,7 @@ photo-gallery {
     justify-content: space-between;
     column-gap: var(--layout--gutter-xl);
     row-gap: var(--layout--gutter);
+    padding-block-start: var(--layout--gutter-lg);
 
     button {
       &:nth-of-type(2) {
