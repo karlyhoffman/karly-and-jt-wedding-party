@@ -9,10 +9,16 @@ const imageModules = import.meta.glob('../../assets/homepage/gallery/*.jpg', {
   import: 'default',
 });
 
+interface ImageModule {
+  src: string;
+  width: number;
+  height: number;
+}
+
 const images =
   Object.entries(imageModules).map(([path, image], index) => ({
     path,
-    src: image,
+    src: image as ImageModule,
     alt: `Wedding photo ${index + 1}`,
   })) || [];
 ---
@@ -21,7 +27,7 @@ const images =
   !!images?.length && (
     <photo-gallery>
       <div
-        thumb-slider
+        data-thumb-slider
         class="splide"
         aria-label="The carousel with thumbnails. Selecting a thumbnail will change the photo in the carousel."
       >
@@ -44,14 +50,14 @@ const images =
       </div>
 
       <div
-        main-slider
+        data-main-slider
         class="splide"
         aria-label="Carousel of photos taken at the couple\'s wedding."
       >
         <div class="splide__track">
           <ul class="splide__list">
             {images.map((image: any, index: number) => (
-              <li class="splide__slide main__slide">
+              <li class="splide__slide main__slide" data-download-url={image.src.src || '#'}>
                 <Image
                   src={image.src}
                   alt={image.alt || ''}
@@ -60,37 +66,33 @@ const images =
                   sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 1200px, ${image.src.width}px`}
                   priority={index < 10}
                 />
-                <div class="button-menu">
-                  <button
-                    data-arrow-prev
-                    class="btn"
-                    type="button"
-                    aria-label="Previous slide"
-                    aria-controls="splide01-track"
-                  >
-                    Previous
-                  </button>
-                  <a
-                    class="btn"
-                    href={image.src.src || '#'}
-                    download={`Photo ${index + 1} of ${images.length}`}
-                  >
-                    Download
-                  </a>
-                  <button
-                    class="btn"
-                    data-arrow-next
-                    type="button"
-                    aria-label="Next slide"
-                    aria-controls="splide01-track"
-                  >
-                    Next
-                  </button>
-                </div>
               </li>
             ))}
           </ul>
         </div>
+      </div>
+      <div class="button-menu">
+        <button
+          data-arrow-prev
+          class="btn"
+          type="button"
+          aria-label="Previous slide"
+          aria-controls="splide01-track"
+        >
+          Previous
+        </button>
+        <a data-download-btn class="btn" href={images[0]?.src?.src || '#'} download>
+          Download
+        </a>
+        <button
+          class="btn"
+          data-arrow-next
+          type="button"
+          aria-label="Next slide"
+          aria-controls="splide01-track"
+        >
+          Next
+        </button>
       </div>
     </photo-gallery>
   )
@@ -101,12 +103,14 @@ const images =
 
   class PhotoGallery extends HTMLElement {
     $element: any;
-    $mainPhotos: any;
-    $thumbPhotos: any;
-    $arrowsPrev: any;
-    $arrowsNext: any;
+    $mainSlider: HTMLDivElement | null = null;
+    $thumbSlider: HTMLDivElement | null = null;
+    $arrowPrev: HTMLButtonElement | null = null;
+    $arrowNext: HTMLButtonElement | null = null;
+    $downloadBtn: HTMLAnchorElement | null = null;
     mainSlider: any;
     thumbSlider: any;
+    currentIndex: number = 0;
 
     connectedCallback() {
       this.init();
@@ -121,18 +125,19 @@ const images =
     }
 
     layout() {
-      this.$mainPhotos = this.$element.querySelector('[main-slider]');
-      this.$thumbPhotos = this.$element.querySelector('[thumb-slider]');
-      this.$arrowsPrev = [...this.$element.querySelectorAll('[data-arrow-prev]')];
-      this.$arrowsNext = [...this.$element.querySelectorAll('[data-arrow-next]')];
+      this.$mainSlider = this.$element.querySelector('[data-main-slider]');
+      this.$thumbSlider = this.$element.querySelector('[data-thumb-slider]');
+      this.$arrowPrev = this.$element.querySelector('[data-arrow-prev]');
+      this.$arrowNext = this.$element.querySelector('[data-arrow-next]');
+      this.$downloadBtn = this.$element.querySelector('[data-download-btn]');
 
       return this;
     }
 
     enable() {
-      if (!this.$mainPhotos || !this.$thumbPhotos) return;
+      if (!this.$mainSlider || !this.$thumbSlider) return;
 
-      this.mainSlider = new Splide(this.$mainPhotos, {
+      this.mainSlider = new Splide(this.$mainSlider, {
         type: 'loop',
         perPage: 1,
         perMove: 1,
@@ -142,15 +147,10 @@ const images =
         speed: 600,
       });
 
-      this.$arrowsPrev.forEach((arrow: any) => {
-        arrow.addEventListener('click', () => this.mainSlider.go('<'));
-      });
+      this.$arrowPrev?.addEventListener('click', () => this.onPrevClick());
+      this.$arrowNext?.addEventListener('click', () => this.onNextClick());
 
-      this.$arrowsNext.forEach((arrow: any) => {
-        arrow.addEventListener('click', () => this.mainSlider.go('>'));
-      });
-
-      this.thumbSlider = new Splide(this.$thumbPhotos, {
+      this.thumbSlider = new Splide(this.$thumbSlider, {
         type: 'loop',
         drag: false,
         pagination: false,
@@ -175,8 +175,33 @@ const images =
       this.mainSlider.mount();
       this.thumbSlider.mount();
 
+      this.mainSlider.on('active', () => {
+        this.currentIndex = this.mainSlider.index;
+        this.updateDownloadHref();
+      });
+
       return this;
     }
+
+    updateDownloadHref() {
+      const $currentSlide = this.$mainSlider.querySelector(
+        '.main__slide.is-active.is-visible'
+      ) as HTMLLIElement | null;
+
+      if (!this.$downloadBtn || !$currentSlide?.dataset.downloadUrl) return;
+
+      this.$downloadBtn.setAttribute('href', $currentSlide.dataset.downloadUrl);
+
+      return this;
+    }
+
+    onPrevClick = () => {
+      this.mainSlider.go('<');
+    };
+
+    onNextClick = () => {
+      this.mainSlider.go('>');
+    };
   }
 
   customElements.define('photo-gallery', PhotoGallery);

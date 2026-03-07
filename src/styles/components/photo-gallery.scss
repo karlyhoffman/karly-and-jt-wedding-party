@@ -8,7 +8,7 @@ photo-gallery {
       width: 100%;
       object-fit: contain;
       object-position: center bottom;
-      margin-block: var(--layout--gutter);
+      margin-block-start: var(--layout--gutter);
     }
   }
 
@@ -45,7 +45,10 @@ photo-gallery {
     justify-content: space-between;
     column-gap: var(--layout--gutter-xl);
     row-gap: var(--layout--gutter);
-    padding-block-start: var(--layout--gutter-lg);
+
+    @media screen and (min-width: 768px) {
+      padding-block-start: var(--layout--gutter-lg);
+    }
 
     button {
       &:nth-of-type(2) {
