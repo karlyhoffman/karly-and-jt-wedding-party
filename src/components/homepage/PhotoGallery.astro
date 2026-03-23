@@ -104,14 +104,14 @@ const images =
   import Splide from '@splidejs/splide';
 
   class PhotoGallery extends HTMLElement {
-    $element: any;
+    $element: HTMLElement | null = null;
     $mainSlider: HTMLDivElement | null = null;
     $thumbSlider: HTMLDivElement | null = null;
     $arrowPrev: HTMLButtonElement | null = null;
     $arrowNext: HTMLButtonElement | null = null;
     $downloadBtn: HTMLAnchorElement | null = null;
-    mainSlider: any;
-    thumbSlider: any;
+    mainSlider: Splide | null = null;
+    thumbSlider: Splide | null = null;
     currentIndex: number = 0;
 
     connectedCallback() {
@@ -197,11 +197,11 @@ const images =
     }
 
     onPrevClick = () => {
-      this.mainSlider.go('<');
+      this.mainSlider?.go('<');
     };
 
     onNextClick = () => {
-      this.mainSlider.go('>');
+      this.mainSlider?.go('>');
     };
   }
 
