@@ -148,6 +148,7 @@ const images =
         arrows: false,
         rewind: true,
         speed: 600,
+        lazyLoad: 'nearby',
       });
 
       this.$arrowPrev?.addEventListener('click', () => this.onPrevClick());
@@ -163,6 +164,7 @@ const images =
         perPage: 9,
         gap: 5,
         speed: 200,
+        lazyLoad: 'nearby',
         focus: 'center',
         breakpoints: {
           992: {
