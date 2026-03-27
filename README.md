@@ -21,7 +21,7 @@ The site has two distinct states:
 - Fully responsive design with fluid typography and Astro image optimization
 - Preserved archive of the pre-wedding site at `/archive`
 - Search-engine-excluded (`noindex`) — built for invited guests, not public discovery
-- Minimal analytics measurements provided by Vercel Analytics and Speed Insights (production only)
+- Minimal analytics (page view count only) provided by Vercel Analytics and Speed Insights
 
 ---
 
