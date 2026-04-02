@@ -127,6 +127,8 @@ const images =
     }
 
     layout() {
+      if (!this.$element) return this;
+
       this.$mainSlider = this.$element.querySelector('[data-main-slider]');
       this.$thumbSlider = this.$element.querySelector('[data-thumb-slider]');
       this.$arrowPrev = this.$element.querySelector('[data-arrow-prev]');
@@ -145,49 +147,58 @@ const images =
     }
 
     initSliders() {
-      this.mainSlider = new Splide(this.$mainSlider, {
-        type: 'loop',
-        perPage: 1,
-        perMove: 1,
-        gap: 11,
-        pagination: false,
-        arrows: false,
-        rewind: true,
-        speed: 600,
-        lazyLoad: 'nearby',
-      });
-
-      this.$arrowPrev?.addEventListener('click', () => this.onPrevClick());
-      this.$arrowNext?.addEventListener('click', () => this.onNextClick());
-
-      this.thumbSlider = new Splide(this.$thumbSlider, {
-        type: 'loop',
-        drag: false,
-        pagination: false,
-        arrows: false,
-        isNavigation: true,
-        rewind: true,
-        perPage: 9,
-        gap: 5,
-        speed: 200,
-        lazyLoad: 'nearby',
-        focus: 'center',
-        breakpoints: {
-          992: {
-            perPage: 6,
+      // Initialize thumbnail slider
+      if (this.$thumbSlider) {
+        this.thumbSlider = new Splide(this.$thumbSlider, {
+          type: 'loop',
+          drag: false,
+          pagination: false,
+          arrows: false,
+          isNavigation: true,
+          rewind: true,
+          perPage: 9,
+          gap: 5,
+          speed: 200,
+          lazyLoad: 'nearby',
+          focus: 'center',
+          breakpoints: {
+            992: {
+              perPage: 6,
+            },
+            640: {
+              perPage: 4,
+            },
           },
-          640: {
-            perPage: 4,
-          },
-        },
-      });
+        });
+      }
 
-      this.mainSlider.sync(this.thumbSlider);
-      this.mainSlider.mount();
-      this.thumbSlider.mount();
+      // Initialize main slider
+      if (this.$mainSlider) {
+        this.mainSlider = new Splide(this.$mainSlider, {
+          type: 'loop',
+          perPage: 1,
+          perMove: 1,
+          gap: 11,
+          pagination: false,
+          arrows: false,
+          rewind: true,
+          speed: 600,
+          lazyLoad: 'nearby',
+        });
 
-      this.mainSlider.on('moved', () => {
-        this.currentIndex = this.mainSlider.index;
+        this.$arrowPrev?.addEventListener('click', () => this.onPrevClick());
+        this.$arrowNext?.addEventListener('click', () => this.onNextClick());
+
+        if (this.thumbSlider) {
+          this.mainSlider?.sync(this.thumbSlider);
+        }
+      }
+
+      this.mainSlider?.mount();
+      this.thumbSlider?.mount();
+
+      this.mainSlider?.on('moved', () => {
+        this.currentIndex = this.mainSlider?.index || 0;
         this.updateUrlParam();
         this.updateDownloadHref();
       });
@@ -225,7 +236,7 @@ const images =
     }
 
     updateDownloadHref() {
-      if (!this.$downloadBtn) return;
+      if (!this.$downloadBtn || !this.$mainSlider) return;
 
       const currentSlide = this.$mainSlider.querySelector('.is-active.is-visible');
       const downloadUrl = currentSlide?.getAttribute('data-download-url') || '#';
