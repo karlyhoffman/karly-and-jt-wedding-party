@@ -139,6 +139,12 @@ const images =
     enable() {
       if (!this.$mainSlider || !this.$thumbSlider) return;
 
+      this.initSliders().updateCurrentIndex();
+
+      return this;
+    }
+
+    initSliders() {
       this.mainSlider = new Splide(this.$mainSlider, {
         type: 'loop',
         perPage: 1,
@@ -182,8 +188,38 @@ const images =
 
       this.mainSlider.on('moved', () => {
         this.currentIndex = this.mainSlider.index;
+        this.updateUrlParam();
         this.updateDownloadHref();
       });
+
+      return this;
+    }
+
+    updateCurrentIndex() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const photoIndex = urlParams.get('photo');
+
+      if (photoIndex !== null) {
+        // scroll to section
+        setTimeout(() => {
+          this.$element?.scrollIntoView();
+        }, 500);
+
+        // update slider
+        const index = parseInt(photoIndex, 10);
+        if (!isNaN(index) && this.mainSlider) {
+          this.mainSlider.go(index);
+          this.currentIndex = index;
+        }
+      }
+
+      return this;
+    }
+
+    updateUrlParam() {
+      const url = new URL(window.location.href);
+      url.searchParams.set('photo', String(this.currentIndex));
+      window.history.replaceState({}, '', url);
 
       return this;
     }
