@@ -9,81 +9,117 @@ const imageModules = import.meta.glob('../../assets/homepage/gallery/*.jpg', {
   import: 'default',
 });
 
-const images = Object.entries(imageModules).map(([path, image], index) => ({
+interface ImageModule {
+  src: string;
+  width: number;
+  height: number;
+}
+
+const images =
+  Object.entries(imageModules).map(([path, image], index) => ({
     path,
-    src: image,
+    src: image as ImageModule,
     alt: `Wedding photo ${index + 1}`,
-  }
-)) || [];
+  })) || [];
 ---
 
-{!!images?.length && (
-  <photo-gallery>
-    <div
-      thumb-slider
-      class="splide"
-      aria-label="The carousel with thumbnails. Selecting a thumbnail will change the photo in the carousel."
-    >
-      <div class="splide__track">
-        <ul class="splide__list">
-          {images.map((image: any, index: number) => (
-            <li class="splide__slide thumb__slide">
-              <Image
-                src={image.src}
-                alt={image.alt || ''}
-                class="thumb__slide__photo"
-                widths={[240, 540, 720, image.src.width]}
-                sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 1200px, ${image.src.width}px`}
-                priority={index < 10}
-              />
-            </li>
-          ))}
-        </ul>
+{
+  !!images?.length && (
+    <photo-gallery>
+      <div
+        data-thumb-slider
+        class="splide"
+        aria-label="The carousel with thumbnails. Selecting a thumbnail will change the photo in the carousel."
+      >
+        <div class="splide__track">
+          <ul class="splide__list">
+            {images.map((image: any, index: number) => (
+              <li class="splide__slide thumb__slide">
+                <Image
+                  src={image.src}
+                  alt={image.alt || ''}
+                  class="thumb__slide__photo"
+                  widths={[240, 540, 720, image.src.width]}
+                  sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 1200px, ${image.src.width}px`}
+                  priority={index < 6 || index >= images.length - 6}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
 
-    <div
-      main-slider
-      class="splide"
-      aria-label="Carousel of photos taken at the couple\'s wedding."
-    >
-      <div class="splide__track">
-        <ul class="splide__list">
-          {images.map((image: any, index: number) => (
-            <li class="splide__slide main__slide">
-              <Image
-                src={image.src}
-                alt={image.alt || ''}
-                class="main__slide__photo"
-                widths={[240, 540, 720, image.src.width]}
-                sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 1200px, ${image.src.width}px`}
-                priority={index < 10}
-              />
-              <a class="btn" href={image.src.src || '#'} target="_blank" rel="noopener noreferrer">Download</a>
-            </li>
-          ))}
-        </ul>
+      <div
+        data-main-slider
+        class="splide"
+        aria-label="Carousel of photos taken at the couple\'s wedding."
+      >
+        <div class="splide__track">
+          <ul class="splide__list">
+            {images.map((image: any, index: number) => (
+              <li class="splide__slide main__slide" data-download-url={image.src.src || '#'}>
+                <Image
+                  src={image.src}
+                  alt={image.alt || ''}
+                  class="main__slide__photo"
+                  widths={[240, 540, 720, image.src.width]}
+                  sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 1200px, ${image.src.width}px`}
+                  priority={index < 6 || index >= images.length - 6}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
-  </photo-gallery>
-)}
+      <div class="button-menu">
+        <button
+          data-arrow-prev
+          class="btn"
+          type="button"
+          aria-label="Previous slide"
+          aria-controls="splide01-track"
+        >
+          <span class="sr-only">Previous</span>
+          <img src="/icons/chevron.svg" alt="Arrow icon" />
+        </button>
+        <a data-download-btn class="btn" href={images[0]?.src?.src || '#'} download>
+          Download
+        </a>
+        <button
+          class="btn"
+          data-arrow-next
+          type="button"
+          aria-label="Next slide"
+          aria-controls="splide01-track"
+        >
+          <span class="sr-only">Next</span>
+          <img src="/icons/chevron.svg" alt="Arrow icon" />
+        </button>
+      </div>
+    </photo-gallery>
+  )
+}
 
 <script>
   import Splide from '@splidejs/splide';
 
   class PhotoGallery extends HTMLElement {
-    $element: any;
-    $mainPhotos: any;
-    $thumbPhotos: any;
-    mainSlider: any;
-    thumbSlider: any;
+    $element: HTMLElement | null = null;
+    $mainSlider: HTMLDivElement | null = null;
+    $thumbSlider: HTMLDivElement | null = null;
+    $arrowPrev: HTMLButtonElement | null = null;
+    $arrowNext: HTMLButtonElement | null = null;
+    $downloadBtn: HTMLAnchorElement | null = null;
+    mainSlider: Splide | null = null;
+    thumbSlider: Splide | null = null;
+    currentIndex: number = 0;
 
     connectedCallback() {
       this.init();
     }
 
     init() {
-			this.$element = this;
+      this.$element = this;
 
       this.layout().enable();
 
@@ -91,51 +127,131 @@ const images = Object.entries(imageModules).map(([path, image], index) => ({
     }
 
     layout() {
-			this.$mainPhotos = this.$element.querySelector('[main-slider]');
-      this.$thumbPhotos = this.$element.querySelector('[thumb-slider]');
+      if (!this.$element) return this;
+
+      this.$mainSlider = this.$element.querySelector('[data-main-slider]');
+      this.$thumbSlider = this.$element.querySelector('[data-thumb-slider]');
+      this.$arrowPrev = this.$element.querySelector('[data-arrow-prev]');
+      this.$arrowNext = this.$element.querySelector('[data-arrow-next]');
+      this.$downloadBtn = this.$element.querySelector('[data-download-btn]');
 
       return this;
     }
 
     enable() {
-      if (!this.$mainPhotos || !this.$thumbPhotos) return;
+      if (!this.$mainSlider || !this.$thumbSlider) return;
 
-      this.mainSlider = new Splide(this.$mainPhotos, {
-        type: 'loop',
-        perPage: 1,
-        perMove: 1,
-        pagination: false,
-        arrows: false,
-        rewind: true,
-        speed: 600,
-      });
-
-      this.thumbSlider = new Splide(this.$thumbPhotos, {
-        type: 'loop',
-        drag: false,
-        pagination: false,
-        isNavigation: true,
-        rewind: true,
-        perPage: 9,
-        gap: 5,
-        speed: 200,
-        focus: 'center',
-        breakpoints: {
-          992: {
-            perPage: 6,
-          },
-          640: {
-            perPage: 4,
-          },
-        },
-      });
-
-      this.mainSlider.sync(this.thumbSlider);
-      this.mainSlider.mount();
-      this.thumbSlider.mount();
+      this.initSliders().updateCurrentIndex();
 
       return this;
     }
+
+    initSliders() {
+      // Initialize thumbnail slider
+      if (this.$thumbSlider) {
+        this.thumbSlider = new Splide(this.$thumbSlider, {
+          type: 'loop',
+          drag: false,
+          pagination: false,
+          arrows: false,
+          isNavigation: true,
+          rewind: true,
+          perPage: 9,
+          gap: 5,
+          speed: 200,
+          lazyLoad: 'nearby',
+          focus: 'center',
+          breakpoints: {
+            992: {
+              perPage: 6,
+            },
+            640: {
+              perPage: 4,
+            },
+          },
+        });
+      }
+
+      // Initialize main slider
+      if (this.$mainSlider) {
+        this.mainSlider = new Splide(this.$mainSlider, {
+          type: 'loop',
+          perPage: 1,
+          perMove: 1,
+          gap: 11,
+          pagination: false,
+          arrows: false,
+          rewind: true,
+          speed: 600,
+          lazyLoad: 'nearby',
+        });
+
+        this.$arrowPrev?.addEventListener('click', () => this.onPrevClick());
+        this.$arrowNext?.addEventListener('click', () => this.onNextClick());
+
+        if (this.thumbSlider) {
+          this.mainSlider?.sync(this.thumbSlider);
+        }
+      }
+
+      this.mainSlider?.mount();
+      this.thumbSlider?.mount();
+
+      this.mainSlider?.on('moved', () => {
+        this.currentIndex = this.mainSlider?.index || 0;
+        this.updateUrlParam();
+        this.updateDownloadHref();
+      });
+
+      return this;
+    }
+
+    updateCurrentIndex() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const photoIndex = urlParams.get('photo');
+
+      if (photoIndex !== null) {
+        // scroll to section
+        setTimeout(() => {
+          this.$element?.scrollIntoView();
+        }, 500);
+
+        // update slider
+        const index = parseInt(photoIndex, 10);
+        if (!isNaN(index) && this.mainSlider) {
+          this.mainSlider.go(index);
+          this.currentIndex = index;
+        }
+      }
+
+      return this;
+    }
+
+    updateUrlParam() {
+      const url = new URL(window.location.href);
+      url.searchParams.set('photo', String(this.currentIndex));
+      window.history.replaceState({}, '', url);
+
+      return this;
+    }
+
+    updateDownloadHref() {
+      if (!this.$downloadBtn || !this.$mainSlider) return;
+
+      const currentSlide = this.$mainSlider.querySelector('.is-active.is-visible');
+      const downloadUrl = currentSlide?.getAttribute('data-download-url') || '#';
+      this.$downloadBtn.setAttribute('href', downloadUrl);
+
+      return this;
+    }
+
+    onPrevClick = () => {
+      this.mainSlider?.go('<');
+    };
+
+    onNextClick = () => {
+      this.mainSlider?.go('>');
+    };
   }
 
   customElements.define('photo-gallery', PhotoGallery);

@@ -3,9 +3,46 @@ import nodemailer from "nodemailer";
 
 export const prerender = false;
 
+function escapeHtml(value: unknown): string {
+  if (value == null) return '';
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+}
+
+function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 export const POST: APIRoute = async ({ request }) => {
+  const contentType = request.headers.get('content-type') || '';
+  if (!contentType.includes('application/json')) {
+    return new Response(JSON.stringify({ error: 'Invalid content type.' }), { status: 400 });
+  }
+
   try {
     const formData = await request.json() || {};
+
+    // Validate and sanitize inputs
+    const firstName = String(formData.firstName || '').trim().slice(0, 100);
+    const lastName = String(formData.lastName || '').trim().slice(0, 100);
+    const rsvp = formData.rsvp;
+
+    if (!firstName || !lastName) {
+      return new Response(JSON.stringify({ error: 'First and last name are required.' }), { status: 400 });
+    }
+
+    if (rsvp !== 'Yes' && rsvp !== 'No') {
+      return new Response(JSON.stringify({ error: 'Invalid RSVP value.' }), { status: 400 });
+    }
+
+    const emailConfirm = String(formData.email_confirm || '').trim().slice(0, 254);
+    if (emailConfirm && !isValidEmail(emailConfirm)) {
+      return new Response(JSON.stringify({ error: 'Invalid email address.' }), { status: 400 });
+    }
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -15,34 +52,36 @@ export const POST: APIRoute = async ({ request }) => {
       },
     });
 
-    // Prepare email content
+    const e = escapeHtml;
+
+    // Prepare email content with escaped user input
     let emailBody = `
-      <p><strong>Name:</strong> ${formData.firstName} ${formData.lastName}</p>
+      <p><strong>Name:</strong> ${e(firstName)} ${e(lastName)}</p>
     `;
 
-    if (formData.rsvp === 'Yes') {
+    if (rsvp === 'Yes') {
       emailBody += `
-        <p><strong>Email:</strong> ${formData.email_confirm || ''}</p>
-        <p><strong>Attending:</strong> ${formData.rsvp || ''}</p>
-        <p><strong>Meal Preference:</strong> ${formData.meal || ''}</p>
-        <p><strong>Dietary Restrictions:</strong> ${formData.dietary_restrictions || ''}</p>
-        <p><strong>Song Request:</strong> ${formData.song || ''}</p>
-        <p><strong>Shuttle to McCarthy's:</strong> ${formData.shuttle || ''}</p>
-        <p><strong>Sunday Picnic:</strong> ${formData.picnic || ''}</p>
-        <p><strong>Comments:</strong> ${formData.comments || ''}</p>
+        <p><strong>Email:</strong> ${e(emailConfirm)}</p>
+        <p><strong>Attending:</strong> Yes</p>
+        <p><strong>Meal Preference:</strong> ${e(formData.meal)}</p>
+        <p><strong>Dietary Restrictions:</strong> ${e(formData.dietary_restrictions)}</p>
+        <p><strong>Song Request:</strong> ${e(formData.song)}</p>
+        <p><strong>Shuttle to McCarthy's:</strong> ${e(formData.shuttle)}</p>
+        <p><strong>Sunday Picnic:</strong> ${e(formData.picnic)}</p>
+        <p><strong>Comments:</strong> ${e(formData.comments)}</p>
       `;
     }
 
-    if (formData.rsvp === 'No') {
+    if (rsvp === 'No') {
       emailBody += `
-        <p><strong>Attending:</strong> ${formData.rsvp || ''}</p>
+        <p><strong>Attending:</strong> No</p>
       `;
     }
 
     const mailOptionsAlert = {
       from: import.meta.env.NODEMAILER_USER,
       to: import.meta.env.NODEMAILER_RECIPIENTS || import.meta.env.NODEMAILER_USER,
-      subject: `${formData.rsvp === 'Yes' ? '🎉' : '🚫'} RSVP Response | ${formData.firstName} ${formData.lastName}`,
+      subject: `${rsvp === 'Yes' ? '🎉' : '🚫'} RSVP Response | ${e(firstName)} ${e(lastName)}`,
       html: emailBody,
     };
 
@@ -50,10 +89,10 @@ export const POST: APIRoute = async ({ request }) => {
     const emailAlert = await transporter.sendMail(mailOptionsAlert);
 
     // Send email confirmation
-    if (formData.email_confirm?.length) {
+    if (emailConfirm.length) {
 
       const isAttendingBody = `
-        <p>${formData.firstName}, thank you so much for your RSVP. We're thrilled to know that you'll be joining us to celebrate our wedding!</p>
+        <p>${e(firstName)}, thank you so much for your RSVP. We're thrilled to know that you'll be joining us to celebrate our wedding!</p>
         <p><strong>Here's a quick reminder of the event details:</strong></p>
         <ul>
           <li><strong>Date:</strong> December 6th, 2025</li>
@@ -75,18 +114,18 @@ export const POST: APIRoute = async ({ request }) => {
       `;
 
       const isNotAttendingBody = `
-        <p>${formData.firstName},</p>
+        <p>${e(firstName)},</p>
         <p>Thank you so much for letting us know you won't be able to join us for our wedding. While we'll miss celebrating with you in person, we completely understand and are so grateful for your love and support from afar.</p>
         <p>We'll be sure to share photos and memories from the day, and we hope to celebrate together sometime soon!</p>
         <p>With love,</p>
         <p>JT & Karly</p>
       `;
 
-      const html = formData.rsvp === 'Yes' ? isAttendingBody : isNotAttendingBody;
+      const html = rsvp === 'Yes' ? isAttendingBody : isNotAttendingBody;
 
       const mailOptionsConfirm = {
         from: import.meta.env.NODEMAILER_USER,
-        to: formData.email_confirm,
+        to: emailConfirm,
         subject: `Your RSVP has been received! 💌`,
         html,
       };

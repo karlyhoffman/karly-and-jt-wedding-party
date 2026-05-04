@@ -8,7 +8,7 @@ photo-gallery {
       width: 100%;
       object-fit: contain;
       object-position: center bottom;
-      margin-block: var(--layout--gutter);
+      margin-block-start: var(--layout--gutter);
     }
   }
 
@@ -35,6 +35,36 @@ photo-gallery {
 
       &:not(.is-active) .thumb__slide__photo {
         transform: scale(1.2);
+      }
+    }
+  }
+
+  .button-menu {
+    display: flex;
+    justify-content: space-between;
+
+    @media screen and (min-width: 768px) {
+      display: inline-flex;
+      column-gap: var(--layout--gutter-xl);
+      padding-block-start: var(--layout--gutter);
+    }
+
+    button {
+      aspect-ratio: 1 / 1;
+      padding: 0;
+
+      img {
+        display: block;
+        max-width: 32px;
+
+        @media screen and (min-width: 768px) {
+          max-width: 42px;
+        }
+      }
+
+      &[data-arrow-prev] img {
+        position: relative;
+        transform: scaleX(-1);
       }
     }
   }
