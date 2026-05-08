@@ -65,6 +65,30 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
----
+## 5. Security Review Requirement
 
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+For any change involving:
+- authentication
+- authorization
+- permissions
+- secrets
+- cryptography
+- user input handling
+- file access
+- shell execution
+- SQL/database queries
+- external HTTP requests
+- serialization/deserialization
+- infrastructure/IaC
+- CI/CD
+- dependency changes
+
+the agent MUST perform a proactive security review before finalizing changes.
+
+The review must:
+1. Identify possible attack vectors
+2. Explain trust boundaries
+3. Evaluate abuse cases
+4. Check for privilege escalation paths
+5. Verify secure defaults
+6. Document mitigations in the response
