@@ -18,7 +18,7 @@
 
 **Purpose**: Establish local credentials needed for all Spotify API calls.
 
-- [ ] T001 In the `.env` file at project root, add `SPOTIFY_CLIENT_ID=` and `SPOTIFY_CLIENT_SECRET=` variables; populate with credentials from developer.spotify.com (see quickstart.md for setup steps).
+- [x] T001 In the `.env` file at project root, add `SPOTIFY_CLIENT_ID=` and `SPOTIFY_CLIENT_SECRET=` variables; populate with credentials from developer.spotify.com (see quickstart.md for setup steps).
 
 **Checkpoint**: `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET` are set in `.env` — Spotify API calls can be made locally.
 
@@ -30,8 +30,8 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T002 Create `src/lib/spotify.ts` — define `Album` interface (`id`, `name`, `artists`, `imageUrl` as strings) and `getAccessToken()` async function: POST to `https://accounts.spotify.com/api/token` with `Authorization: Basic <base64(SPOTIFY_CLIENT_ID:SPOTIFY_CLIENT_SECRET)>` header and `grant_type=client_credentials` body; return the `access_token` string from the JSON response. (Refer to data-model.md → `SpotifyTokenResponse`.)
-- [ ] T003 Add `getPlaylistAlbums(playlistId: string, token: string): Promise<Album[]>` to `src/lib/spotify.ts` — paginate through all pages of `GET https://api.spotify.com/v1/playlists/{playlistId}/tracks?fields=items(track(album(id,name,artists(name),images))),next&limit=100` using the `next` URL until it is null; filter out items where `track === null`; collect unique albums into a `Map<string, Album>` keyed by album `id` (first occurrence wins); map each raw album to `Album` using `images[1]?.url ?? images[0]?.url` for `imageUrl` and `artists.map(a => a.name).join(', ')` for `artists`; return the Map values as `Album[]`. (Refer to data-model.md for types.)
+- [x] T002 Create `src/lib/spotify.ts` — define `Album` interface (`id`, `name`, `artists`, `imageUrl` as strings) and `getAccessToken()` async function: POST to `https://accounts.spotify.com/api/token` with `Authorization: Basic <base64(SPOTIFY_CLIENT_ID:SPOTIFY_CLIENT_SECRET)>` header and `grant_type=client_credentials` body; return the `access_token` string from the JSON response. (Refer to data-model.md → `SpotifyTokenResponse`.)
+- [x] T003 Add `getPlaylistAlbums(playlistId: string, token: string): Promise<Album[]>` to `src/lib/spotify.ts` — paginate through all pages of `GET https://api.spotify.com/v1/playlists/{playlistId}/tracks?fields=items(track(album(id,name,artists(name),images))),next&limit=100` using the `next` URL until it is null; filter out items where `track === null`; collect unique albums into a `Map<string, Album>` keyed by album `id` (first occurrence wins); map each raw album to `Album` using `images[1]?.url ?? images[0]?.url` for `imageUrl` and `artists.map(a => a.name).join(', ')` for `artists`; return the Map values as `Album[]`. (Refer to data-model.md for types.)
 
 **Checkpoint**: `getAccessToken()` and `getPlaylistAlbums()` are implemented and importable — user story implementation can begin.
 
@@ -45,9 +45,9 @@
 
 ### Implementation
 
-- [ ] T004 [P] [US1] Create `src/styles/components/music.scss` — define `.album-grid` as a CSS Grid with `grid-template-columns: repeat(auto-fill, minmax(140px, 1fr))` and a consistent gap; define `.album-tile` as a flex column with no extra padding; define `.album-tile__img` with `width: 100%`, `aspect-ratio: 1/1`, and `object-fit: cover`; define `.album-tile__name` (semibold, small font size, single-line ellipsis overflow) and `.album-tile__artist` (lighter weight, small font size, single-line ellipsis overflow). Follow existing SCSS variable and nesting conventions from `src/styles/components/photo-gallery.scss`.
-- [ ] T005 [US1] Create `src/components/homepage/SpotifyAlbums.astro` — in frontmatter: import `getAccessToken` and `getPlaylistAlbums` from `../../lib/spotify`; import `../../styles/components/music.scss`; wrap calls in try/catch: call `getAccessToken()` then `getPlaylistAlbums('2uME1BuGAZBt2CoJ1B7qrZ', token)`, store result in `albums`; on error set `albums = []` and flag `hasError = true`. In template: if `hasError`, render a plain fallback paragraph with a link to the playlist URL; otherwise render `<ul class="album-grid">` with one `<li class="album-tile">` per album containing `<img class="album-tile__img" src={album.imageUrl} alt={album.name} loading="lazy" decoding="async" width="300" height="300" />`, `<p class="album-tile__name">{album.name}</p>`, and `<p class="album-tile__artist">{album.artists}</p>`. (Depends on T002, T003, T004.)
-- [ ] T006 [US1] Update `src/pages/index.astro` — add import for `SpotifyAlbums` from `../components/homepage/SpotifyAlbums.astro`; inside the Music `<Section>`, remove `<Fragment slot="small-text">🚧 Coming soon 🚧</Fragment>` and add `<SpotifyAlbums />` as a child of the section (after the existing `<p>` elements); remove the TODO comment block (lines 35–47). Keep the existing descriptive `<p>` text and playlist link untouched.
+- [x] T004 [P] [US1] Create `src/styles/components/music.scss` — define `.album-grid` as a CSS Grid with `grid-template-columns: repeat(auto-fill, minmax(140px, 1fr))` and a consistent gap; define `.album-tile` as a flex column with no extra padding; define `.album-tile__img` with `width: 100%`, `aspect-ratio: 1/1`, and `object-fit: cover`; define `.album-tile__name` (semibold, small font size, single-line ellipsis overflow) and `.album-tile__artist` (lighter weight, small font size, single-line ellipsis overflow). Follow existing SCSS variable and nesting conventions from `src/styles/components/photo-gallery.scss`.
+- [x] T005 [US1] Create `src/components/homepage/SpotifyAlbums.astro` — in frontmatter: import `getAccessToken` and `getPlaylistAlbums` from `../../lib/spotify`; import `../../styles/components/music.scss`; wrap calls in try/catch: call `getAccessToken()` then `getPlaylistAlbums('2uME1BuGAZBt2CoJ1B7qrZ', token)`, store result in `albums`; on error set `albums = []` and flag `hasError = true`. In template: if `hasError`, render a plain fallback paragraph with a link to the playlist URL; otherwise render `<ul class="album-grid">` with one `<li class="album-tile">` per album containing `<img class="album-tile__img" src={album.imageUrl} alt={album.name} loading="lazy" decoding="async" width="300" height="300" />`, `<p class="album-tile__name">{album.name}</p>`, and `<p class="album-tile__artist">{album.artists}</p>`. (Depends on T002, T003, T004.)
+- [x] T006 [US1] Update `src/pages/index.astro` — add import for `SpotifyAlbums` from `../components/homepage/SpotifyAlbums.astro`; inside the Music `<Section>`, remove `<Fragment slot="small-text">🚧 Coming soon 🚧</Fragment>` and add `<SpotifyAlbums />` as a child of the section (after the existing `<p>` elements); remove the TODO comment block (lines 35–47). Keep the existing descriptive `<p>` text and playlist link untouched.
 
 **Checkpoint**: User Story 1 is complete — album grid is visible at `/#playlists` with real album data, "Coming Soon" is gone, layout is responsive.
 
@@ -61,7 +61,7 @@
 
 ### Implementation
 
-- [ ] T007 [US2] Add a "Listen on Spotify" call-to-action link to `src/components/homepage/SpotifyAlbums.astro` — render an `<a>` element with `href="https://open.spotify.com/playlist/2uME1BuGAZBt2CoJ1B7qrZ"`, `target="_blank"`, and `rel="noopener noreferrer"` positioned above the album grid (or as a heading-level link); add `.music-cta` styles to `src/styles/components/music.scss` (display block or inline-block, consistent with site link style). This link must also appear inside the error fallback state.
+- [x] T007 [US2] Add a "Listen on Spotify" call-to-action link to `src/components/homepage/SpotifyAlbums.astro` — render an `<a>` element with `href="https://open.spotify.com/playlist/2uME1BuGAZBt2CoJ1B7qrZ"`, `target="_blank"`, and `rel="noopener noreferrer"` positioned above the album grid (or as a heading-level link); add `.music-cta` styles to `src/styles/components/music.scss` (display block or inline-block, consistent with site link style). This link must also appear inside the error fallback state.
 
 **Checkpoint**: User Stories 1 and 2 are both complete — album grid is visible and the Spotify playlist is one click away.
 
@@ -71,8 +71,8 @@
 
 **Purpose**: Final verification and cleanup.
 
-- [ ] T008 [P] Verify full feature in browser — run `npm run dev` with valid Spotify credentials, navigate to `/#playlists`, and confirm: (1) album grid renders with cover art, names, and artists; (2) "Coming Soon" text is absent; (3) "Listen on Spotify" link opens playlist in new tab; (4) grid is usable at 375px width (mobile); (5) image tiles have correct aspect ratio with no layout shift.
-- [ ] T009 [P] Verify error fallback — temporarily unset `SPOTIFY_CLIENT_ID` in `.env`, restart dev server, navigate to `/#playlists`, confirm fallback renders with a playlist link and no JS errors in console; restore the env var after.
+- [x] T008 [P] Verify full feature in browser — run `npm run dev` with valid Spotify credentials, navigate to `/#playlists`, and confirm: (1) album grid renders with cover art, names, and artists; (2) "Coming Soon" text is absent; (3) "Listen on Spotify" link opens playlist in new tab; (4) grid is usable at 375px width (mobile); (5) image tiles have correct aspect ratio with no layout shift.
+- [x] T009 [P] Verify error fallback — temporarily unset `SPOTIFY_CLIENT_ID` in `.env`, restart dev server, navigate to `/#playlists`, confirm fallback renders with a playlist link and no JS errors in console; restore the env var after.
 
 ---
 

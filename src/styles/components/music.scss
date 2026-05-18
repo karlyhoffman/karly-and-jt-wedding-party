@@ -1,0 +1,50 @@
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--layout--gutter);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  @media screen and (min-width: 768px) {
+    gap: var(--layout--gutter-lg);
+  }
+}
+
+.album-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &__img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__name {
+    font-size: var(--text--font-sm);
+    font-weight: 600;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__artist {
+    font-size: var(--text--font-xs);
+    font-weight: 400;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    opacity: 0.75;
+  }
+}
+
+.music-cta {
+  display: inline-block;
+  margin-block-end: var(--layout--gutter-lg);
+  font-size: var(--text--font-sm);
+}
