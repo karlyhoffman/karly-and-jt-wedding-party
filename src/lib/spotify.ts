@@ -1,3 +1,44 @@
+// TEMP: EXAMPLE TRACK RESPONSE FOR REFERENCE (TODO: UPDATE TYPE DEFINITIONS)
+
+/*
+{
+  item: {
+    is_playable: true,
+    explicit: false,
+    type: 'track',
+    episode: false,
+    track: true,
+    album: {
+      is_playable: true,
+      type: 'album',
+      album_type: 'album',
+      href: 'https://api.spotify.com/v1/albums/18C8u024uQ0i9LO9oYk6CP',
+      id: '18C8u024uQ0i9LO9oYk6CP',
+      images: [Array],
+      name: 'Mondo Tempo',
+      release_date: '2023-07-12',
+      release_date_precision: 'day',
+      uri: 'spotify:album:18C8u024uQ0i9LO9oYk6CP',
+      artists: [Array],
+      external_urls: [Object],
+      total_tracks: 8
+    },
+    artists: [ [Object], [Object] ],
+    disc_number: 1,
+    track_number: 2,
+    duration_ms: 309411,
+    external_urls: {
+      spotify: 'https://open.spotify.com/track/1ksm7bu6QLRnmtfvde3isa'
+    },
+    id: '1ksm7bu6QLRnmtfvde3isa',
+    name: 'In a Moment Divine',
+    uri: 'spotify:track:1ksm7bu6QLRnmtfvde3isa',
+    is_local: false
+  },
+  ...
+}
+*/
+
 export interface Album {
   id: string;
   name: string;
