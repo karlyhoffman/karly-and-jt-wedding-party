@@ -11,7 +11,8 @@ let hasError = false;
 try {
   const token = await getAccessToken();
   albums = await getPlaylistAlbums(PLAYLIST_ID, token);
-} catch {
+} catch (error) {
+  console.error('Error fetching Spotify albums:', error);
   hasError = true;
 }
 ---
