@@ -84,7 +84,9 @@ async function fetchWithRateLimit(url: string, options: RequestInit): Promise<Re
     const response = await fetch(url, options);
     if (response.status !== 429 || attempt >= MAX_RETRIES) return response;
     const retryAfter = parseInt(response.headers.get('Retry-After') ?? '1', 10);
-    await new Promise((resolve) => setTimeout(resolve, Math.min(retryAfter * 1000 * 2 ** attempt, 30_000)));
+    await new Promise((resolve) =>
+      setTimeout(resolve, Math.min(retryAfter * 1000 * 2 ** attempt, 30_000))
+    );
   }
 }
 
@@ -94,7 +96,9 @@ export async function getAccessToken(): Promise<string> {
   const refreshToken = import.meta.env.SPOTIFY_REFRESH_TOKEN;
 
   if (!clientId || !clientSecret || !refreshToken) {
-    throw new Error('SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, and SPOTIFY_REFRESH_TOKEN must be set');
+    throw new Error(
+      'SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, and SPOTIFY_REFRESH_TOKEN must be set'
+    );
   }
 
   const credentials = btoa(`${clientId}:${clientSecret}`);
@@ -118,8 +122,7 @@ export async function getAccessToken(): Promise<string> {
 
 export async function getPlaylistAlbums(playlistId: string, token: string): Promise<Album[]> {
   const seen = new Map<string, Album>();
-  let url: string | null =
-    `https://api.spotify.com/v1/playlists/${playlistId}/items?limit=100`;
+  let url: string | null = `https://api.spotify.com/v1/playlists/${playlistId}/items?limit=100`;
 
   while (url !== null) {
     const response = await fetchWithRateLimit(url, {
