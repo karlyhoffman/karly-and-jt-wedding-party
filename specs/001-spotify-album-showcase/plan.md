@@ -21,13 +21,13 @@ Replace the "Coming Soon" placeholder in the Music section (`src/pages/index.ast
 
 ## Constitution Check
 
-| Principle | Status | Notes |
-| :--- | :--- | :--- |
-| I — Guest Experience First | ✅ Pass | Replaces placeholder with meaningful wedding content |
-| II — Privacy & Exclusivity | ✅ Pass | No guest data; playlist is public; Spotify credentials are server-side only |
-| III — Native Web Components | ✅ Pass | Pure Astro SSR component, no JS frameworks; no client-side script needed |
+| Principle                                  | Status                 | Notes                                                                                                                                                                               |
+| :----------------------------------------- | :--------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| I — Guest Experience First                 | ✅ Pass                | Replaces placeholder with meaningful wedding content                                                                                                                                |
+| II — Privacy & Exclusivity                 | ✅ Pass                | No guest data; playlist is public; Spotify credentials are server-side only                                                                                                         |
+| III — Native Web Components                | ✅ Pass                | Pure Astro SSR component, no JS frameworks; no client-side script needed                                                                                                            |
 | IV — Design Integrity (AVIF + Astro Image) | ⚠️ Justified deviation | Spotify album art is 3rd-party JPEG from `i.scdn.co` — format is not controllable. Using `<img loading="lazy">`. All other IV constraints (SCSS, GSAP patterns) are fully observed. |
-| V — Simplicity & YAGNI | ✅ Pass | No abstractions beyond what's needed; no speculative features; no caching layer |
+| V — Simplicity & YAGNI                     | ✅ Pass                | No abstractions beyond what's needed; no speculative features; no caching layer                                                                                                     |
 
 ## Project Structure
 
@@ -63,12 +63,14 @@ src/
 ### File Responsibilities
 
 **`src/lib/spotify.ts`**
+
 - `getAccessToken()` — POST to Spotify token endpoint; returns Bearer token string
-- `getPlaylistAlbums(playlistId, token)` — paginated fetch of all tracks; returns de-duplicated `Album[]`
+- `getPlaylistItems(playlistId, token)` — paginated fetch of all tracks; returns de-duplicated `Album[]`
 - All types: `SpotifyTokenResponse`, `SpotifyPlaylistTracksPage`, `Album` (see `data-model.md`)
 
 **`src/components/homepage/SpotifyAlbums.astro`**
-- Frontmatter: calls `getAccessToken()` then `getPlaylistAlbums()` 
+
+- Frontmatter: calls `getAccessToken()` then `getPlaylistItems()`
 - On error: renders a graceful fallback with the plain playlist link
 - Template: renders `<ul class="album-grid">` with one `<li class="album-tile">` per album
 - Each tile: `<img>` (300×300), `<p class="album-name">`, `<p class="album-artist">`
@@ -76,6 +78,7 @@ src/
 - Imports `../../styles/components/music.scss`
 
 **`src/styles/components/music.scss`**
+
 - `.album-grid` — CSS Grid, responsive columns (`repeat(auto-fill, minmax(140px, 1fr))`), gap
 - `.album-tile` — flex column, album art square (`aspect-ratio: 1/1`, `object-fit: cover`), text below
 - `.album-tile__img` — full width, square crop
@@ -84,12 +87,13 @@ src/
 - Mobile-first, works from 375px up (SC-003)
 
 **`src/pages/index.astro`** (surgical change)
+
 - Remove `<Fragment slot="small-text">🚧 Coming soon 🚧</Fragment>`
 - Import `SpotifyAlbums` from `../components/homepage/SpotifyAlbums.astro`
 - Add `<SpotifyAlbums />` inside the Music `<Section>` (existing text/link stays)
 
 ## Complexity Tracking
 
-| Violation | Why Needed | Simpler Alternative Rejected Because |
-| :--- | :--- | :--- |
+| Violation                                          | Why Needed                                                               | Simpler Alternative Rejected Because                                                                                                                   |
+| :------------------------------------------------- | :----------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `<img>` instead of Astro `<Image>` for Spotify art | Spotify serves JPEG from `i.scdn.co`; we don't own or control the format | Using `<Image>` in SSR mode would re-fetch and reprocess each image per request — slower, more complex, no meaningful quality gain for a 3rd-party CDN |

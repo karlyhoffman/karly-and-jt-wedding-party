@@ -1,18 +1,18 @@
 ---
-import { getAccessToken, getPlaylistAlbums, type Album } from '../../lib/spotify';
+import { getAccessToken, getPlaylistItems, type Track } from '../../lib/spotify';
 import '../../styles/components/music.scss';
 
 const PLAYLIST_ID = '2uME1BuGAZBt2CoJ1B7qrZ';
 const PLAYLIST_URL = `https://open.spotify.com/playlist/${PLAYLIST_ID}`;
 
-let albums: Album[] = [];
+let songs: Track[] = [];
 let hasError = false;
 
 try {
   const token = await getAccessToken();
-  albums = await getPlaylistAlbums(PLAYLIST_ID, token);
+  songs = await getPlaylistItems(PLAYLIST_ID, token);
 } catch (error) {
-  console.error('Error fetching Spotify albums:', error);
+  console.error('Error fetching Spotify tracks:', error);
   hasError = true;
 }
 ---
@@ -28,13 +28,13 @@ try {
   </p>
 ) : (
   <ul class="album-grid">
-    {albums.map((album) => (
+    {songs.map(({ artists, imageUrl, songTitle }) => (
       <li class="album-tile">
-        {album.imageUrl ? (
+        {imageUrl ? (
           <img
             class="album-tile__img"
-            src={album.imageUrl}
-            alt={album.name}
+            src={imageUrl}
+            alt={songTitle}
             loading="lazy"
             decoding="async"
             width="300"
@@ -43,8 +43,8 @@ try {
         ) : (
           <div class="album-tile__img" aria-hidden="true" />
         )}
-        <p class="album-tile__name">{album.name}</p>
-        <p class="album-tile__artist">{album.artists}</p>
+        <p class="album-tile__name">{songTitle}</p>
+        <p class="album-tile__artist">{artists}</p>
       </li>
     ))}
   </ul>

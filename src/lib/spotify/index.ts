@@ -1,51 +1,3 @@
-// TEMP: EXAMPLE TRACK RESPONSE FOR REFERENCE (TODO: UPDATE TYPE DEFINITIONS)
-
-/*
-{
-  item: {
-    is_playable: true,
-    explicit: false,
-    type: 'track',
-    episode: false,
-    track: true,
-    album: {
-      is_playable: true,
-      type: 'album',
-      album_type: 'album',
-      href: 'https://api.spotify.com/v1/albums/18C8u024uQ0i9LO9oYk6CP',
-      id: '18C8u024uQ0i9LO9oYk6CP',
-      images: [Array],
-      name: 'Mondo Tempo',
-      release_date: '2023-07-12',
-      release_date_precision: 'day',
-      uri: 'spotify:album:18C8u024uQ0i9LO9oYk6CP',
-      artists: [Array],
-      external_urls: [Object],
-      total_tracks: 8
-    },
-    artists: [ [Object], [Object] ],
-    disc_number: 1,
-    track_number: 2,
-    duration_ms: 309411,
-    external_urls: {
-      spotify: 'https://open.spotify.com/track/1ksm7bu6QLRnmtfvde3isa'
-    },
-    id: '1ksm7bu6QLRnmtfvde3isa',
-    name: 'In a Moment Divine',
-    uri: 'spotify:track:1ksm7bu6QLRnmtfvde3isa',
-    is_local: false
-  },
-  ...
-}
-*/
-
-export interface Album {
-  id: string;
-  name: string;
-  artists: string;
-  imageUrl: string;
-}
-
 interface SpotifyTokenResponse {
   access_token: string;
   token_type: string;
@@ -62,6 +14,23 @@ interface SpotifyArtist {
   name: string;
 }
 
+interface SpotifyPlaylistItem {
+  item: {
+    id: string;
+    album: SpotifyAlbumRaw | null;
+    artists: SpotifyArtist[];
+    external_urls: {
+      spotify: string | null;
+    };
+    name: string;
+  } | null;
+}
+
+interface SpotifyPlaylistItemsPage {
+  items: SpotifyPlaylistItem[];
+  next: string | null;
+}
+
 interface SpotifyAlbumRaw {
   id: string;
   name: string;
@@ -69,13 +38,12 @@ interface SpotifyAlbumRaw {
   images: SpotifyImage[];
 }
 
-interface SpotifyTrackItem {
-  item: { album: SpotifyAlbumRaw | null } | null;
-}
-
-interface SpotifyPlaylistItemsPage {
-  items: SpotifyTrackItem[];
-  next: string | null;
+export interface Track {
+  id: string;
+  artists: string;
+  imageUrl: string;
+  songTitle: string;
+  songUrl: string;
 }
 
 async function fetchWithRateLimit(url: string, options: RequestInit): Promise<Response> {
@@ -120,8 +88,8 @@ export async function getAccessToken(): Promise<string> {
   return data.access_token;
 }
 
-export async function getPlaylistAlbums(playlistId: string, token: string): Promise<Album[]> {
-  const seen = new Map<string, Album>();
+export async function getPlaylistItems(playlistId: string, token: string): Promise<Track[]> {
+  const data = new Map<string, Track>();
   let url: string | null = `https://api.spotify.com/v1/playlists/${playlistId}/items?limit=100`;
 
   while (url !== null) {
@@ -139,20 +107,21 @@ export async function getPlaylistAlbums(playlistId: string, token: string): Prom
     for (const entry of page.items) {
       if (!entry.item) continue;
 
-      const raw = entry.item.album;
+      const { id, album, artists, external_urls, name } = entry.item;
 
-      if (!raw || seen.has(raw.id)) continue;
+      if (data.has(id)) continue;
 
-      seen.set(raw.id, {
-        id: raw.id,
-        name: raw.name,
-        artists: raw.artists.map((a) => a.name).join(', '),
-        imageUrl: raw.images[1]?.url ?? raw.images[0]?.url ?? '',
+      data.set(id, {
+        id,
+        artists: artists.map((a) => a.name).join(', '),
+        imageUrl: album?.images[1]?.url ?? album?.images[0]?.url ?? '',
+        songTitle: name,
+        songUrl: external_urls.spotify ?? '',
       });
     }
 
     url = page.next;
   }
 
-  return Array.from(seen.values());
+  return Array.from(data.values());
 }

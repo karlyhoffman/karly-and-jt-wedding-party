@@ -19,25 +19,25 @@ interface SpotifyAlbumRaw {
   id: string;
   name: string;
   artists: SpotifyArtist[];
-  images: SpotifyImage[];   // Descending by size: [640x640, 300x300, 64x64]
+  images: SpotifyImage[]; // Descending by size: [640x640, 300x300, 64x64]
 }
 
-interface SpotifyTrackItem {
+interface SpotifyPlaylistItem {
   track: {
     album: SpotifyAlbumRaw;
-  } | null;                 // null for removed/unavailable tracks
+  } | null; // null for removed/unavailable tracks
 }
 
 interface SpotifyPlaylistTracksPage {
-  items: SpotifyTrackItem[];
-  next: string | null;      // URL of next page; null on last page
+  items: SpotifyPlaylistItem[];
+  next: string | null; // URL of next page; null on last page
   total: number;
 }
 
 interface SpotifyTokenResponse {
   access_token: string;
   token_type: 'Bearer';
-  expires_in: number;       // Seconds; typically 3600
+  expires_in: number; // Seconds; typically 3600
 }
 ```
 
@@ -49,21 +49,21 @@ The `Album` type is the normalized shape used by the Astro component after fetch
 
 ```typescript
 interface Album {
-  id: string;        // Spotify album ID — used as dedup key
-  name: string;      // Album title displayed in tile
-  artists: string;   // Comma-joined artist names, e.g. "Frank Ocean" or "Migos, Drake"
-  imageUrl: string;  // 300×300 JPEG from Spotify CDN (i.scdn.co)
+  id: string; // Spotify album ID — used as dedup key
+  name: string; // Album title displayed in tile
+  artists: string; // Comma-joined artist names, e.g. "Frank Ocean" or "Migos, Drake"
+  imageUrl: string; // 300×300 JPEG from Spotify CDN (i.scdn.co)
 }
 ```
 
 ### Transformation Rules
 
-| Raw field                     | Normalized field | Rule                                                                |
-| :---------------------------- | :--------------- | :------------------------------------------------------------------ |
-| `album.id`                    | `id`             | Direct copy; used as Map key for de-duplication                     |
-| `album.name`                  | `name`           | Direct copy                                                         |
-| `album.artists[*].name`       | `artists`        | Join with `', '`                                                    |
-| `album.images[1].url`         | `imageUrl`       | Prefer index 1 (300×300); fall back to index 0 if array has only 1 |
+| Raw field               | Normalized field | Rule                                                               |
+| :---------------------- | :--------------- | :----------------------------------------------------------------- |
+| `album.id`              | `id`             | Direct copy; used as Map key for de-duplication                    |
+| `album.name`            | `name`           | Direct copy                                                        |
+| `album.artists[*].name` | `artists`        | Join with `', '`                                                   |
+| `album.images[1].url`   | `imageUrl`       | Prefer index 1 (300×300); fall back to index 0 if array has only 1 |
 
 ### De-duplication
 

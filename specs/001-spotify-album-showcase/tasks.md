@@ -31,9 +31,9 @@
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
 - [x] T002 Create `src/lib/spotify.ts` — define `Album` interface (`id`, `name`, `artists`, `imageUrl` as strings) and `getAccessToken()` async function: POST to `https://accounts.spotify.com/api/token` with `Authorization: Basic <base64(SPOTIFY_CLIENT_ID:SPOTIFY_CLIENT_SECRET)>` header and `grant_type=client_credentials` body; return the `access_token` string from the JSON response. (Refer to data-model.md → `SpotifyTokenResponse`.)
-- [x] T003 Add `getPlaylistAlbums(playlistId: string, token: string): Promise<Album[]>` to `src/lib/spotify.ts` — paginate through all pages of `GET https://api.spotify.com/v1/playlists/{playlistId}/tracks?fields=items(track(album(id,name,artists(name),images))),next&limit=100` using the `next` URL until it is null; filter out items where `track === null`; collect unique albums into a `Map<string, Album>` keyed by album `id` (first occurrence wins); map each raw album to `Album` using `images[1]?.url ?? images[0]?.url` for `imageUrl` and `artists.map(a => a.name).join(', ')` for `artists`; return the Map values as `Album[]`. (Refer to data-model.md for types.)
+- [x] T003 Add `getPlaylistItems(playlistId: string, token: string): Promise<Album[]>` to `src/lib/spotify.ts` — paginate through all pages of `GET https://api.spotify.com/v1/playlists/{playlistId}/tracks?fields=items(track(album(id,name,artists(name),images))),next&limit=100` using the `next` URL until it is null; filter out items where `track === null`; collect unique albums into a `Map<string, Album>` keyed by album `id` (first occurrence wins); map each raw album to `Album` using `images[1]?.url ?? images[0]?.url` for `imageUrl` and `artists.map(a => a.name).join(', ')` for `artists`; return the Map values as `Album[]`. (Refer to data-model.md for types.)
 
-**Checkpoint**: `getAccessToken()` and `getPlaylistAlbums()` are implemented and importable — user story implementation can begin.
+**Checkpoint**: `getAccessToken()` and `getPlaylistItems()` are implemented and importable — user story implementation can begin.
 
 ---
 
@@ -46,7 +46,7 @@
 ### Implementation
 
 - [x] T004 [P] [US1] Create `src/styles/components/music.scss` — define `.album-grid` as a CSS Grid with `grid-template-columns: repeat(auto-fill, minmax(140px, 1fr))` and a consistent gap; define `.album-tile` as a flex column with no extra padding; define `.album-tile__img` with `width: 100%`, `aspect-ratio: 1/1`, and `object-fit: cover`; define `.album-tile__name` (semibold, small font size, single-line ellipsis overflow) and `.album-tile__artist` (lighter weight, small font size, single-line ellipsis overflow). Follow existing SCSS variable and nesting conventions from `src/styles/components/photo-gallery.scss`.
-- [x] T005 [US1] Create `src/components/homepage/SpotifyAlbums.astro` — in frontmatter: import `getAccessToken` and `getPlaylistAlbums` from `../../lib/spotify`; import `../../styles/components/music.scss`; wrap calls in try/catch: call `getAccessToken()` then `getPlaylistAlbums('2uME1BuGAZBt2CoJ1B7qrZ', token)`, store result in `albums`; on error set `albums = []` and flag `hasError = true`. In template: if `hasError`, render a plain fallback paragraph with a link to the playlist URL; otherwise render `<ul class="album-grid">` with one `<li class="album-tile">` per album containing `<img class="album-tile__img" src={album.imageUrl} alt={album.name} loading="lazy" decoding="async" width="300" height="300" />`, `<p class="album-tile__name">{album.name}</p>`, and `<p class="album-tile__artist">{album.artists}</p>`. (Depends on T002, T003, T004.)
+- [x] T005 [US1] Create `src/components/homepage/SpotifyAlbums.astro` — in frontmatter: import `getAccessToken` and `getPlaylistItems` from `../../lib/spotify`; import `../../styles/components/music.scss`; wrap calls in try/catch: call `getAccessToken()` then `getPlaylistItems('2uME1BuGAZBt2CoJ1B7qrZ', token)`, store result in `albums`; on error set `albums = []` and flag `hasError = true`. In template: if `hasError`, render a plain fallback paragraph with a link to the playlist URL; otherwise render `<ul class="album-grid">` with one `<li class="album-tile">` per album containing `<img class="album-tile__img" src={album.imageUrl} alt={album.name} loading="lazy" decoding="async" width="300" height="300" />`, `<p class="album-tile__name">{album.name}</p>`, and `<p class="album-tile__artist">{album.artists}</p>`. (Depends on T002, T003, T004.)
 - [x] T006 [US1] Update `src/pages/index.astro` — add import for `SpotifyAlbums` from `../components/homepage/SpotifyAlbums.astro`; inside the Music `<Section>`, remove `<Fragment slot="small-text">🚧 Coming soon 🚧</Fragment>` and add `<SpotifyAlbums />` as a child of the section (after the existing `<p>` elements); remove the TODO comment block (lines 35–47). Keep the existing descriptive `<p>` text and playlist link untouched.
 
 **Checkpoint**: User Story 1 is complete — album grid is visible at `/#playlists` with real album data, "Coming Soon" is gone, layout is responsive.
@@ -95,10 +95,10 @@
 
 ### Parallel Opportunities
 
-| Tasks | Can run in parallel | Reason |
-| :--- | :--- | :--- |
-| T004, T005 setup | T004 (SCSS) alongside T002/T003 | Different files |
-| T008, T009 | Both polish tasks | Independent verification steps |
+| Tasks            | Can run in parallel             | Reason                         |
+| :--------------- | :------------------------------ | :----------------------------- |
+| T004, T005 setup | T004 (SCSS) alongside T002/T003 | Different files                |
+| T008, T009       | Both polish tasks               | Independent verification steps |
 
 ---
 
@@ -107,7 +107,7 @@
 ```
 Start T004 (music.scss) immediately.
 While T004 is in progress, also start T002 (getAccessToken).
-After T002 is done, start T003 (getPlaylistAlbums).
+After T002 is done, start T003 (getPlaylistItems).
 After T003 + T004 are done, start T005 (SpotifyAlbums.astro).
 After T005 is done, start T006 (update index.astro).
 ```
