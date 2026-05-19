@@ -1,14 +1,10 @@
 .album-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   gap: var(--layout--gutter);
   list-style: none;
   margin: 0;
   padding: 0;
-
-  @media screen and (min-width: 768px) {
-    gap: var(--layout--gutter-lg);
-  }
 }
 
 .album-tile {
@@ -21,25 +17,6 @@
     aspect-ratio: 1 / 1;
     object-fit: cover;
     display: block;
-  }
-
-  &__name {
-    font-size: var(--text--font-sm);
-    font-weight: 600;
-    margin: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  &__artist {
-    font-size: var(--text--font-xs);
-    font-weight: 400;
-    margin: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    opacity: 0.75;
   }
 }
 

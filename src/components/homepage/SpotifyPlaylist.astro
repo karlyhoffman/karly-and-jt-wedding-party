@@ -17,10 +17,6 @@ try {
 }
 ---
 
-<a class="music-cta" href={PLAYLIST_URL} target="_blank" rel="noopener noreferrer">
-  Listen on Spotify →
-</a>
-
 {hasError ? (
   <p>
     Couldn't load the playlist right now. View it on <a href={PLAYLIST_URL} target="_blank" rel="noopener noreferrer">Spotify</a> instead.
@@ -49,10 +45,14 @@ try {
             <div class="album-tile__img" aria-hidden="true" />
           )}
     
-          <p class="album-tile__name">{songTitle}</p>
-          <p class="album-tile__artist">{artists}</p>
+          <p class="album-tile__name heading heading--sm serif">{songTitle}</p>
+          <p class="album-tile__artist heading heading--sm serif">{artists}</p>
         </a>
       </li>
     ))}
   </ul>
 )}
+
+<a class="music-cta" href={PLAYLIST_URL} target="_blank" rel="noopener noreferrer">
+  Listen on Spotify →
+</a>

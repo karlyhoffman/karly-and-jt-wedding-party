@@ -5,7 +5,7 @@
 
 ## Summary
 
-Replace the "Coming Soon" placeholder in the Music section (`src/pages/index.astro`, lines 31–48) with a responsive album art grid built from the couple's Spotify reception playlist (`2uME1BuGAZBt2CoJ1B7qrZ`). Playlist data is fetched server-side at request time using the Spotify Client Credentials API (no new npm packages — native `fetch` only). A new `SpotifyAlbums.astro` component handles fetching, de-duplicating albums, and rendering the grid. A new `src/lib/spotify.ts` utility manages token exchange and paginated track fetching. All styling uses SCSS.
+Replace the "Coming Soon" placeholder in the Music section (`src/pages/index.astro`, lines 31–48) with a responsive album art grid built from the couple's Spotify reception playlist (`2uME1BuGAZBt2CoJ1B7qrZ`). Playlist data is fetched server-side at request time using the Spotify Client Credentials API (no new npm packages — native `fetch` only). A new `SpotifyPlaylist.astro` component handles fetching, de-duplicating albums, and rendering the grid. A new `src/lib/spotify.ts` utility manages token exchange and paginated track fetching. All styling uses SCSS.
 
 ## Technical Context
 
@@ -50,12 +50,12 @@ src/
 │   └── spotify.ts                          # NEW — Spotify auth + paginated track fetch
 ├── components/
 │   └── homepage/
-│       └── SpotifyAlbums.astro             # NEW — album grid component (SSR, no client JS)
+│       └── SpotifyPlaylist.astro             # NEW — album grid component (SSR, no client JS)
 ├── styles/
 │   └── components/
 │       └── music.scss                      # NEW — album grid SCSS styles
 └── pages/
-    └── index.astro                         # MODIFIED — import SpotifyAlbums; replace "Coming Soon" slot
+    └── index.astro                         # MODIFIED — import SpotifyPlaylist; replace "Coming Soon" slot
 
 .env.example                                # MODIFIED — document SPOTIFY_CLIENT_ID/SECRET vars
 ```
@@ -68,7 +68,7 @@ src/
 - `getPlaylistItems(playlistId, token)` — paginated fetch of all tracks; returns de-duplicated `Album[]`
 - All types: `SpotifyTokenResponse`, `SpotifyPlaylistTracksPage`, `Album` (see `data-model.md`)
 
-**`src/components/homepage/SpotifyAlbums.astro`**
+**`src/components/homepage/SpotifyPlaylist.astro`**
 
 - Frontmatter: calls `getAccessToken()` then `getPlaylistItems()`
 - On error: renders a graceful fallback with the plain playlist link
@@ -89,8 +89,8 @@ src/
 **`src/pages/index.astro`** (surgical change)
 
 - Remove `<Fragment slot="small-text">🚧 Coming soon 🚧</Fragment>`
-- Import `SpotifyAlbums` from `../components/homepage/SpotifyAlbums.astro`
-- Add `<SpotifyAlbums />` inside the Music `<Section>` (existing text/link stays)
+- Import `SpotifyPlaylist` from `../components/homepage/SpotifyPlaylist.astro`
+- Add `<SpotifyPlaylist />` inside the Music `<Section>` (existing text/link stays)
 
 ## Complexity Tracking
 
