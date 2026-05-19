@@ -1,27 +1,62 @@
-.album-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-  gap: var(--layout--gutter);
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.album-marquee {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-block-start: var(--layout--gutter-xl);
+  overflow: hidden;
+
+  &__track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: auto auto auto;
+    grid-auto-columns: min(300px, 25vw);
+    column-gap: var(--layout--gutter);
+    list-style: none;
+    margin: 0;
+    padding-block-end: var(--layout--gutter-xl);
+    width: max-content;
+    animation: marquee-scroll 700s linear infinite;
+  }
+
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  &:hover .album-marquee__track {
+    animation-play-state: paused;
+  }
 }
 
 .album-tile {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  display: contents;
+
+  &__link {
+    grid-row: 1 / -1;
+    display: grid;
+    grid-template-rows: subgrid;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+  }
 
   &__img {
+    display: block;
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
-    display: block;
+    border: var(--layout--border-width-sm) solid var(--color--text);
+    background-color: var(--color--text);
+  }
+
+  &__name {
+    display: flex;
+    align-items: end;
   }
 }
 
 .music-cta {
   display: inline-block;
-  margin-block-end: var(--layout--gutter-lg);
   font-size: var(--text--font-sm);
 }

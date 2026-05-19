@@ -17,42 +17,50 @@ try {
 }
 ---
 
-{hasError ? (
-  <p>
-    Couldn't load the playlist right now. View it on <a href={PLAYLIST_URL} target="_blank" rel="noopener noreferrer">Spotify</a> instead.
-  </p>
-) : (
-  <ul class="album-grid">
-    {songs.map(({ artists, imageUrl, songTitle, songUrl }) => (
-      <li class="album-tile">
-        <a
-          href={songUrl || PLAYLIST_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="album-tile__link"
-        >
-          {imageUrl ? (
-            <img
-              class="album-tile__img"
-              src={imageUrl}
-              alt={songTitle}
-              loading="lazy"
-              decoding="async"
-              width="300"
-              height="300"
-            />
-          ) : (
-            <div class="album-tile__img" aria-hidden="true" />
-          )}
-    
-          <p class="album-tile__name heading heading--sm serif">{songTitle}</p>
-          <p class="album-tile__artist heading heading--sm serif">{artists}</p>
-        </a>
-      </li>
-    ))}
-  </ul>
-)}
+<div class="album-marquee">
+  {
+    hasError ? (
+      <p>
+        Couldn't load the playlist right now. View it on{' '}
+        <a href={PLAYLIST_URL} target="_blank" rel="noopener noreferrer">
+          Spotify
+        </a>{' '}
+        instead.
+      </p>
+    ) : (
+      <ul class="album-marquee__track">
+        {[...songs, ...songs].map(({ artists, imageUrl, songTitle, songUrl }) => (
+          <li class="album-tile" aria-hidden="true">
+            <a
+              href={songUrl || PLAYLIST_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="album-tile__link"
+              tabindex="-1"
+            >
+              <p class="album-tile__name heading heading--sm serif">{songTitle}</p>
+              {imageUrl ? (
+                <img
+                  class="album-tile__img"
+                  src={imageUrl}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  width="300"
+                  height="300"
+                />
+              ) : (
+                <div class="album-tile__img" aria-hidden="true" />
+              )}
+              <p class="album-tile__artist heading heading--sm serif">{artists}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
 
-<a class="music-cta" href={PLAYLIST_URL} target="_blank" rel="noopener noreferrer">
-  Listen on Spotify →
-</a>
+  <a class="music-cta" href={PLAYLIST_URL} target="_blank" rel="noopener noreferrer">
+    Listen on Spotify →
+  </a>
+</div>
