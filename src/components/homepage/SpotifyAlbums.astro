@@ -23,28 +23,35 @@ try {
 
 {hasError ? (
   <p>
-    Couldn't load the album showcase right now.
-    You can still <a href={PLAYLIST_URL} target="_blank" rel="noopener noreferrer">open the playlist on Spotify</a>.
+    Couldn't load the playlist right now. View it on <a href={PLAYLIST_URL} target="_blank" rel="noopener noreferrer">Spotify</a> instead.
   </p>
 ) : (
   <ul class="album-grid">
-    {songs.map(({ artists, imageUrl, songTitle }) => (
+    {songs.map(({ artists, imageUrl, songTitle, songUrl }) => (
       <li class="album-tile">
-        {imageUrl ? (
-          <img
-            class="album-tile__img"
-            src={imageUrl}
-            alt={songTitle}
-            loading="lazy"
-            decoding="async"
-            width="300"
-            height="300"
-          />
-        ) : (
-          <div class="album-tile__img" aria-hidden="true" />
-        )}
-        <p class="album-tile__name">{songTitle}</p>
-        <p class="album-tile__artist">{artists}</p>
+        <a
+          href={songUrl || PLAYLIST_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="album-tile__link"
+        >
+          {imageUrl ? (
+            <img
+              class="album-tile__img"
+              src={imageUrl}
+              alt={songTitle}
+              loading="lazy"
+              decoding="async"
+              width="300"
+              height="300"
+            />
+          ) : (
+            <div class="album-tile__img" aria-hidden="true" />
+          )}
+    
+          <p class="album-tile__name">{songTitle}</p>
+          <p class="album-tile__artist">{artists}</p>
+        </a>
       </li>
     ))}
   </ul>
