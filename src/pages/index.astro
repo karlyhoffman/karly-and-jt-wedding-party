@@ -4,6 +4,7 @@ import Hero from '../components/homepage/Hero.astro';
 import Intro from '../components/homepage/Intro.astro';
 import Outro from '../components/homepage/Outro.astro';
 import PhotoGallery from '../components/homepage/PhotoGallery.astro';
+import SpotifyPlaylist from '../components/homepage/SpotifyPlaylist.astro';
 import Section from '../components/layout/BodySection.astro';
 
 const title = "Karly & JT Got Married!";
@@ -29,22 +30,9 @@ const title = "Karly & JT Got Married!";
 	</Section>
 
 	<Section title="Music" id="playlists">
-		<Fragment slot="small-text">🚧 Coming soon 🚧</Fragment>
-		<p>Thank you for being patient while this section is under construction. In the meantime, dance your heart away to the <a href="https://open.spotify.com/playlist/2uME1BuGAZBt2CoJ1B7qrZ" target="_blank">reception playlist</a> that was played that night.</p>
-		<p>(We needed about four more receptions to play through the whole thing, as it ended up being over 19 hours long...)</p>
-		<!-- TODO: include the following content: -->
-		<!-- 
-			* include sections that highlight:
-					- "Realistik Heaven"
-					- The song that played after vows
-					- Our first dance song
-					- Father/Daughter + Mother/Son dances
-			* subsections for mood playlists:
-					- Cocktail Hour
-					- Dinner
-					- Dancing
-					- Last call	
-			-->
+		<p>Here are the songs from the playlist that night. ❤️</p>
+		<p>(We needed about four more receptions to play through its entirety, as it ended up being over 19 hours long...)</p>
+		<SpotifyPlaylist />
 	</Section>
 
 	<Outro />
