@@ -55,6 +55,10 @@
   &-b {
     border-bottom: var(--color--text) var(--layout--border-width-sm) solid;
   }
+
+  &-t {
+    border-top: var(--color--text) var(--layout--border-width-sm) solid;
+  }
 }
 
 .gradient {
