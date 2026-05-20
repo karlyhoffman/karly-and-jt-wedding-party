@@ -5,7 +5,7 @@ import '../../styles/components/music.scss';
 let songs: Track[] = [];
 let hasError = false;
 
-const { playlistId = '' } = Astro.props;
+const { playlistId = '', title, reverse = false } = Astro.props;
 const PLAYLIST_URL = `https://open.spotify.com/playlist/${playlistId}`;
 
 try {
@@ -16,6 +16,16 @@ try {
   hasError = true;
 }
 ---
+
+{title && (
+  <div class="album-marquee__title">
+    <h2 class="border-t border-b heading heading--md serif">
+      <a class="music-cta" href={PLAYLIST_URL} target="_blank" rel="noopener noreferrer">
+        {title}
+      </a>
+    </h2>
+  </div>
+)}
 
 <div class="album-marquee">
   {
@@ -28,7 +38,7 @@ try {
         instead.
       </p>
     ) : (
-      <ul class="album-marquee__track">
+      <ul class={"album-marquee__track " + (reverse ? "album-marquee__track--reverse" : "")}>
         {[...songs, ...songs].map(({ artists, imageUrl, songTitle, songUrl }) => (
           <li class="album-tile" aria-hidden="true">
             <a
@@ -59,8 +69,4 @@ try {
       </ul>
     )
   }
-
-  <a class="music-cta" href={PLAYLIST_URL} target="_blank" rel="noopener noreferrer">
-    Listen on Spotify →
-  </a>
 </div>
