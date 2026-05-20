@@ -20,12 +20,12 @@
   }
 
   @keyframes marquee-scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  &:hover .album-marquee__track {
-    animation-play-state: paused;
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
   }
 }
 
