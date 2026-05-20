@@ -12,7 +12,7 @@ footer {
       &::before,
       &::after {
         top: 85%;
-        height: 1px;
+        height: 1px !important;
       }
 
       &:hover::after {
