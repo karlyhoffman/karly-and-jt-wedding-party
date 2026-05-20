@@ -2,15 +2,15 @@
 import { getAccessToken, getPlaylistItems, type Track } from '../../lib/spotify';
 import '../../styles/components/music.scss';
 
-const PLAYLIST_ID = '2uME1BuGAZBt2CoJ1B7qrZ';
-const PLAYLIST_URL = `https://open.spotify.com/playlist/${PLAYLIST_ID}`;
-
 let songs: Track[] = [];
 let hasError = false;
 
+const { playlistId = '' } = Astro.props;
+const PLAYLIST_URL = `https://open.spotify.com/playlist/${playlistId}`;
+
 try {
   const token = await getAccessToken();
-  songs = await getPlaylistItems(PLAYLIST_ID, token);
+  songs = await getPlaylistItems(playlistId, token);
 } catch (error) {
   console.error('Error fetching Spotify tracks:', error);
   hasError = true;
