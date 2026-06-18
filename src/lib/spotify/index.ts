@@ -81,6 +81,20 @@ export async function getAccessToken(): Promise<string> {
 
   if (!response.ok) {
     const body = await response.text().catch(() => '');
+    let parsed: { error?: string } = {};
+
+    try {
+      parsed = JSON.parse(body);
+    } catch {
+      /* ignore */
+    }
+
+    if (parsed.error === 'invalid_grant') {
+      throw new Error(
+        'Spotify refresh token has expired or been revoked. Generate a new refresh token and update the SPOTIFY_REFRESH_TOKEN environment variable.'
+      );
+    }
+
     throw new Error(`Spotify token request failed: ${response.status} ${body}`.trimEnd());
   }
 
