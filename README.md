@@ -29,13 +29,13 @@ The site has two distinct states:
 
 | Layer | Technology |
 | :--- | :--- |
-| Framework | [Astro](https://astro.build) 5 (SSR) |
+| Framework | [Astro](https://astro.build) 7 (SSR) |
 | Deployment | [Vercel](https://vercel.com) via `@astrojs/vercel` |
 | Styling | SCSS with CSS custom properties |
 | Animation | GSAP 3 + ScrollTrigger |
 | Carousel | Splide 4 |
 | Database | Notion API (`@notionhq/client`) |
-| Email | Nodemailer 7 (Gmail transport) |
+| Email | Nodemailer 9 (Gmail transport) |
 | Analytics | Vercel Analytics + Speed Insights |
 | Language | TypeScript |
 
