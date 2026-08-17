@@ -1,7 +1,7 @@
 ---
 import '../../styles/components/rsvp.scss';
 
-https://docs.astro.build/en/recipes/build-forms/
+// https://docs.astro.build/en/recipes/build-forms/
 ---
 
 <section id="rsvp" class="rsvp gutter">
@@ -36,7 +36,9 @@ https://docs.astro.build/en/recipes/build-forms/
             </p>
           </fieldset>
 
-          <p data-plus-one-message class="hidden">We have you down for one guest. Reach out if we missed your plus one!</p>
+          <p data-plus-one-message class="hidden">
+            We have you down for one guest. Reach out if we missed your plus one!
+          </p>
         </div>
 
         <div data-fieldset-step-3 class="hidden">
@@ -67,7 +69,9 @@ https://docs.astro.build/en/recipes/build-forms/
           <fieldset>
             <legend>Dietary Restrictions</legend>
             <p>
-              <label for="dietary_restrictions">Please let us know if you have any dietary restrictions:</label>
+              <label for="dietary_restrictions"
+                >Please let us know if you have any dietary restrictions:</label
+              >
               <textarea name="dietary_restrictions" id="dietary_restrictions" rows="4"></textarea>
             </p>
           </fieldset>
@@ -129,7 +133,10 @@ https://docs.astro.build/en/recipes/build-forms/
           <fieldset>
             <legend>Email Confirmation</legend>
             <p>
-              <label for="email_confirm">Just to make sure we got your email right! We'll send your RSVP confirmation and event updates to this address:</label>
+              <label for="email_confirm"
+                >Just to make sure we got your email right! We'll send your RSVP confirmation and
+                event updates to this address:</label
+              >
               <input type="email" name="email_confirm" id="email_confirm" value="" />
             </p>
           </fieldset>
@@ -146,7 +153,7 @@ https://docs.astro.build/en/recipes/build-forms/
 
 <script>
   const isProduction = import.meta.env.PROD;
-  
+
   class FormRSVP extends HTMLElement {
     guests: {
       id: string;
@@ -180,7 +187,7 @@ https://docs.astro.build/en/recipes/build-forms/
       this.init().layout().enable();
     }
 
-    init () {
+    init() {
       return this;
     }
 
@@ -247,10 +254,12 @@ https://docs.astro.build/en/recipes/build-forms/
        * Validate guest name against fetched guest list for plus one eligibility
        */
       if (this.state.firstNameInput !== firstName || this.state.lastNameInput !== lastName) {
-        const [guest] = this.guests.filter(guest => (
-          this.sanitizeName(guest.firstName) === this.sanitizeName(firstName) &&
-          this.sanitizeName(guest.lastName) === this.sanitizeName(lastName)
-        )) || [];
+        const [guest] =
+          this.guests.filter(
+            (guest) =>
+              this.sanitizeName(guest.firstName) === this.sanitizeName(firstName) &&
+              this.sanitizeName(guest.lastName) === this.sanitizeName(lastName)
+          ) || [];
 
         if (guest) {
           this.state.guestEntry = guest;
@@ -273,7 +282,7 @@ https://docs.astro.build/en/recipes/build-forms/
       }
 
       this.$messageStatus?.classList.add('hidden');
-      
+
       /**
        * Determine which step of the form to show next.
        */
@@ -313,8 +322,8 @@ https://docs.astro.build/en/recipes/build-forms/
         this.$buttonContinue?.removeAttribute('disabled');
         this.$buttonSubmit?.classList.add('hidden');
       }
-      
-      if (this.$inputRsvpNo?.checked){
+
+      if (this.$inputRsvpNo?.checked) {
         this.$buttonContinue?.classList.add('hidden');
         this.$buttonSubmit?.classList.remove('hidden');
         this.$buttonSubmit?.removeAttribute('disabled');
@@ -336,7 +345,7 @@ https://docs.astro.build/en/recipes/build-forms/
       }
 
       try {
-        this.guests = isProduction ? await this.fetchGuests() || [] : [];
+        this.guests = isProduction ? (await this.fetchGuests()) || [] : [];
 
         this.$form?.classList.remove('hidden');
         this.$messageStatus?.classList.add('hidden');
@@ -362,7 +371,7 @@ https://docs.astro.build/en/recipes/build-forms/
       // Handle song fields (combine title and artist)
       const songTitle = data.song_title || '';
       const songArtist = data.song_artist || '';
-      
+
       if (songTitle || songArtist) {
         data.song = `${songTitle}${songArtist ? ` by ${songArtist}` : ''}`.trim();
       }
@@ -385,7 +394,7 @@ https://docs.astro.build/en/recipes/build-forms/
 
       try {
         const formData = this.collectFormData();
-        
+
         const response = await fetch('/api/rsvp/index.json', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -415,10 +424,11 @@ https://docs.astro.build/en/recipes/build-forms/
         console.error('Error submitting RSVP:', error);
 
         this.$form?.remove();
-        
+
         if (this.$messageStatus) {
           this.$messageStatus.classList.remove('hidden');
-          this.$messageStatus.innerHTML = 'Sorry, there was an error submitting your RSVP.<br/><br/>Please refresh the page and try again.';
+          this.$messageStatus.innerHTML =
+            'Sorry, there was an error submitting your RSVP.<br/><br/>Please refresh the page and try again.';
         }
       }
 
@@ -430,7 +440,7 @@ https://docs.astro.build/en/recipes/build-forms/
       if (!name) {
         return '';
       }
-    
+
       return name.trim().toLowerCase().replace(/\s+/g, '');
     }
   }
