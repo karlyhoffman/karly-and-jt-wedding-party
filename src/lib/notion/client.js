@@ -11,8 +11,12 @@ export const notion = new Client({ auth });
  */
 export async function getAllEntries() {
   try {
-    const { results = [] } = await notion.databases.query({
+    const { data_sources } = await notion.databases.retrieve({
       database_id: import.meta.env.NOTION_DATABASE_ID,
+    });
+
+    const { results = [] } = await notion.dataSources.query({
+      data_source_id: data_sources[0].id,
     });
 
     const entries = results
