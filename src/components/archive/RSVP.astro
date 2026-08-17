@@ -265,9 +265,9 @@ import '../../styles/components/rsvp.scss';
           this.state.guestEntry = guest;
           this.$messagePlusOne?.classList.remove('hidden');
 
-          if (!!guest.related?.length) {
+          if (!!guest.related?.length && this.$messagePlusOne) {
             const guestCopy = guest.related.length > 1 ? 'guests' : 'guest';
-            const guestCount = {
+            const guestCount: Record<number, string> = {
               1: 'one',
               2: 'two',
               3: 'three',
